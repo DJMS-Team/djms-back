@@ -6,7 +6,7 @@ name: Build and deploy Node.js app to Azure Web App - staynest
 on:
   push:
     branches:
-      - deploy
+      - main
   workflow_dispatch:
 
 jobs:
