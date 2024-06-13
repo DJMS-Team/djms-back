@@ -11,13 +11,15 @@ import { Admin } from './entities/admin.entity';
 import { Order } from 'src/orders/entities/order.entity';
 import { Inventory } from 'src/inventories/entities/inventory.entity';
 import { Comment } from 'src/resources/entities/comment.entity';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   controllers: [UsersController],
   providers: [UsersService],
-  exports: [UsersService],
+  exports: [UsersService, UsersModule, TypeOrmModule],
   imports: [forwardRef(() => AuthModule),
-    TypeOrmModule.forFeature([Address, Customer, Admin, Contact, Order, Comment, Inventory, User])
+    TypeOrmModule.forFeature([Address, Customer, Admin, Contact, Order, Comment, Inventory, User]), 
+    ConfigModule
   ]
 })
 export class UsersModule {}
