@@ -1,32 +1,32 @@
 import { BadRequestException, Injectable, InternalServerErrorException, Logger, NotFoundException } from "@nestjs/common";
-import { Customer } from "../entities/customer.entity";
 import { Repository, createQueryBuilder } from "typeorm";
 import { InjectRepository } from "@nestjs/typeorm";
-import { CreateCustomerDto } from "../dto/create-customer.dto";
-import { UpdateCustomerDto } from "../dto/update-customer.dto";
 import * as bcrypt from 'bcrypt';
 import { JwtService } from "@nestjs/jwt";
+import { Admin } from "../entities/admin.entity";
+import { CreateAdminDto } from "../dto/create-admin.dto";
+import { UpdateAdminDto } from "../dto/update-admin.dto";
 
 @Injectable()
-export class CustomerService {
+export class AdminService {
 
     private readonly logger = new Logger('CUstomerService');
 
     constructor(
-        @InjectRepository(Customer)
-        private readonly customerRepository:Repository<Customer>,
+        @InjectRepository(Admin)
+        private readonly AdminRepository:Repository<Admin>,
         private readonly jwtService: JwtService,
     ){}
 
-    async create(CreateCustomerDto: CreateCustomerDto){
+    async create(CreateCustomerDto: CreateAdminDto){
         try{
             const {password, ...userData} = CreateCustomerDto;
 
             CreateCustomerDto.password = bcrypt.hashSync(CreateCustomerDto.password, 10);
 
-            const customer = await this.customerRepository.create(CreateCustomerDto);
+            const customer = await this.AdminRepository.create(CreateCustomerDto);
 
-            await this.customerRepository.save(customer);
+            await this.AdminRepository.save(customer);
 
             return {
                 ...customer,
@@ -41,27 +41,19 @@ export class CustomerService {
     }
 
     async findAllCustomers(){
-        return this.customerRepository.find();
+        return this.AdminRepository.find();
     }
 
     async findOne(id:string){
-        const customer = await this.customerRepository.findOneBy({id})
+        const customer = await this.AdminRepository.findOneBy({id})
         if(!customer)
            throw new NotFoundException()
         
         return customer;
     }
 
-    async findOneByEmail(email:string){
-        const customer = this.customerRepository.createQueryBuilder('customer').
-                        innerJoin('customer.contacts', 'contact').
-                        where('contact.email = :email', {email:email})
-                        .getOne();
-        return customer;
-    }
-
-    async update(id:string, updateCustomerDto:UpdateCustomerDto){
-        const customer = await this.customerRepository.preload({
+    async update(id:string, updateCustomerDto:UpdateAdminDto){
+        const customer = await this.AdminRepository.preload({
             id:id,
             ...updateCustomerDto
         })
@@ -69,7 +61,7 @@ export class CustomerService {
         if (!customer) throw new NotFoundException(`Customer with id: ${ id } not found`);
 
         try {
-            await this.customerRepository.save( customer);
+            await this.AdminRepository.save( customer);
             return customer;
             
           } catch (error) {
@@ -80,7 +72,7 @@ export class CustomerService {
 
     async remove(id:string){
         const customer = await this.findOne(id)
-        await this.customerRepository.remove(customer)
+        await this.AdminRepository.remove(customer)
     }
 
 

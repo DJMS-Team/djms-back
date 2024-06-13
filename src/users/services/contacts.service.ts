@@ -4,6 +4,7 @@ import { Contact } from "../entities/contact.entity";
 import { InjectRepository } from "@nestjs/typeorm";
 import { CreateContactDto } from "../dto/create-contact.dto";
 import { UpdateContactDto } from "../dto/update-contact.dto";
+import { CustomerService } from "./customers.service";
 
 @Injectable()
 export class ContactService {
@@ -12,12 +13,15 @@ export class ContactService {
 
     constructor(
         @InjectRepository(Contact)
-        private readonly ContactRepository: Repository<Contact>
+        private readonly ContactRepository: Repository<Contact>,
+        private readonly customerService : CustomerService
     ){}
 
 
     async create(createContactDto: CreateContactDto){
         const contact = this.ContactRepository.create(createContactDto);
+        const customer = await this.customerService.findOne(createContactDto.customer_id);
+        contact.customer = customer;
         await this.ContactRepository.save(contact);
         return contact;
     }
@@ -42,7 +46,7 @@ export class ContactService {
             ...updateDto 
         })
 
-        if( !contact ) throw new NotFoundException(`Client with id: ${ id } not found`);
+        if( !contact ) throw new NotFoundException(`Contact with id: ${ id } not found`);
 
         try {
             await this.ContactRepository.save( contact );
@@ -50,7 +54,7 @@ export class ContactService {
             
           } catch (error) {
             this.handleDBExceptions(error);
-          } 
+        } 
     }
 
     async remove(id: string) {
@@ -64,9 +68,8 @@ export class ContactService {
           throw new BadRequestException(error.detail);
         
         this.logger.error(error)
-        // console.log(error)
         throw new InternalServerErrorException('Unexpected error, check server logs');
     
-      }
+    }
 
 }
