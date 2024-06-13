@@ -1,5 +1,5 @@
 import { Product } from "../../inventories/entities/product.entity";
-import { Customer } from "../../auth/entities/customer.entity";
+import { Customer } from "../../users/entities/customer.entity";
 import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Comment } from "./comment.entity";
 

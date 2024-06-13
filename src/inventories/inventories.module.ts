@@ -10,8 +10,8 @@ import { product_type } from './entities/ProductType.entity';
 import { OrderDetail } from '../orders/entities/order_detail.entity';
 import { Review } from '../resources/entities/review.entity';
 import { Comment } from '../resources/entities/comment.entity';
-import { Customer } from '../auth/entities/customer.entity';
-import { Admin } from '../auth/entities/admin.entity';
+import { Customer } from '../users/entities/customer.entity';
+import { Admin } from '../users/entities/admin.entity';
 
 @Module({
   imports: [

@@ -7,10 +7,14 @@ import { AuthModule } from './auth/auth.module';
 import { ResourcesModule } from './resources/resources.module';
 import { InventoriesModule } from './inventories/inventories.module';
 import { OrdersModule } from './orders/orders.module';
+import { UsersModule } from './users/users.module';
+import { AuthGuard } from './auth/guard/auth.guard';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({
+      isGlobal:true
+    }),
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.DB_HOST,
@@ -30,8 +34,9 @@ import { OrdersModule } from './orders/orders.module';
     ResourcesModule,
     InventoriesModule,
     OrdersModule,
+    UsersModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, AuthGuard],
 })
 export class AppModule {}

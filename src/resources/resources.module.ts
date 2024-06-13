@@ -5,7 +5,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Comment } from './entities/comment.entity';
 import { Review } from './entities/review.entity';
-import { Customer } from '../auth/entities/customer.entity';
+import { Customer } from '../users/entities/customer.entity';
 import { Product } from '../inventories/entities/product.entity';
 
 @Module({

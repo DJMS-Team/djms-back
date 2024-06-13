@@ -1,30 +1,28 @@
-import { Module } from '@nestjs/common';
+import { Global, Module, forwardRef } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
-import { ConfigModule } from '@nestjs/config';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { Address } from './entities/address.entity';
-import { Admin } from './entities/admin.entity';
-import { Contact } from './entities/contact.entity';
-import { Customer } from './entities/customer.entity';
-import { Order } from '../orders/entities/order.entity';
-import { Comment } from '../resources/entities/comment.entity';
-import { Inventory } from '../inventories/entities/inventory.entity';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { UsersModule } from 'src/users/users.module';
+import { JwtModule } from '@nestjs/jwt';
+import { AuthGuard } from './guard/auth.guard';
 
+@Global()
 @Module({
   imports: [
-    ConfigModule,
-    TypeOrmModule.forFeature([Address]),
-    TypeOrmModule.forFeature([Admin]),
-    TypeOrmModule.forFeature([Contact]),
-    TypeOrmModule.forFeature([Customer]),
-    TypeOrmModule.forFeature([Order]),
-    TypeOrmModule.forFeature([Comment]),
-    TypeOrmModule.forFeature([Inventory])
+    forwardRef(() => UsersModule),
+    JwtModule.registerAsync({
+      imports: [ConfigModule],
+      
+      useFactory: async (configService: ConfigService) => ({
+        secret: configService.get<string>('JWT_SECRET'),
+        signOptions: { expiresIn: '24h' },
+      }),
+      inject: [ConfigService],
+    }),
 
   ],
   controllers: [AuthController],
-  providers: [AuthService],
-  exports:[AuthModule, TypeOrmModule]
+  providers: [AuthService, AuthGuard],
+  exports:[AuthModule, AuthGuard, JwtModule]
 })
 export class AuthModule {}
