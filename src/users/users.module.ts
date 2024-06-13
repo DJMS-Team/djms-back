@@ -12,10 +12,14 @@ import { Order } from 'src/orders/entities/order.entity';
 import { Inventory } from 'src/inventories/entities/inventory.entity';
 import { Comment } from 'src/resources/entities/comment.entity';
 import { ConfigModule } from '@nestjs/config';
+import { CustomerService } from './services/customers.service';
+import { ContactService } from './services/contacts.service';
+import { CustomerController } from './controllers/customer.controller';
+import { ContactController } from './controllers/contact.controller';
 
 @Module({
-  controllers: [UsersController],
-  providers: [UsersService],
+  controllers: [UsersController, CustomerController, ContactController],
+  providers: [UsersService, CustomerService, ContactService],
   exports: [UsersService, UsersModule, TypeOrmModule],
   imports: [forwardRef(() => AuthModule),
     TypeOrmModule.forFeature([Address, Customer, Admin, Contact, Order, Comment, Inventory, User]), 
