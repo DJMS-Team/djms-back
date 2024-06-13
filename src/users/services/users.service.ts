@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { CreateCustomerDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
-import { User } from './entities/user.entity';
+import { CreateCustomerDto } from '../dto/create-customer.dto';
+import { UpdateCustomerDto } from '../dto/update-customer.dto';
+import { User } from '../entities/user.entity';
 import { In, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 
@@ -15,13 +15,6 @@ export class UsersService {
 
 
 
-  create(createUserDto: CreateCustomerDto) {
-    return 'This action adds a new user';
-  }
-
-  findAll() {
-    return `This action returns all users`;
-  }
 
   async findByEmail(email: string) {
     const user: User = await this.usersRepository.findOne({
@@ -33,13 +26,5 @@ export class UsersService {
     }
     
     return user;
-  }
-
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} user`;
   }
 }
