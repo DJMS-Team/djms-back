@@ -1,10 +1,11 @@
-import { Column, Entity, OneToMany } from "typeorm";
+import { BeforeInsert, Column, Entity, OneToMany } from "typeorm";
 import { User } from "./user.entity";
 import { Contact } from "./contact.entity";
 import { Address } from "./address.entity";
 import { Order } from "../../orders/entities/order.entity";
 import { Review } from "../../resources/entities/review.entity";
 import { Comment } from "../../resources/entities/comment.entity";
+import { Role } from "./Role.enum";
 
 
 @Entity()
@@ -29,4 +30,12 @@ export class Customer extends User {
 
     @OneToMany(()=>Comment, (comment)=>comment.customer)
     comments: Comment;
+
+    @BeforeInsert()
+    giveRole(){
+        if(!this.rol)
+            this.rol = null
+
+        this.rol = Role.Customer
+    }
 }
