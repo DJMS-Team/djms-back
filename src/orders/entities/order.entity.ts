@@ -1,4 +1,4 @@
-import { Customer } from "../../auth/entities/customer.entity";
+import { Customer } from "../../users/entities/customer.entity";
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { PaymentMethod } from "./payment_method";
 import { OrderDetail } from "./order_detail.entity";

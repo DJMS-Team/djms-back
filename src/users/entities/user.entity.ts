@@ -19,6 +19,11 @@ export abstract class User {
     @Column('text',{
         nullable:false
     })
+    email:string;
+
+    @Column('text',{
+        nullable:false
+    })
     rol:Role
 
 }

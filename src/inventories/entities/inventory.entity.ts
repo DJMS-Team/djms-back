@@ -1,6 +1,6 @@
 import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Product } from "./product.entity";
-import { Admin } from "../../auth/entities/admin.entity";
+import { Admin } from "../../users/entities/admin.entity";
 
 @Entity()
 export class Inventory {
