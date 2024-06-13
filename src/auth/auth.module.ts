@@ -8,6 +8,10 @@ import { AuthGuard } from './guard/auth.guard';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Customer } from '../users/entities/customer.entity';
 import { Admin } from '../users/entities/admin.entity';
+import { GoogleStrategy } from './strategies/auth.google.strategy';
+import { AuthGoogleController } from './controllers/auth_google.controller';
+import { AuthGoogleService } from './services/auth_google.service';
+import { GoogleOauthGuard } from './guard/auth.google.guard';
 
 @Global()
 @Module({
@@ -28,8 +32,8 @@ import { Admin } from '../users/entities/admin.entity';
     }),
 
   ],
-  controllers: [AuthController],
-  providers: [AuthService, AuthGuard],
+  controllers: [AuthController, AuthGoogleController],
+  providers: [AuthService, AuthGuard,GoogleStrategy, AuthGoogleService, GoogleOauthGuard],
   exports:[AuthModule, AuthGuard, JwtModule]
 })
 export class AuthModule {}
