@@ -20,6 +20,6 @@ export class Review {
     @ManyToOne(()=>Product, (product)=>product.reviews)
     product: Product;
 
-    @OneToOne(()=>Comment, (comment)=>comment.review)
-    comment: Comment;
+    @OneToOne(()=>Comment, (comment)=>comment.review, {nullable: true})
+    comment?: Comment;
 }

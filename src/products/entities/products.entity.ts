@@ -32,17 +32,17 @@ export class Product {
     photo_url:string;
 
     @OneToMany(()=>OrderDetail, (order_detail)=>order_detail.product, {nullable: true})
-    order_details: OrderDetail[];
+    order_details?: OrderDetail[];
 
     @OneToMany(()=>Review, (reviews)=>reviews.product, {nullable: true})
-    reviews: Review[];
+    reviews?: Review[];
 
     @ManyToOne(()=>ProductCategory, (product_type)=>product_type.products, {nullable: false})
     product_category: ProductCategory;
 
     @OneToMany(()=>Comment, (comment)=>comment.product, {nullable: true})
-    comments: Comment[];
+    comments?: Comment[];
 
-    @OneToMany(()=>Inventory, (inventory)=> inventory.product, {nullable: true})
+    @OneToMany(()=>Inventory, (inventory)=> inventory.product, {nullable: false})
     inventory: Inventory;
 }

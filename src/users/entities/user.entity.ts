@@ -1,9 +1,10 @@
 import { Role } from "src/roles/entities/roles.entity";
-import { Column, ManyToOne, OneToMany, Or, PrimaryGeneratedColumn } from "typeorm";
+import { Column, ManyToOne, OneToMany, OneToOne, Or, PrimaryGeneratedColumn } from "typeorm";
 import { Address } from "src/address/entities/address.entity";
 import { Order } from "src/orders/entities/order.entity";
 import { Comment } from "src/resources/entities/comment.entity";
 import { Review } from "src/resources/entities/review.entity";
+import { Inventory } from "src/inventories/entities/inventory.entity";
 
 export abstract class User {
 
@@ -31,14 +32,17 @@ export abstract class User {
     @OneToMany(() => Address, (address) => address.user)
     addresses: Address[];
 
-    @OneToMany(() => Order, (order) => order.customer)
-    orders: Order[];
+    @OneToMany(() => Order, (order) => order.customer, {nullable: true})
+    orders?: Order[];
 
     @OneToMany(() => Comment, (comment) => comment.customer)
     comments: Comment[];
     
     @OneToMany(() => Review, (review) => review.customer)
     reviews: Review[];
+
+    @OneToOne(() => Inventory, (inventory) => inventory.user, {nullable: true})
+    inventory?: Inventory;
 
     @Column('text', {
         nullable: false
