@@ -3,6 +3,7 @@ import { UsersService } from './users.service';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
+import { JwtService } from '@nestjs/jwt';
 
 
 describe('UsersService', () => {
@@ -28,6 +29,7 @@ describe('UsersService', () => {
           provide: getRepositoryToken(User),
           useValue: userRepositoryMock,
         },
+        JwtService
       ],
     }).compile();
 
