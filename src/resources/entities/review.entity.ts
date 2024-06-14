@@ -9,7 +9,7 @@ export class Review {
     @PrimaryGeneratedColumn('uuid')
     id:string;
 
-    @Column('double precision',{
+    @Column('numeric',{
         nullable:false
     })
     score: number;
@@ -21,8 +21,5 @@ export class Review {
     product: Product;
 
     @OneToOne(()=>Comment, (comment)=>comment.review)
-    @JoinColumn({
-        name: 'comment_id'
-    })
     comment: Comment;
 }
