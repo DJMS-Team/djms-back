@@ -10,4 +10,5 @@ export class ProductCategoryService {
     @InjectRepository(ProductCategory)
     private readonly productCategoryRepository: Repository<ProductCategory>
   ) {}
+
 }
