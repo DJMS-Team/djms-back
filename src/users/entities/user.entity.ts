@@ -1,5 +1,9 @@
-import { Column, PrimaryGeneratedColumn } from "typeorm";
-import { Role } from "./Role.enum";
+import { Role } from "src/roles/entities/roles.entity";
+import { Column, ManyToOne, OneToMany, Or, PrimaryGeneratedColumn } from "typeorm";
+import { Address } from "src/address/entities/address.entity";
+import { Order } from "src/orders/entities/order.entity";
+import { Comment } from "src/resources/entities/comment.entity";
+import { Review } from "src/resources/entities/review.entity";
 
 export abstract class User {
 
@@ -21,9 +25,23 @@ export abstract class User {
     })
     email:string;
 
-    @Column('text',{
-        nullable:false
-    })
-    rol:Role
+    @ManyToOne(()=>Role, (role) => role.users)
+    role: Role;
 
+    @OneToMany(() => Address, (address) => address.user)
+    addresses: Address[];
+
+    @OneToMany(() => Order, (order) => order.customer)
+    orders: Order[];
+
+    @OneToMany(() => Comment, (comment) => comment.customer)
+    comments: Comment[];
+    
+    @OneToMany(() => Review, (review) => review.customer)
+    reviews: Review[];
+
+    @Column('text', {
+        nullable: false
+    })
+    photo_url: string;
 }

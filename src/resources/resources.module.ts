@@ -1,22 +1,18 @@
 import { Module } from '@nestjs/common';
-import { ResourcesService } from './resources.service';
-import { ResourcesController } from './resources.controller';
-import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Comment } from './entities/comment.entity';
 import { Review } from './entities/review.entity';
-import { Customer } from '../users/entities/customer.entity';
-import { Product } from '../inventories/entities/product.entity';
+import { Comment } from './entities/comment.entity';
+import { Product } from 'src/products/entities/products.entity';
+import { User } from '../users/entities/user.entity';
+import { ReviewsService } from './services/reviews.service';
+import { CommentsService } from './services/comments.service';
+import { ReviewsController } from './controllers/reviews.controller';
+import { CommentsController } from './controllers/comments.controller';
 
 @Module({
-  imports:[
-    ConfigModule,
-    TypeOrmModule.forFeature([Comment]),
-    TypeOrmModule.forFeature([Review]),
-    TypeOrmModule.forFeature([Customer]),
-    TypeOrmModule.forFeature([Product])
-  ],
-  controllers: [ResourcesController],
-  providers: [ResourcesService],
+  imports: [TypeOrmModule.forFeature([Review, Comment, Product, User])],
+  providers: [ReviewsService, CommentsService],
+  controllers: [ReviewsController, CommentsController],
+  exports: [ResourcesModule, TypeOrmModule],
 })
 export class ResourcesModule {}

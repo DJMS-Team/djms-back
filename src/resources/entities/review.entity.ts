@@ -1,5 +1,5 @@
-import { Product } from "../../inventories/entities/product.entity";
-import { Customer } from "../../users/entities/customer.entity";
+import { Product } from "src/products/entities/products.entity";
+import { User } from "src/users/entities/user.entity";
 import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Comment } from "./comment.entity";
 
@@ -9,20 +9,17 @@ export class Review {
     @PrimaryGeneratedColumn('uuid')
     id:string;
 
-    @Column('double precision',{
+    @Column('numeric',{
         nullable:false
     })
     score: number;
 
-    @ManyToOne(()=>Customer, (customer)=>customer.reviews)
-    customer:Customer;
+    @ManyToOne(()=>User, (customer)=>customer.reviews)
+    customer:User;
 
     @ManyToOne(()=>Product, (product)=>product.reviews)
     product: Product;
 
     @OneToOne(()=>Comment, (comment)=>comment.review)
-    @JoinColumn({
-        name: 'comment_id'
-    })
     comment: Comment;
 }

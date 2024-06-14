@@ -1,7 +1,7 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { CreateAuthDto } from '../dto/create-auth.dto';
 import { UpdateAuthDto } from '../dto/update-auth.dto';
-import { UsersService } from '../../users/services/users.service';
+import { UsersService } from '../../users/users.service';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 
@@ -20,7 +20,7 @@ export class AuthService {
         throw new UnauthorizedException('Invalid email or password.');
       }
 
-      const payload = {sub: user.id, email: user.email, rol: user.rol};
+      const payload = {sub: user.id, email: user.email, rol: user.role};
       return {
         access_token: await this.jwtService.signAsync(payload)
       }
