@@ -10,12 +10,12 @@ export class Address{
     id:string;
 
     @Column('text',{
-        nullable:false
+        nullable:true
     })
     street:string;
 
     @Column('text',{
-        nullable:false
+        nullable:true
     })
     avenue:string
 
