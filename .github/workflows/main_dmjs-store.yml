@@ -35,7 +35,7 @@ jobs:
           echo "DB_NAME: ${{ secrets.DB_NAME }}"
           echo "GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}"
           echo "CALLBACK_URL: ${{ secrets.CALLBACK_URL }}"
-          echo "DockerHUb": ${{ secrrets.DOCKER_USR}}
+          echo "DockerHUb: ${{ secrrets.DOCKER_USR}}"
 
       - name: npm install, build, and test
         env:
