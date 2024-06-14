@@ -27,14 +27,15 @@ jobs:
         with:
           node-version: '20.x'
           
-      - name: Print environment variables
+      - name: Print environment variables for debugging
         run: |
-          echo "DB_HOST: $DB_HOST"
-          echo "DB_USER: $DB_USER"
-          echo "DB_PORT: $DB_PORT"
-          echo "DB_NAME: $DB_NAME"
-          echo "GOOGLE_CLIENT_ID: $GOOGLE_CLIENT_ID"
-          echo "CALLBACK_URL: $CALLBACK_URL"
+          echo "DB_HOST: ${{ secrets.DB_HOST }}"
+          echo "DB_USER: ${{ secrets.DB_USER }}"
+          echo "DB_PORT: ${{ secrets.DB_PORT }}"
+          echo "DB_NAME: ${{ secrets.DB_NAME }}"
+          echo "GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}"
+          echo "CALLBACK_URL: ${{ secrets.CALLBACK_URL }}"
+          echo "DockerHUb": ${{ secrrets.DOCKER_USR}}
 
       - name: npm install, build, and test
         env:
