@@ -11,7 +11,7 @@ import { Role } from '../roles/entities/roles.entity';
 @Injectable()
 export class UsersService {
 
-  private readonly logger = new Logger('ProfessionalService');
+  private readonly logger = new Logger('UserService');
 
   constructor(
     @InjectRepository(User)
