@@ -22,4 +22,7 @@ export class CreateUserDto {
     @IsOptional()
     photo_url:string;
 
+    @IsString()
+    role_id:string;
+
 }

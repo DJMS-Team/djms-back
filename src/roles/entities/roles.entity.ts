@@ -1,7 +1,8 @@
 import { User } from "src/users/entities/user.entity";
-import { Column, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
-export abstract class Role {
+@Entity()
+export class Role {
 
     @PrimaryGeneratedColumn('uuid')
     id:string;

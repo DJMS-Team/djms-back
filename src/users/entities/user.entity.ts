@@ -1,11 +1,12 @@
 import { Role } from "src/roles/entities/roles.entity";
-import { Column, ManyToOne, OneToMany, Or, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany, Or, PrimaryGeneratedColumn } from "typeorm";
 import { Address } from "src/address/entities/address.entity";
 import { Order } from "src/orders/entities/order.entity";
 import { Comment } from "src/resources/entities/comment.entity";
 import { Review } from "src/resources/entities/review.entity";
 
-export abstract class User {
+@Entity()
+export class User {
 
     @PrimaryGeneratedColumn('uuid')
     id:string;
