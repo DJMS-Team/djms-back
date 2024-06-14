@@ -17,6 +17,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: develop
 
     steps:
       - uses: actions/checkout@v4
@@ -25,6 +26,15 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '20.x'
+          
+      - name: Print environment variables
+        run: |
+          echo "DB_HOST: $DB_HOST"
+          echo "DB_USER: $DB_USER"
+          echo "DB_PORT: $DB_PORT"
+          echo "DB_NAME: $DB_NAME"
+          echo "GOOGLE_CLIENT_ID: $GOOGLE_CLIENT_ID"
+          echo "CALLBACK_URL: $CALLBACK_URL"
 
       - name: npm install, build, and test
         env:
