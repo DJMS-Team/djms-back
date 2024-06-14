@@ -3,7 +3,7 @@ import { OrderDetail } from "../../orders/entities/order_detail.entity";
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { ProductCategory } from "./product-category.entity";
 import { Comment } from "../../resources/entities/comment.entity";
-import { Inventory } from "src/inventories/entities/inventory.entity";
+import { Inventory } from "../../inventories/entities/inventory.entity";
 
 @Entity()
 export class Product {

@@ -1,9 +1,9 @@
-import { Role } from "src/roles/entities/roles.entity";
+import { Role } from "../../roles/entities/roles.entity";
 import { Column, Entity, ManyToOne, OneToMany, Or, PrimaryGeneratedColumn } from "typeorm";
-import { Address } from "src/address/entities/address.entity";
-import { Order } from "src/orders/entities/order.entity";
-import { Comment } from "src/resources/entities/comment.entity";
-import { Review } from "src/resources/entities/review.entity";
+import { Address } from "../../address/entities/address.entity";
+import { Order } from "../../orders/entities/order.entity";
+import { Comment } from "../../resources/entities/comment.entity";
+import { Review } from "../../resources/entities/review.entity";
 
 @Entity()
 export class User {

@@ -1,5 +1,5 @@
-import { Product } from "src/products/entities/products.entity";
-import { User } from "src/users/entities/user.entity";
+import { Product } from "../../products/entities/products.entity";
+import { User } from "../../users/entities/user.entity";
 import { Column, Entity, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Review } from "./review.entity";
 
