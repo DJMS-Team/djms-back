@@ -1,6 +1,5 @@
-import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
-import { Product } from "./product.entity";
-import { Admin } from "../../users/entities/admin.entity";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Product } from "src/products/entities/products.entity";
 
 @Entity()
 export class Inventory {
@@ -8,21 +7,11 @@ export class Inventory {
     @PrimaryGeneratedColumn('uuid')
     id:string;
 
-    @Column('bigint', {
+    @Column('numeric', {
         nullable:false
     })
-    quantity: string;
+    quantity: number;
 
-    @OneToOne(()=>Product, (product)=>product.inventory)
-    @JoinColumn({
-        name:'product_id'
-    })
-    product:Product;
-
-    @OneToOne(()=>Admin, admin=>admin.inventory)
-    @JoinColumn({
-        name:'admin_id'
-    })
-    admin: Admin
-
+    @ManyToOne(()=>Product, (product)=>product.inventory)
+    product: Product;
 }

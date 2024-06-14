@@ -1,10 +1,9 @@
 import { Injectable } from "@nestjs/common";
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from "@nestjs/typeorm";
-import { Customer } from "../../users/entities/customer.entity";
+import { User } from "src/users/entities/user.entity";
 import { Repository } from "typeorm";
-import { CreateCustomerDto } from "src/users/dto/create-customer.dto";
-
+import { CreateUserDto } from "src/users/dto/create-user.dto";
 
 
 @Injectable()
@@ -12,8 +11,8 @@ export class AuthGoogleService {
 
     constructor(
         private readonly jwtService: JwtService,
-        @InjectRepository(Customer)
-        private readonly customerRepository: Repository<Customer>
+        @InjectRepository(User)
+        private readonly customerRepository: Repository<User>
     ){}
 
     async oAuthLogin(user) {
@@ -30,7 +29,7 @@ export class AuthGoogleService {
         })   
 
         if(!userExist){
-            let customer = new CreateCustomerDto();
+            let customer = new CreateUserDto();
             customer.name = user.name;
             customer.email = user.email;
             customer.photo_url = user.picture;

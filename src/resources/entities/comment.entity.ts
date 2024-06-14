@@ -1,5 +1,5 @@
-import { Product } from "../../inventories/entities/product.entity";
-import { Customer } from "../../users/entities/customer.entity";
+import { Product } from "src/products/entities/products.entity";
+import { User } from "src/users/entities/user.entity";
 import { Column, Entity, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Review } from "./review.entity";
 
@@ -19,8 +19,8 @@ export class Comment {
     })
     is_question: boolean;
 
-    @ManyToOne(()=>Customer, (customer)=>customer.comments)
-    customer: Customer;
+    @ManyToOne(()=>User, (customer)=>customer.comments)
+    customer: User;
 
     @ManyToOne(()=>Product, (product)=>product.comments)
     product:Product

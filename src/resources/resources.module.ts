@@ -5,15 +5,15 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Comment } from './entities/comment.entity';
 import { Review } from './entities/review.entity';
-import { Customer } from '../users/entities/customer.entity';
-import { Product } from '../inventories/entities/product.entity';
+import { User } from 'src/users/entities/user.entity';
+import { Product } from 'src/products/entities/products.entity';
 
 @Module({
   imports:[
     ConfigModule,
     TypeOrmModule.forFeature([Comment]),
     TypeOrmModule.forFeature([Review]),
-    TypeOrmModule.forFeature([Customer]),
+    TypeOrmModule.forFeature([User]),
     TypeOrmModule.forFeature([Product])
   ],
   controllers: [ResourcesController],

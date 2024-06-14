@@ -6,12 +6,11 @@ import { UsersModule } from 'src/users/users.module';
 import { JwtModule } from '@nestjs/jwt';
 import { AuthGuard } from './guard/auth.guard';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Customer } from '../users/entities/customer.entity';
-import { Admin } from '../users/entities/admin.entity';
 import { GoogleStrategy } from './strategies/auth.google.strategy';
 import { AuthGoogleController } from './controllers/auth_google.controller';
 import { AuthGoogleService } from './services/auth_google.service';
 import { GoogleOauthGuard } from './guard/auth.google.guard';
+import { User } from 'src/users/entities/user.entity';
 
 @Global()
 @Module({
@@ -20,8 +19,7 @@ import { GoogleOauthGuard } from './guard/auth.google.guard';
     JwtModule.registerAsync({
       imports: [
         ConfigModule,
-        TypeOrmModule.forFeature([Customer]),
-        TypeOrmModule.forFeature([Admin])
+        TypeOrmModule.forFeature([User])
       ],
       
       useFactory: async (configService: ConfigService) => ({

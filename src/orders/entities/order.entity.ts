@@ -1,4 +1,4 @@
-import { Customer } from "../../users/entities/customer.entity";
+import { User } from "src/users/entities/user.entity";
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { PaymentMethod } from "./payment_method";
 import { OrderDetail } from "./order_detail.entity";
@@ -19,8 +19,8 @@ export class Order {
     })
     date:Date;
 
-    @ManyToOne(()=>Customer, (customer)=>customer.orders)
-    customer:Customer;
+    @ManyToOne(()=>User, (customer) => customer.orders)
+    customer:User;
 
     @ManyToOne(()=>PaymentMethod, (payment_method)=> payment_method.orders)
     payment_method: PaymentMethod;

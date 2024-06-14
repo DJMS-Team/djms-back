@@ -4,25 +4,19 @@ import { UsersController } from './controllers/users.controller';
 import { AuthModule } from 'src/auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
-import { Customer } from './entities/customer.entity';
-import { Address } from './entities/address.entity';
-import { Contact } from './entities/contact.entity';
-import { Admin } from './entities/admin.entity';
+import { Address } from 'src/address/entities/address.entity';
 import { Order } from 'src/orders/entities/order.entity';
 import { Inventory } from 'src/inventories/entities/inventory.entity';
 import { Comment } from 'src/resources/entities/comment.entity';
 import { ConfigModule } from '@nestjs/config';
-import { CustomerService } from './services/customers.service';
-import { ContactService } from './services/contacts.service';
-import { CustomerController } from './controllers/customer.controller';
-import { ContactController } from './controllers/contact.controller';
+import { Role } from 'src/roles/entities/roles.entity';
 
 @Module({
-  controllers: [UsersController, CustomerController, ContactController],
-  providers: [UsersService, CustomerService, ContactService],
+  controllers: [UsersController],
+  providers: [UsersService],
   exports: [UsersService, UsersModule, TypeOrmModule],
   imports: [forwardRef(() => AuthModule),
-    TypeOrmModule.forFeature([Address, Customer, Admin, Contact, Order, Comment, Inventory, User]), 
+    TypeOrmModule.forFeature([Address, Role, Order, Comment, Inventory, User]), 
     ConfigModule
   ]
 })
