@@ -1,12 +1,13 @@
-import { Role } from "src/roles/entities/roles.entity";
-import { Column, ManyToOne, OneToMany, OneToOne, Or, PrimaryGeneratedColumn } from "typeorm";
-import { Address } from "src/address/entities/address.entity";
-import { Order } from "src/orders/entities/order.entity";
-import { Comment } from "src/resources/entities/comment.entity";
-import { Review } from "src/resources/entities/review.entity";
+import { Role } from "../../roles/entities/roles.entity";
+import { Column, Entity, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Address } from "../../address/entities/address.entity";
+import { Order } from "../../orders/entities/order.entity";
+import { Comment } from "../../resources/entities/comment.entity";
+import { Review } from "../../resources/entities/review.entity";
 import { Inventory } from "src/inventories/entities/inventory.entity";
 
-export abstract class User {
+@Entity()
+export class User {
 
     @PrimaryGeneratedColumn('uuid')
     id:string;

@@ -1,6 +1,7 @@
-import { User } from "src/users/entities/user.entity";
-import { Column, Entity, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { User } from "../../users/entities/user.entity";
 import { City } from "../entities/city.entity"
+import { Column, Entity, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+
 
 @Entity()
 export class Address{
@@ -9,12 +10,12 @@ export class Address{
     id:string;
 
     @Column('text',{
-        nullable:false
+        nullable:true
     })
     street:string;
 
     @Column('text',{
-        nullable:false
+        nullable:true
     })
     avenue:string
 

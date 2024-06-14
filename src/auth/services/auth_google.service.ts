@@ -1,9 +1,12 @@
 import { Injectable } from "@nestjs/common";
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from "@nestjs/typeorm";
-import { User } from "src/users/entities/user.entity";
+import { User } from "../../users/entities/user.entity";
 import { Repository } from "typeorm";
-import { CreateUserDto } from "src/users/dto/create-user.dto";
+import { CreateUserDto } from "../../users/dto/create-user.dto";
+import { UsersService } from "../../users/users.service";
+
+
 
 
 @Injectable()
@@ -12,10 +15,11 @@ export class AuthGoogleService {
     constructor(
         private readonly jwtService: JwtService,
         @InjectRepository(User)
-        private readonly customerRepository: Repository<User>
+        private readonly customerRepository: Repository<User>,
+        private readonly userService: UsersService
     ){}
 
-    async oAuthLogin(user) {
+    async oAuthLogin(user, id:string) {
 
         if (!user) {
           throw new Error('User not found!!!');
@@ -34,8 +38,9 @@ export class AuthGoogleService {
             customer.email = user.email;
             customer.photo_url = user.picture;
             customer.password = process.env.GOOGlE_PASSWORD
+            customer.role_id = id;
 
-            await this.customerRepository.save(customer)
+            await this.userService.create(customer);
         }
 
         const createdtUser = await this.customerRepository.findOne({

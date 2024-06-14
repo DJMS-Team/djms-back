@@ -7,9 +7,9 @@ import { Inventory } from './entities/inventory.entity';
 import { OrderDetail } from '../orders/entities/order_detail.entity';
 import { Review } from '../resources/entities/review.entity';
 import { Comment } from '../resources/entities/comment.entity';
-import { User } from 'src/users/entities/user.entity';
-import { ProductCategory } from 'src/products/entities/product-category.entity';
-import { Product } from 'src/products/entities/products.entity';
+import { User } from '../users/entities/user.entity';
+import { ProductCategory } from '../products/entities/product-category.entity';
+import { Product } from '../products/entities/products.entity';
 
 @Module({
   imports: [
