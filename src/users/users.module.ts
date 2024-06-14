@@ -11,10 +11,11 @@ import { Comment } from '../resources/entities/comment.entity';
 import { ConfigModule } from '@nestjs/config';
 import { Role } from '../roles/entities/roles.entity';
 import { JwtService } from '@nestjs/jwt';
+import { Repository } from 'typeorm';
 
 @Module({
   controllers: [UsersController],
-  providers: [UsersService, JwtService],
+  providers: [UsersService, JwtService, Repository],
   exports: [UsersService, UsersModule, TypeOrmModule],
   imports: [forwardRef(() => AuthModule),
     TypeOrmModule.forFeature([Address, Role, Order, Comment, Inventory, User]), 

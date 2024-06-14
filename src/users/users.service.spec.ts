@@ -29,7 +29,7 @@ describe('UsersService', () => {
           provide: getRepositoryToken(User),
           useValue: userRepositoryMock,
         },
-        JwtService
+        JwtService, Repository
       ],
     }).compile();
 

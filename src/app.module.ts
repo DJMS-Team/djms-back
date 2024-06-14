@@ -11,6 +11,8 @@ import { UsersModule } from './users/users.module';
 import { AuthGuard } from './auth/guard/auth.guard';
 import { AddressModule } from './address/address.module';
 import { RolesModule } from './roles/roles.module';
+import { Repository } from 'typeorm';
+import { ProductsModule } from './products/products.module';
 
 @Module({
   imports: [
@@ -38,7 +40,9 @@ import { RolesModule } from './roles/roles.module';
     OrdersModule,
     UsersModule,
     AddressModule,
-    RolesModule
+    RolesModule, 
+    Repository,
+    ProductsModule
   ],
   controllers: [AppController],
   providers: [AppService, AuthGuard],

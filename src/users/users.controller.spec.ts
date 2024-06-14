@@ -5,6 +5,7 @@ import { UsersService } from './users.service';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { JwtService } from '@nestjs/jwt';
+import { Repository } from 'typeorm';
 
 
 describe('UsersController', () => {
@@ -18,7 +19,7 @@ describe('UsersController', () => {
           provide: getRepositoryToken(User),
           useValue: {}, // Provide a mock implementation if needed
         },
-        JwtService
+        JwtService, Repository
       ],
     }).compile();
 
