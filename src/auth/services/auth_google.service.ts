@@ -3,7 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from "@nestjs/typeorm";
 import { Customer } from "../../users/entities/customer.entity";
 import { Repository } from "typeorm";
-import { CreateCustomerDto } from "src/users/dto/create-customer.dto";
+import { CreateCustomerDto } from "../../users/dto/create-customer.dto";
 
 
 
