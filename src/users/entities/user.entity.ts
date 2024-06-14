@@ -4,7 +4,7 @@ import { Address } from "../../address/entities/address.entity";
 import { Order } from "../../orders/entities/order.entity";
 import { Comment } from "../../resources/entities/comment.entity";
 import { Review } from "../../resources/entities/review.entity";
-import { Inventory } from "src/inventories/entities/inventory.entity";
+import { Inventory } from "../../inventories/entities/inventory.entity"
 
 @Entity()
 export class User {
