@@ -10,7 +10,7 @@ import { GoogleStrategy } from './strategies/auth.google.strategy';
 import { AuthGoogleController } from './controllers/auth_google.controller';
 import { AuthGoogleService } from './services/auth_google.service';
 import { GoogleOauthGuard } from './guard/auth.google.guard';
-import { User } from 'src/users/entities/user.entity';
+import { User } from '../users/entities/user.entity';
 
 @Global()
 @Module({
