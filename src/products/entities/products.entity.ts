@@ -2,6 +2,7 @@ import { Review } from "../../resources/entities/review.entity";
 import { OrderDetail } from "../../orders/entities/order_detail.entity";
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { ProductCategory } from "./product-category.entity";
+import { Size } from "./sizes.enum";
 import { Comment } from "../../resources/entities/comment.entity";
 import { Inventory } from "../../inventories/entities/inventory.entity";
 
@@ -30,6 +31,13 @@ export class Product {
         nullable:false
     })
     photo_url:string;
+
+    @Column({
+        type: 'enum',
+        enum: Size,
+        nullable: true
+    })
+    size?: Size;
 
     @OneToMany(()=>OrderDetail, (order_detail)=>order_detail.product, {nullable: true})
     order_details?: OrderDetail[];
