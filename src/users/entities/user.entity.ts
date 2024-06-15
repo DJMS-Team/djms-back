@@ -29,10 +29,10 @@ export class User {
     email:string;
 
     @Column('text',{
-        array:true,
+        
         nullable:false
     })
-    roles:Role;
+    role:Role;
 
     @OneToMany(() => Address, (address) => address.user)
     addresses: Address[];
