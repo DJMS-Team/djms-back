@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { OrdersService } from './orders.service';
+import { OrdersService } from './services/orders.service';
 import { OrdersController } from './orders.controller';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -8,6 +8,8 @@ import { OrderDetail } from './entities/order_detail.entity';
 import { PaymentMethod } from './entities/payment_method';
 import { User } from '../users/entities/user.entity';
 import { Product } from '../products/entities/products.entity';
+import { Repository } from 'typeorm';
+import { UsersModule } from '../users/users.module';
 
 @Module({
   imports:[
@@ -16,10 +18,12 @@ import { Product } from '../products/entities/products.entity';
     TypeOrmModule.forFeature([OrderDetail]),
     TypeOrmModule.forFeature([PaymentMethod]),
     TypeOrmModule.forFeature([User]),
-    TypeOrmModule.forFeature([Product])
-
+    TypeOrmModule.forFeature([Product]),
+    Repository, 
+    UsersModule
   ],
   controllers: [OrdersController],
   providers: [OrdersService],
+  exports: [OrdersModule, TypeOrmModule, Repository, OrdersService]
 })
 export class OrdersModule {}
