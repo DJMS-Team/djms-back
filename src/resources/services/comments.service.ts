@@ -22,25 +22,28 @@ export class CommentsService {
   ) {}
 
   async create(createCommentDto: CreateCommentDto): Promise<Comment> {
-    /*
-    const { productId, userId, reviewId, content } = createCommentDto;
-    const product = await this.productRepository.findOneBy({ id: productId });
+    
+    const { product_id, user_id, review_id, ...content } = createCommentDto;
+    const product = await this.productRepository.findOneBy({ id: product_id });
     if (!product) {
-      throw new NotFoundException(`Product with ID "${productId}" not found`);
+      throw new NotFoundException(`Product with ID "${product_id}" not found`);
     }
-    const user = await this.userRepository.findOneBy({ id: userId });
+    const user = await this.userRepository.findOneBy({ id: user_id });
     if (!user) {
-      throw new NotFoundException(`User with ID "${userId}" not found`);
+      throw new NotFoundException(`User with ID "${user_id}" not found`);
     }
     let review: Review | null = null;
-    if (reviewId) {
-      review = await this.reviewRepository.findOneBy({ id: reviewId });
+    if (review_id) {
+      review = await this.reviewRepository.findOneBy({ id: review_id });
       if (!review) {
-        throw new NotFoundException(`Review with ID "${reviewId}" not found`);
+        throw new NotFoundException(`Review with ID "${review_id}" not found`);
       }
     }
-    const comment = this.commentRepository.create({ content, product, user, review });
-    return this.commentRepository.save(comment);*/
+    const comment = this.commentRepository.create(createCommentDto);
+    comment.product = product;
+    comment.customer = user;
+    comment.review = review;
+    return await this.commentRepository.save(comment);
     return null;
   }
 
