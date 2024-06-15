@@ -19,23 +19,24 @@ export class ReviewsService {
   ) {}
 
   async create(createReviewDto: CreateReviewDto): Promise<Review> {
-    /*const { productId, userId, content, rating } = createReviewDto;
-    const product = await this.productRepository.findOneBy({ id: productId });
+    const { product_id, user_id, ...content } = createReviewDto;
+    const product = await this.productRepository.findOneBy({ id: product_id });
 
     if (!product) {
-      throw new NotFoundException(`Product with ID "${productId}" not found`);
+      throw new NotFoundException(`Product with ID "${product_id}" not found`);
     }
 
-    const user = await this.userRepository.findOneBy({ id: userId });
+    const user = await this.userRepository.findOneBy({ id: user_id });
     
     if (!user) {
-      throw new NotFoundException(`User with ID "${userId}" not found`);
+      throw new NotFoundException(`User with ID "${user_id}" not found`);
     }
     
-    const review = this.reviewRepository.create({ content, rating, product, user });
+    const review = this.reviewRepository.create(createReviewDto);
+    review.product = product;
+    review.customer = user;
     
-    return this.reviewRepository.save(review);*/
-    return null;
+    return this.reviewRepository.save(review);
   }
 
   async findAll(): Promise<Review[]> {

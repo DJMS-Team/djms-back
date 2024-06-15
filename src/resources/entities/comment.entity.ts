@@ -1,6 +1,6 @@
 import { Product } from "../../products/entities/products.entity";
 import { User } from "../../users/entities/user.entity";
-import { Column, Entity, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Review } from "./review.entity";
 
 @Entity()
@@ -26,5 +26,8 @@ export class Comment {
     product:Product
 
     @OneToOne(()=>Review, review=>review.comment)
+    @JoinColumn({
+        name:'reviewId'
+    })
     review: Review;
 }
