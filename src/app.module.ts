@@ -10,7 +10,6 @@ import { OrdersModule } from './orders/orders.module';
 import { UsersModule } from './users/users.module';
 import { AuthGuard } from './auth/guard/auth.guard';
 import { AddressModule } from './address/address.module';
-import { RolesModule } from './roles/roles.module';
 import { Repository } from 'typeorm';
 import { ProductsModule } from './products/products.module';
 
@@ -40,7 +39,6 @@ import { ProductsModule } from './products/products.module';
     OrdersModule,
     UsersModule,
     AddressModule,
-    RolesModule, 
     Repository,
     ProductsModule,
     TypeOrmModule

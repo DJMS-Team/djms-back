@@ -9,9 +9,7 @@ import { Order } from '../orders/entities/order.entity';
 import { Inventory } from '../inventories/entities/inventory.entity';
 import { Comment } from '../resources/entities/comment.entity';
 import { ConfigModule } from '@nestjs/config';
-import { Role } from '../roles/entities/roles.entity';
 import { JwtService } from '@nestjs/jwt';
-import { RolesModule } from 'src/roles/roles.module';
 import { Repository } from 'typeorm';
 
 @Module({
@@ -19,7 +17,7 @@ import { Repository } from 'typeorm';
   providers: [UsersService, JwtService, Repository],
   exports: [UsersService, UsersModule, TypeOrmModule],
   imports: [forwardRef(() => AuthModule),
-    TypeOrmModule.forFeature([Address, Role, Order, Comment, Inventory, User]), 
+    TypeOrmModule.forFeature([Address, Order, Comment, Inventory, User]), 
     ConfigModule
   ]
 })

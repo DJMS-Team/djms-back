@@ -11,6 +11,7 @@ import { AuthGoogleController } from './controllers/auth_google.controller';
 import { AuthGoogleService } from './services/auth_google.service';
 import { GoogleOauthGuard } from './guard/auth.google.guard';
 import { User } from '../users/entities/user.entity';
+import { RolesGuard } from './guard/roles.guard';
 
 @Global()
 @Module({
@@ -31,7 +32,7 @@ import { User } from '../users/entities/user.entity';
 
   ],
   controllers: [AuthController, AuthGoogleController],
-  providers: [AuthService, AuthGuard,GoogleStrategy, AuthGoogleService, GoogleOauthGuard],
+  providers: [AuthService, AuthGuard,GoogleStrategy, AuthGoogleService, GoogleOauthGuard, RolesGuard],
   exports:[AuthModule, AuthGuard, JwtModule]
 })
 export class AuthModule {}

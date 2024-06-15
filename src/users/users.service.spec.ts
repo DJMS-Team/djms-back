@@ -5,7 +5,6 @@ import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import { JwtService } from '@nestjs/jwt';
 import { get } from 'http';
-import { Role } from '../roles/entities/roles.entity';
 
 describe('UsersService', () => {
   let service: UsersService;
@@ -54,10 +53,6 @@ describe('UsersService', () => {
         {
           provide: getRepositoryToken(User),
           useValue: mockUserRepository,
-        },
-        {
-          provide: getRepositoryToken(Role),
-          useValue: mockRoleRepository,
         },
         JwtService,
        

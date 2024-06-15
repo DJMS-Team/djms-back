@@ -9,7 +9,7 @@ import { User } from '../src/users/entities/user.entity';
 describe('UserController (e2e)', () => {
   let app: INestApplication;
 
-  const mockUsers = [{id: 1, name: 'John Doe', email: '', password: '', photo_url: '', role_id: ''}]
+  const mockUsers = [{id: 1, name: 'John Doe', email: '', password: '', photo_url: '', is_admin:false}]
 
   const mockUsersRepository = {
     create: jest.fn().mockImplementation((dto) => dto),
@@ -42,7 +42,7 @@ describe('UserController (e2e)', () => {
   it('/users (POST)', () => {
     return request(app.getHttpServer())
       .post('/users')
-      .send({name: 'John Doe', email: 'juan@juan.com', password: 'Juan123456.', photo_url: '', role_id: 'd5f7f630-bf55-4e0b-bb09-107e0411d1de'})
+      .send({name: 'John Doe', email: 'juan@juan.com', password: 'Juan123456.', photo_url: '', is_admin:false})
       .expect('Content-Type', /json/)
       .expect(201)
       

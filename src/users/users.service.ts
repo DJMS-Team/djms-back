@@ -6,7 +6,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { Role } from '../roles/entities/roles.entity';
+
 
 @Injectable()
 export class UsersService {
@@ -16,8 +16,6 @@ export class UsersService {
   constructor(
     @InjectRepository(User)
     private readonly usersRepository: Repository<User>,
-    @InjectRepository(Role)
-    private readonly roleRepository:Repository<Role>,
     private readonly jwtService: JwtService
   ) {}
 
@@ -30,8 +28,6 @@ export class UsersService {
         ...userData,
         password: bcrypt.hashSync(password, 10),
       });
-      const role = await this.roleRepository.findOneBy({id:createUserDto.role_id});
-      user.role = role;
       await this.usersRepository.save( user )
       
 

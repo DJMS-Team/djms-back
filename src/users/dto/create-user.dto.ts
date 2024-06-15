@@ -1,4 +1,4 @@
-import { IsEmail, IsOptional, IsString, Matches, MaxLength, MinLength } from "class-validator";
+import { IsBoolean, IsEmail, IsOptional, IsString, Matches, MaxLength, MinLength } from "class-validator";
 
 export class CreateUserDto {
 
@@ -22,7 +22,8 @@ export class CreateUserDto {
     @IsOptional()
     photo_url:string;
 
-    @IsString()
-    role_id:string;
+    @IsBoolean()
+    @IsOptional()
+    is_admin:boolean;
 
 }

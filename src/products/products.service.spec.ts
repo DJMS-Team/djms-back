@@ -3,7 +3,6 @@ import { ProductsService } from './services/products.service';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { JwtService } from '@nestjs/jwt';
-import { Role } from '../roles/entities/roles.entity';
 import { Product } from './entities/products.entity';
 import { ProductCategory } from './entities/product-category.entity';
 
