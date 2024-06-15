@@ -30,7 +30,8 @@ export class UsersService {
         ...userData,
         password: bcrypt.hashSync(password, 10),
       });
-
+      // const role = await this.roleRepository.findOneBy({id:createUserDto.role_id});
+      // user.role = role;
       await this.usersRepository.save( user )
       
 

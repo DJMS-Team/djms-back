@@ -22,7 +22,11 @@ describe('UserController (e2e)', () => {
     }).overrideProvider(getRepositoryToken(User)).useValue(mockUsersRepository).compile();
 
     app = moduleFixture.createNestApplication();
-    app.useGlobalPipes(new ValidationPipe());
+    app.useGlobalPipes(new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
+    }));
     await app.init();
   });
 
@@ -37,19 +41,19 @@ describe('UserController (e2e)', () => {
 
   it('/users (POST)', () => {
     return request(app.getHttpServer())
-      .get('/users')
-      .send({name: 'John Doe', email: '', password: 'Juan123456.', photo_url: '', role_id: ''})
+      .post('/users')
+      .send({name: 'John Doe', email: 'juan@juan.com', password: 'Juan123456.', photo_url: '', role_id: '1234'})
       .expect('Content-Type', /json/)
-      .expect(200)
+      .expect(201)
       
   })
 
   it('/users (POST) --> 400 on validation error', () => {
     return request(app.getHttpServer())
-      .get('/users')
+      .post('/users')
       .send({name: 12331231})
       .expect('Content-Type', /json/)
-      .expect(200)
+      .expect(400)
       
   })
 
