@@ -9,7 +9,7 @@ import { Repository } from 'typeorm';
 import { ProductCategory } from './entities/product-category.entity';
 
 
-describe('UsersController', () => {
+describe('ProductsController', () => {
   let controller: ProductsController;
 
   const mockProductsService = {
