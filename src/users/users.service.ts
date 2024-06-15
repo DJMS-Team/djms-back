@@ -53,13 +53,14 @@ export class UsersService {
   }
 
   async findAll(){
-    const user = await this.usersRepository.find();
+    const user = await this.usersRepository.find({relations:['addresses']});
     return user;
   }
 
   async findOne(id:string){
     const user = await this.usersRepository.findOne({
-      where: {id}
+      where: {id},
+      relations: ['addresses']
     })
     return user;
   }
