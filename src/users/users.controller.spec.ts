@@ -61,7 +61,7 @@ describe('UsersController', () => {
   });
 
   it('should create a user', async () => {
-    const userDto = {name: 'John Doe', password: '123', email: '', photo_url: '', role_id: ''}
+    const userDto = {name: 'John Doe', password: '123', email: '', photo_url: '', is_admin:false}
     expect(controller.create(userDto))
     .toEqual({
       id: 'uuid',

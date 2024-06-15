@@ -38,7 +38,6 @@ export class AuthGoogleService {
             customer.email = user.email;
             customer.photo_url = user.picture;
             customer.password = process.env.GOOGlE_PASSWORD
-            customer.role_id = id;
 
             await this.userService.create(customer);
         }

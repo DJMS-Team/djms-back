@@ -14,14 +14,14 @@ import { ProductCategory } from './entities/product-category.entity';
 import { Inventory } from '../inventories/entities/inventory.entity';
 import { Comment } from '../resources/entities/comment.entity';
 import { Repository } from 'typeorm';
-import { Role } from '../roles/entities/roles.entity';
+
 
 @Module({
   controllers: [ProductsController],
   providers: [ProductsService, UsersService, ProductCategoryService, Repository],
   exports: [ProductsModule, TypeOrmModule, Repository],
   imports: [
-    TypeOrmModule.forFeature([Product, User, OrderDetail, Review, ProductCategory, Inventory, Comment, Role]), 
+    TypeOrmModule.forFeature([Product, User, OrderDetail, Review, ProductCategory, Inventory, Comment]), 
     ConfigModule, 
     Repository
   ]
