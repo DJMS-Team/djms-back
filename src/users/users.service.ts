@@ -17,7 +17,7 @@ export class UsersService {
     @InjectRepository(User)
     private readonly usersRepository: Repository<User>,
     
-    private readonly roleRepository:Repository<Role>,
+    //private readonly roleRepository:Repository<Role>,
     private readonly jwtService: JwtService
   ) {}
 
