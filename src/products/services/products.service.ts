@@ -5,6 +5,7 @@ import { Product } from '../entities/products.entity';
 import { CreateProductDto } from '../dto/create-product.dto';
 import { ProductCategory } from '../entities/product-category.entity';
 import { UpdateProductDto } from '../dto/update-product.dto';
+import { Review } from '../../resources/entities/review.entity';
 
 @Injectable()
 export class ProductsService {
@@ -31,11 +32,15 @@ export class ProductsService {
   }
 
   async find(){
-    return await this.productsRepository.find();
+    return await this.productsRepository.find({relations: ['reviews']});
   }
   
   async findOne(id:string){
-    const product = await this.productsRepository.findOneBy({id:id});
+    const product = await this.productsRepository.findOne(
+      {where: {id:id},
+      relations: ['reviews']
+    }
+    );
     if(!product) throw new NotFoundException(`product with id ${id} doesn't exist`)
     return product;
   }
@@ -54,6 +59,17 @@ export class ProductsService {
     }catch(error){
        this.handleDBExceptions(error);
     }
+  }
+
+  async calculateTotalScore(id:string){
+    const reviews:Review[] = (await this.findOne(id)).reviews
+    let Score:number;
+    reviews.forEach((review) =>
+      Score += review.score
+    )
+    
+    const amountReviews = reviews.length;
+    return Score/amountReviews;
   }
 
   async remove(id:string){

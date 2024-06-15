@@ -42,7 +42,7 @@ describe('UserController (e2e)', () => {
   it('/users (POST)', () => {
     return request(app.getHttpServer())
       .post('/users')
-      .send({name: 'John Doe', email: 'juan@juan.com', password: 'Juan123456.', photo_url: '', role_id: '1234'})
+      .send({name: 'John Doe', email: 'juan@juan.com', password: 'Juan123456.', photo_url: '', role_id: 'd5f7f630-bf55-4e0b-bb09-107e0411d1de'})
       .expect('Content-Type', /json/)
       .expect(201)
       
