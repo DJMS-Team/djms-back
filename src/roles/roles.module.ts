@@ -1,5 +1,5 @@
-import { Module, forwardRef } from '@nestjs/common';
-import { AuthModule } from 'src/auth/auth.module';
+import { Module } from '@nestjs/common';
+import { AuthModule } from '../auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Role } from './entities/roles.entity';
 import { User } from '../users/entities/user.entity';
@@ -14,7 +14,6 @@ import { RolesController } from './roles.controller';
   imports: [
     TypeOrmModule.forFeature([Role, User]), 
     ConfigModule
-  ]
+  ],
 })
 export class RolesModule {}
-

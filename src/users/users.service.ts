@@ -16,31 +16,30 @@ export class UsersService {
   constructor(
     @InjectRepository(User)
     private readonly usersRepository: Repository<User>,
-    private readonly roleRepository:Repository<Role>,
+    
+    //private readonly roleRepository:Repository<Role>,
     private readonly jwtService: JwtService
   ) {}
 
-  async create(createUserDto: CreateUserDto){
-    try{
-      const {password, ...userData} = createUserDto;
-      createUserDto.password = bcrypt.hashSync(createUserDto.password,10);
+  async create(createUserDto: CreateUserDto) {
+    try {
 
-      const user = await this.usersRepository.create(createUserDto);
+      const { password, ...userData } = createUserDto;
+      
+      const user = this.usersRepository.create({
+        ...userData,
+        password: bcrypt.hashSync(password, 10),
+      });
 
-      const role = await this.roleRepository.findOneBy({id:createUserDto.role_id});
-      user.role = role;
+      await this.usersRepository.save( user )
+      
 
-      await this.usersRepository.save(user);
+      return user;
+      
 
-      return{
-        ...user,
-        token: this.jwtService.sign({id:user.id})
-      };
-
-    }catch(error){
+    } catch (error) {
       this.handleDBErrors(error);
     }
-
 
   }
 
@@ -56,13 +55,15 @@ export class UsersService {
     return user;
   }
 
-  async find(){
+  async findAll(){
     const user = await this.usersRepository.find();
     return user;
   }
 
   async findOne(id:string){
-    const user = await this.usersRepository.findOneBy({id:id})
+    const user = await this.usersRepository.findOne({
+      where: {id}
+    })
     return user;
   }
 
