@@ -1,4 +1,5 @@
 import { IsBoolean, IsEmail, IsOptional, IsString, Matches, MaxLength, MinLength } from "class-validator";
+import { Role } from "../entities/roles.enum";
 
 export class CreateUserDto {
 
@@ -22,8 +23,8 @@ export class CreateUserDto {
     @IsOptional()
     photo_url:string;
 
-    @IsBoolean()
+    @IsString()
     @IsOptional()
-    is_admin:boolean;
+    readonly role:Role;
 
 }

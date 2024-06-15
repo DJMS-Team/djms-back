@@ -5,6 +5,7 @@ import { AppModule } from './../src/app.module';
 import { Repository } from 'typeorm';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { User } from '../src/users/entities/user.entity';
+import { Role } from '../src/users/entities/roles.enum';
 
 describe('UserController (e2e)', () => {
   let app: INestApplication;
@@ -42,7 +43,7 @@ describe('UserController (e2e)', () => {
   it('/users (POST)', () => {
     return request(app.getHttpServer())
       .post('/users')
-      .send({name: 'John Doe', email: 'juan@juan.com', password: 'Juan123456.', photo_url: '', is_admin:false})
+      .send({name: 'John Doe', email: 'juan@juan.com', password: 'Juan123456.', photo_url: '', role:Role.User})
       .expect('Content-Type', /json/)
       .expect(201)
       
