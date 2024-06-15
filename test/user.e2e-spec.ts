@@ -9,7 +9,7 @@ import { User } from '../src/users/entities/user.entity';
 describe('UserController (e2e)', () => {
   let app: INestApplication;
 
-  const mockUsers = [{id: 1, name: 'John Doe', email: '', password: '', photo_url: '', role_id: ''}]
+  const mockUsers = [{id: 1, name: 'John Doe', email: '', password: '', photo_url: '', is_admin:false}]
 
   const mockUsersRepository = {
     create: jest.fn().mockImplementation((dto) => dto),
