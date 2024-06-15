@@ -42,7 +42,8 @@ import { ProductsModule } from './products/products.module';
     AddressModule,
     RolesModule, 
     Repository,
-    ProductsModule
+    ProductsModule,
+    TypeOrmModule
   ],
   controllers: [AppController],
   providers: [AppService, AuthGuard],
