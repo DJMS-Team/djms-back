@@ -14,7 +14,7 @@ export class UsersController {
 
   @Get()
   findAll(){
-    return this.usersService.find()
+    return this.usersService.findAll()
   }
 
   @Get(':id')
@@ -24,7 +24,7 @@ export class UsersController {
 
   @Patch(':id')
   update(@Param('id') id:string, @Body() updateDto: UpdateUserDto){
-    return this.usersService.update(id, UpdateUserDto);
+    return this.usersService.update(id, updateDto);
   }
 
   @Delete(':id')

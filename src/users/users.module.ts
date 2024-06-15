@@ -1,5 +1,5 @@
 import { Module, forwardRef } from '@nestjs/common';
-import {UsersService } from './users.service';
+import { UsersService } from './users.service';
 import { UsersController } from './users.controller';
 import { AuthModule } from '../auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -11,6 +11,7 @@ import { Comment } from '../resources/entities/comment.entity';
 import { ConfigModule } from '@nestjs/config';
 import { Role } from '../roles/entities/roles.entity';
 import { JwtService } from '@nestjs/jwt';
+import { RolesModule } from 'src/roles/roles.module';
 import { Repository } from 'typeorm';
 
 @Module({
