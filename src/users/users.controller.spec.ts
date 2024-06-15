@@ -6,7 +6,7 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { JwtService } from '@nestjs/jwt';
 import { Repository } from 'typeorm';
-
+import { Role } from './entities/roles.enum';
 
 describe('UsersController', () => {
   let controller: UsersController;
@@ -61,7 +61,7 @@ describe('UsersController', () => {
   });
 
   it('should create a user', async () => {
-    const userDto = {name: 'John Doe', password: '123', email: '', photo_url: '', is_admin:false}
+    const userDto = {name: 'John Doe', password: '123', email: '', photo_url: '', role:Role.User}
     expect(controller.create(userDto))
     .toEqual({
       id: 'uuid',
@@ -72,7 +72,7 @@ describe('UsersController', () => {
   })
 
   it('should update a user', async () => {
-    const userDto = {name: 'John Doe', password: '123', email: '', photo_url: '', role_id: ''}
+    const userDto = {name: 'John Doe', password: '123', email: '', photo_url: '', role: Role.User}
     
     expect(controller.update('1', userDto))
     .toEqual({

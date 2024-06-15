@@ -6,7 +6,7 @@ import { JwtService } from '@nestjs/jwt';
 import { Product } from './entities/products.entity';
 import { ProductCategory } from './entities/product-category.entity';
 
-describe('UsersService', () => {
+describe('ProductsService', () => {
   let service: ProductsService;
 
   const mockProductRepository = {

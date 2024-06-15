@@ -32,7 +32,7 @@ export class User {
         array:true,
         nullable:false
     })
-    roles:Role[];
+    roles:Role;
 
     @OneToMany(() => Address, (address) => address.user)
     addresses: Address[];
@@ -54,10 +54,10 @@ export class User {
     })
     photo_url: string;
 
-    @BeforeInsert()
-    giveRole() {
-        if(!this.roles){
-            this.roles.push(Role.User)
-        }
-    }
+    // @BeforeInsert()
+    // giveRole() {
+    //     if(!this.roles){
+    //         this.roles.push(Role.User)
+    //     }
+    // }
 }
