@@ -6,7 +6,7 @@ import { PageOptionsDto } from '../pagination/page-options.dto';
 import { PageDto } from '../pagination/page.dto';
 import { User } from './entities/user.entity';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { ApiPaginatedResponse } from 'src/decorators/api-paginated-response.decorator';
+import { ApiPaginatedResponse } from '../decorators/api-paginated-response.decorator';
 
 //El api bearer auth sirve para que nos muestre que todas estas rutas estan protegidas por el jwt
 //@ApiBearerAuth()

@@ -2,9 +2,9 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestj
 import { OrdersService } from './services/orders.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
-import { PageOptionsDto } from 'src/pagination/page-options.dto';
-import { PageDto } from 'src/pagination/page.dto';
-import { User } from 'src/users/entities/user.entity';
+import { PageOptionsDto } from '../pagination/page-options.dto';
+import { PageDto } from '../pagination/page.dto';
+import { User } from '../users/entities/user.entity';
 import { Order } from './entities/order.entity';
 import { ApiTags } from '@nestjs/swagger';
 
