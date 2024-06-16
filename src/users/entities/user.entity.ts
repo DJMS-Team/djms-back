@@ -6,7 +6,7 @@ import { Comment } from "../../resources/entities/comment.entity";
 import { Review } from "../../resources/entities/review.entity";
 import { Inventory } from "../../inventories/entities/inventory.entity"
 import { Role } from "./roles.enum";
-import { Product } from "src/products/entities/products.entity";
+import { Product } from "../../products/entities/products.entity";
 
 @Entity()
 export class User {

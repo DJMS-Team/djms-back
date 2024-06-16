@@ -6,6 +6,7 @@ import { Repository } from 'typeorm';
 import { JwtService } from '@nestjs/jwt';
 import { get } from 'http';
 import { Order } from '../orders/entities/order.entity';
+import { Product } from '../products/entities/products.entity';
 
 describe('UsersService', () => {
   let service: UsersService;
@@ -58,6 +59,10 @@ describe('UsersService', () => {
         {
           provide: getRepositoryToken(Order),
           useValue:{}
+        },
+        {
+          provide: getRepositoryToken(Product),
+          useValue: {}
         },
         JwtService,
        
