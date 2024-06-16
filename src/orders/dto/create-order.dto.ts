@@ -1,8 +1,9 @@
 import { IsDate, IsNumber, IsString } from "class-validator";
+import { Status } from "../entities/status.enum";
 
 export class CreateOrderDto {
-    @IsNumber()
-    status:number;
+    @IsString()
+    status:Status;
 
     @IsDate()
     date:Date;
