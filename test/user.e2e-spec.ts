@@ -10,7 +10,7 @@ import { Role } from '../src/users/entities/roles.enum';
 describe('UserController (e2e)', () => {
   let app: INestApplication;
 
-  const mockUsers = [{id: 1, name: 'John Doe', email: '', password: '', photo_url: '', is_admin:false}]
+  const mockUsers = [{id:'1',name: 'John Doe', password: '123', email: '', photo_url: '', role:Role.USER}]
 
   const mockUsersRepository = {
     create: jest.fn().mockImplementation((dto) => dto),

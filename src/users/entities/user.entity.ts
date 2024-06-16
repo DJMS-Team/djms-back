@@ -55,14 +55,10 @@ export class User {
     })
     photo_url: string;
 
+
     @ManyToMany(() => Product)
     @JoinTable()
     favorites: Product[];
 
-    // @BeforeInsert()
-    // giveRole() {
-    //     if(!this.roles){
-    //         this.roles.push(Role.User)
-    //     }
-    // }
+
 }
