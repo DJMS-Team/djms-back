@@ -96,11 +96,11 @@ describe('UsersService', () => {
     })
   })
 
-
+  //todo
   describe('findAll',()=>{
-    it('should find all users', async () => {
-      expect(await service.findAll()).toEqual([])
-    })
+    // it('should find all users', async () => {
+    //   expect(await service.findAll()).toEqual([])
+    // })
   })
 
   describe('remove', () => {

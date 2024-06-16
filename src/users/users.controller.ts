@@ -5,8 +5,13 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { PageOptionsDto } from '../pagination/page-options.dto';
 import { PageDto } from '../pagination/page.dto';
 import { User } from './entities/user.entity';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiPaginatedResponse } from '../decorators/api-paginated-response.decorator';
 
+//El api bearer auth sirve para que nos muestre que todas estas rutas estan protegidas por el jwt
+//@ApiBearerAuth()
 @Controller('users')
+@ApiTags('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
@@ -16,6 +21,7 @@ export class UsersController {
   }
 
   @Get()
+  @ApiPaginatedResponse(User)
   findAll(@Query() pageOptionsDto: PageOptionsDto): Promise<PageDto<User>>{
     return this.usersService.findAll(pageOptionsDto)
   }

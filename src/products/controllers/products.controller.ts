@@ -6,8 +6,10 @@ import { FilterProductsDto } from '../dto/filter-product.dto';
 import { PageOptionsDto } from '../../pagination/page-options.dto';
 import { PageDto } from '../../pagination/page.dto';
 import { Product } from '../entities/products.entity';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('products')
+@ApiTags('products')
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
