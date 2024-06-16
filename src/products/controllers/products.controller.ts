@@ -3,6 +3,9 @@ import { ProductsService } from '../services/products.service';
 import { CreateProductDto } from '../dto/create-product.dto';
 import { UpdateProductDto } from '../dto/update-product.dto';
 import { FilterProductsDto } from '../dto/filter-product.dto';
+import { PageOptionsDto } from '../../pagination/page-options.dto';
+import { PageDto } from '../../pagination/page.dto';
+import { Product } from '../entities/products.entity';
 
 @Controller('products')
 export class ProductsController {
@@ -19,8 +22,8 @@ export class ProductsController {
   }
 
   @Get()
-  findAll() {
-    return this.productsService.find();
+  findAll(@Query() pageOptionsDto: PageOptionsDto): Promise<PageDto<Product>> {
+    return this.productsService.find(pageOptionsDto);
   }
 
   @Get(':id')

@@ -6,6 +6,9 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from '../../users/entities/user.entity';
 import { PaymentMethod } from '../entities/payment_method';
+import { PageOptionsDto } from '../../pagination/page-options.dto';
+import { PageDto } from '../../pagination/page.dto';
+import { PageMetaDto } from '../../pagination/page-meta.dto';
 
 @Injectable()
 export class OrdersService {
@@ -41,8 +44,17 @@ export class OrdersService {
     return order;
   }
 
-  async findAll() {
-    return await this.orderRepository.find()
+  async findAll(pageOptionsDto: PageOptionsDto):Promise<PageDto<Order>> {
+    const [data, itemCount] = await this.orderRepository.findAndCount({
+      take: pageOptionsDto.take,
+      skip: pageOptionsDto.skip,
+      order:{
+        id: pageOptionsDto.order
+      }
+    })
+
+    const pageMetaDto = new PageMetaDto({pageOptionsDto, itemCount})
+    return new PageDto(data, pageMetaDto)
   }
 
   async findOne(id: string) {

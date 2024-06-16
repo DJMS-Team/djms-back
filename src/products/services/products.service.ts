@@ -6,6 +6,9 @@ import { CreateProductDto } from '../dto/create-product.dto';
 import { UpdateProductDto } from '../dto/update-product.dto';
 import { ProductCategory } from '../entities/product-category.entity';
 import { Review } from '../../resources/entities/review.entity';
+import { PageOptionsDto } from '../../pagination/page-options.dto';
+import { PageDto } from '../../pagination/page.dto';
+import { PageMetaDto } from '../../pagination/page-meta.dto';
 
 @Injectable()
 export class ProductsService {
@@ -35,8 +38,18 @@ export class ProductsService {
     }
   }
 
-  async find(){
-    return await this.productsRepository.find({relations: ['reviews']});
+  async find(pageOptionsDto: PageOptionsDto):Promise<PageDto<Product>>{
+    const [data, itemCount] = await this.productsRepository.findAndCount({
+      relations: ['reviews'],
+      take: pageOptionsDto.take,
+      skip: pageOptionsDto.skip,
+      order:{
+        id: pageOptionsDto.order
+      }
+    });
+    
+    const pageMetaDto = new PageMetaDto({pageOptionsDto, itemCount})
+    return new PageDto(data, pageMetaDto)
   }
 
   async findFiltered(filters: any): Promise<Product[]> {
