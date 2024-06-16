@@ -11,6 +11,9 @@ import { Product } from '../products/entities/products.entity';
 
 import { Status } from '../orders/entities/status.enum';
 import { Order } from '../orders/entities/order.entity';
+import { PageOptionsDto } from '../pagination/page-options.dto';
+import { PageDto } from '../pagination/page.dto';
+import { PageMetaDto } from '../pagination/page-meta.dto';
 
 
 
@@ -64,9 +67,18 @@ export class UsersService {
     return user;
   }
 
-  async findAll(){
-    const user = await this.usersRepository.find({relations:['addresses']});
-    return user;
+  async findAll(pageOptionsDto: PageOptionsDto): Promise<PageDto<User>>{
+    const [data, itemCount] = await this.usersRepository.findAndCount({
+      relations: ['addresses'],
+      skip: pageOptionsDto.skip,
+      take: pageOptionsDto.take,
+      order:{
+        id: pageOptionsDto.order
+      }
+    })
+
+    const pageMetaDto = new PageMetaDto({pageOptionsDto, itemCount});
+    return new PageDto(data, pageMetaDto);
   }
 
   async findOne(id:string){
