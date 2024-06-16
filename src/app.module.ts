@@ -30,8 +30,8 @@ import { ProductsModule } from './products/products.module';
       ssl: {
         rejectUnauthorized :false
       },
-      //logger: 'advanced-console',
-      //logging: 'all'
+      logger: 'advanced-console',
+      logging: 'all'
     }),
     AuthModule,
     ResourcesModule,

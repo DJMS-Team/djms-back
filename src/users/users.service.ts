@@ -6,8 +6,12 @@ import { CreateUserDto } from './dto/create-user.dto';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { UpdateUserDto } from './dto/update-user.dto';
+
+import { Product } from '../products/entities/products.entity';
+
 import { Status } from '../orders/entities/status.enum';
 import { Order } from '../orders/entities/order.entity';
+
 
 
 @Injectable()
@@ -18,9 +22,13 @@ export class UsersService {
   constructor(
     @InjectRepository(User)
     private readonly usersRepository: Repository<User>,
+
+    @InjectRepository(Product)
+    private readonly productsRepository: Repository<Product>,
     private readonly jwtService: JwtService,
     @InjectRepository(Order)
     private readonly orderRepository: Repository<Order>,
+
   ) {}
 
   async create(createUserDto: CreateUserDto) {
@@ -109,6 +117,41 @@ export class UsersService {
     await this.usersRepository.remove(user);
   }
 
+  async addFavoriteProduct(userId: string, productId: string) {
+    try{
+      const user = await this.usersRepository.findOne({
+        where: { id: userId },
+        relations: ["favorites"]
+      });
+
+      const product = await this.productsRepository.findOne({
+        where: { id: productId }
+      });
+
+      if (!product) throw new NotFoundException('Product not found');
+
+      user.favorites.push(product);
+      await this.usersRepository.save(user);
+      return user;
+
+    }catch(error){
+      this.handleDBExceptions(error);
+    }
+  }
+
+  async getFavoriteProducts(id: string) {
+    try{
+      const userWithFavorites = await this.usersRepository.findOne({
+        where: { id: id },
+        relations: ["favorites"] 
+      });
+      return userWithFavorites.favorites;
+
+    }catch(error){
+      this.handleDBExceptions(error);
+    }
+  }
+
 
   private handleDBErrors( error: any ): never {
 
@@ -116,7 +159,9 @@ export class UsersService {
     if ( error.code === '23505' ) 
       throw new BadRequestException( error.detail );
 
-    console.log(error)
+    if (error instanceof NotFoundException) {
+      throw error;
+    }
 
     throw new InternalServerErrorException('Please check server logs');
 
