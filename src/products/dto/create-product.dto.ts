@@ -1,4 +1,5 @@
 import { IsNumber, IsOptional, IsString } from "class-validator";
+import { Size } from "../entities/sizes.enum";
 
 export class CreateProductDto{
 
@@ -17,5 +18,9 @@ export class CreateProductDto{
 
     @IsString()
     product_category_id:string;
+
+    @IsString()
+    @IsOptional()
+    size:Size;
 
 }

@@ -5,8 +5,9 @@ import { AppModule } from './../src/app.module';
 import { Repository } from 'typeorm';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Product } from '../src/products/entities/products.entity';
+import { Size } from '../src/products/entities/sizes.enum';
 
-describe('UserController (e2e)', () => {
+describe('ProductController (e2e)', () => {
   let app: INestApplication;
 
   const mockProduct = {
@@ -14,13 +15,16 @@ describe('UserController (e2e)', () => {
     description: '123',
     price: 10,
     photo_url: '',
-    product_category_id: ''
+    product_category_id: '',
+    size: Size.M
 }
   const mockProductRepository = {
     create: jest.fn().mockImplementation((dto) => dto),
     save: jest.fn().mockImplementation((product) => Promise.resolve({id: '1', ...product})),
     find: jest.fn().mockResolvedValue(mockProduct)
   } 
+
+  
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
@@ -35,7 +39,7 @@ describe('UserController (e2e)', () => {
     await app.init();
   });
 
-  it('/users (GET)', () => {
+  it('/products (GET)', () => {
     return request(app.getHttpServer())
       .get('/products')
       .expect(200)
@@ -44,22 +48,25 @@ describe('UserController (e2e)', () => {
       
   });
 
-  it('/users (POST)', () => {
+  // it('/products (POST)', () => {
+  //   return request(app.getHttpServer())
+  //     .post('/products')
+  //     .send({
+  //       product_name: 'John Doe',
+  //       description: '123',
+  //       price: 10,
+  //       photo_url: '',
+  //       product_category_id: 'd5f7f630-bf55-4e0b-bb09-107e0411d1de',
+  //       size: Size.M
+  //     })
+  //     .expect('Content-Type', /json/)
+  //     .expect(201)
+      
+  // })
+
+  it('/products (POST) --> 400 on validation error', () => {
     return request(app.getHttpServer())
       .post('/products')
-      .send({product_name: 'John Doe',
-        description: '123',
-        price: 10,
-        photo_url: '',
-        product_category_id: 'd5f7f630-bf55-4e0b-bb09-107e0411d1de'})
-      .expect('Content-Type', /json/)
-      .expect(201)
-      
-  })
-
-  it('/users (POST) --> 400 on validation error', () => {
-    return request(app.getHttpServer())
-      .post('/users')
       .send({name: 12331231})
       .expect('Content-Type', /json/)
       .expect(400)

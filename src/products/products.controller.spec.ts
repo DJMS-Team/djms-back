@@ -7,6 +7,7 @@ import { Product } from './entities/products.entity';
 import { JwtService } from '@nestjs/jwt';
 import { Repository } from 'typeorm';
 import { ProductCategory } from './entities/product-category.entity';
+import { Size } from './entities/sizes.enum';
 
 
 describe('ProductsController', () => {
@@ -69,7 +70,8 @@ describe('ProductsController', () => {
         description: '123',
         price: 10,
         photo_url: '',
-        product_category_id: ''
+        product_category_id: '',
+        size: Size.M
     }
     expect(controller.create(productDto))
     .toEqual({
@@ -86,7 +88,8 @@ describe('ProductsController', () => {
         description: '123',
         price: 10,
         photo_url: '',
-        product_category_id: ''
+        product_category_id: '',
+        size: Size.M
     }
     expect(controller.update('1', productDto))
     .toEqual({
