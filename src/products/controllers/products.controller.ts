@@ -19,7 +19,7 @@ export class ProductsController {
   }
 
   @Get()
-  find() {
+  findAll() {
     return this.productsService.find();
   }
 
