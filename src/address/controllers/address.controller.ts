@@ -14,7 +14,7 @@ export class AddressController {
 
   @Get()
   findAll(){
-    return this.addressService.find();
+    return this.addressService.findAll();
   }
 
   @Get(':id')
