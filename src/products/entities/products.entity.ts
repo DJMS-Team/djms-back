@@ -5,6 +5,7 @@ import { ProductCategory } from "./product-category.entity";
 import { Size } from "./sizes.enum";
 import { Comment } from "../../resources/entities/comment.entity";
 import { Inventory } from "../../inventories/entities/inventory.entity";
+import { User } from "src/users/entities/user.entity";
 
 @Entity()
 export class Product {
@@ -53,4 +54,7 @@ export class Product {
 
     @OneToMany(()=>Inventory, (inventory)=> inventory.product, {nullable: false})
     inventory: Inventory;
+
+    @ManyToOne(() => User, (seller) => seller.products)
+    seller: User;
 }
