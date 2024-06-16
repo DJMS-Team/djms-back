@@ -32,5 +32,13 @@ export class UsersController {
     return this.usersService.remove(id);
   }
 
+  @Post(':id/favorite')
+  addFavoriteProduct(@Param('id') id: string, @Body('product_id') product_id: string){
+    return this.usersService.addFavoriteProduct(id, product_id);
+  }
   
+  @Get(':id/favorite')
+  getFavorites(@Param('id') id: string){
+    return this.usersService.getFavoriteProducts(id);
+  }
 }
