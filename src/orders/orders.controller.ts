@@ -1,9 +1,15 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { OrdersService } from './services/orders.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
+import { PageOptionsDto } from 'src/pagination/page-options.dto';
+import { PageDto } from 'src/pagination/page.dto';
+import { User } from 'src/users/entities/user.entity';
+import { Order } from './entities/order.entity';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('orders')
+@ApiTags('orders')
 export class OrdersController {
   constructor(private readonly ordersService: OrdersService) {}
 
@@ -13,8 +19,8 @@ export class OrdersController {
   }
 
   @Get()
-  findAll() {
-    return this.ordersService.findAll();
+  findAll(@Query() pageOptionsDto: PageOptionsDto): Promise<PageDto<Order>> {
+    return this.ordersService.findAll(pageOptionsDto);
   }
 
   @Get(':id')
