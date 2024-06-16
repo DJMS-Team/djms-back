@@ -6,6 +6,8 @@ import { CreateUserDto } from './dto/create-user.dto';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { Status } from '../orders/entities/status.enum';
+import { Order } from '../orders/entities/order.entity';
 
 
 @Injectable()
@@ -16,7 +18,9 @@ export class UsersService {
   constructor(
     @InjectRepository(User)
     private readonly usersRepository: Repository<User>,
-    private readonly jwtService: JwtService
+    private readonly jwtService: JwtService,
+    @InjectRepository(Order)
+    private readonly orderRepository: Repository<Order>,
   ) {}
 
   async create(createUserDto: CreateUserDto) {
@@ -63,6 +67,24 @@ export class UsersService {
       relations: ['addresses']
     })
     return user;
+  }
+
+  async findOldOrders(id:string){
+    const user = await this.usersRepository.findOne({ where: { id: id } });
+
+    if (!user) {
+      throw new NotFoundException(`User with id ${id} not found`);
+    }
+
+    const receivedOrders = await this.orderRepository.find({
+      where: {
+        customer: user,
+        status: Status.RECEIVED,
+      },
+      relations: ['customer', 'payment_method', 'order_details'], // Add all necessary relations
+    });
+
+    return receivedOrders;
   }
 
   async update(id:string, updateDto: UpdateUserDto){

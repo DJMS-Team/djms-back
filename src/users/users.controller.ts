@@ -22,6 +22,11 @@ export class UsersController {
     return this.usersService.findOne(id);
   }
 
+  @Get(':userId/orders/received')
+  async getReceivedOrdersByUser(@Param('userId') userId: string) {
+    return this.usersService.findOldOrders(userId);
+  }
+
   @Patch(':id')
   update(@Param('id') id:string, @Body() updateDto: UpdateUserDto){
     return this.usersService.update(id, updateDto);
