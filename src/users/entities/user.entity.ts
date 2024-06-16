@@ -54,7 +54,7 @@ export class User {
     })
     photo_url: string;
 
-    // @BeforeInsert()
+    // ¿@BeforeInsert()
     // giveRole() {
     //     if(!this.roles){
     //         this.roles.push(Role.User)
