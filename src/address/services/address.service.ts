@@ -23,7 +23,7 @@ export class AddressService {
     return address;
   }
 
-  async find():Promise<Address[]>{
+  async findAll(){
     const adress:Address[] = await this.addressRepository.find();
 
     return adress;
@@ -31,7 +31,8 @@ export class AddressService {
   }
 
   async findOne(id:string){
-    const address = await this.addressRepository.findOneBy({id:id});
+    const address = await this.addressRepository.findOne({where:{id:id}});
+    if(!address) throw new NotFoundException(`address with id ${id} not found`)
     return address;
   }
 
