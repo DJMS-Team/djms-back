@@ -5,7 +5,7 @@ import { ProductCategory } from "./product-category.entity";
 import { Size } from "./sizes.enum";
 import { Comment } from "../../resources/entities/comment.entity";
 import { Inventory } from "../../inventories/entities/inventory.entity";
-import { User } from "src/users/entities/user.entity";
+import { User } from "../../users/entities/user.entity";
 
 @Entity()
 export class Product {
