@@ -1,4 +1,3 @@
-
 import { BeforeInsert, Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Address } from "../../address/entities/address.entity";
 import { Order } from "../../orders/entities/order.entity";
@@ -49,6 +48,9 @@ export class User {
 
     @OneToOne(() => Inventory, (inventory) => inventory.user, {nullable: true})
     inventory?: Inventory;
+
+    @OneToMany(() => Product, (product) => product.seller, {nullable: true})
+    products?: Product[];
 
     @Column('text', {
         nullable: false
