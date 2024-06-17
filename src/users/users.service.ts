@@ -37,8 +37,14 @@ export class UsersService {
   async create(createUserDto: CreateUserDto) {
     try {
 
-      const { password, ...userData } = createUserDto;
-      
+      const { password, email, ...userData } = createUserDto;
+
+
+      const existingUser = await this.usersRepository.findOne({ where: { email } });
+      if (existingUser) {
+        throw new BadRequestException('Email already in use');
+      }
+
       const user = this.usersRepository.create({
         ...userData,
         password: bcrypt.hashSync(password, 10),
@@ -165,11 +171,11 @@ export class UsersService {
   }
 
 
-  private handleDBErrors( error: any ): never {
+  private handleDBErrors( error: any ) {
 
-
-    if ( error.code === '23505' ) 
-      throw new BadRequestException( error.detail );
+    
+    if ( error.status === 400 ) 
+      throw new BadRequestException( error.response.message );
 
     if (error instanceof NotFoundException) {
       throw error;
@@ -184,6 +190,9 @@ export class UsersService {
     if ( error.code === '23505' )
       throw new BadRequestException(error.detail);
     
+    if (error instanceof NotFoundException) {
+      throw error;
+    }
     this.logger.error(error)
     // console.log(error)
     throw new InternalServerErrorException('Unexpected error, check server logs');

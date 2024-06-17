@@ -1,6 +1,4 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { CreateAuthDto } from '../dto/create-auth.dto';
-import { UpdateAuthDto } from '../dto/update-auth.dto';
 import { UsersService } from '../../users/users.service';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
@@ -20,25 +18,11 @@ export class AuthService {
         throw new UnauthorizedException('Invalid email or password.');
       }
 
-      const payload = {sub: user.id, email: user.email, rol: user.role};
+      const payload = {sub: user.id, email: user.email, role: user.role};
       return {
         access_token: await this.jwtService.signAsync(payload)
       }
   }
 
-  findAll() {
-    return `This action returns all auth`;
-  }
 
-  findOne(id: number) {
-    return `This action returns a #${id} auth`;
-  }
-
-  update(id: number, updateAuthDto: UpdateAuthDto) {
-    return `This action updates a #${id} auth`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} auth`;
-  }
 }
