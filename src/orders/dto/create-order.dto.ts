@@ -1,10 +1,12 @@
 import { IsDate, IsNumber, IsString } from "class-validator";
 import { Status } from "../entities/status.enum";
+import { Type } from "class-transformer";
 
 export class CreateOrderDto {
     @IsString()
     status:Status;
 
+    @Type(()=>Date)
     @IsDate()
     date:Date;
 

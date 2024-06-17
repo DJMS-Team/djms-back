@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { OrdersService } from './services/orders.service';
-import { OrdersController } from './orders.controller';
+import { OrdersController } from './controllers/orders.controller';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Order } from './entities/order.entity';
@@ -10,6 +10,12 @@ import { User } from '../users/entities/user.entity';
 import { Product } from '../products/entities/products.entity';
 import { Repository } from 'typeorm';
 import { UsersModule } from '../users/users.module';
+import { PaymentService } from './services/payment_method.service';
+import { PaymentController } from './controllers/payment.controller';
+import { PaypalController } from './controllers/paypal.controller';
+import { PaypalService } from './services/paypal.service';
+import { OrderDetailController } from './controllers/order_details.controller';
+import { OrderDetailService } from './services/order_detail.service';
 
 @Module({
   imports:[
@@ -22,8 +28,8 @@ import { UsersModule } from '../users/users.module';
     Repository, 
     UsersModule
   ],
-  controllers: [OrdersController],
-  providers: [OrdersService],
-  exports: [OrdersModule, TypeOrmModule, Repository, OrdersService]
+  controllers: [OrdersController, PaymentController, PaypalController, OrderDetailController],
+  providers: [OrdersService, PaymentService, PaypalService, OrderDetailService],
+  exports: [OrdersModule, TypeOrmModule, Repository]
 })
 export class OrdersModule {}
