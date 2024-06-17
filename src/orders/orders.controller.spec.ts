@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { OrdersController } from './orders.controller';
+import { OrdersController } from './controllers/orders.controller';
 import { OrdersService } from './services/orders.service';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Order } from './entities/order.entity';

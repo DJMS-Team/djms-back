@@ -58,7 +58,12 @@ export class OrdersService {
   }
 
   async findOne(id: string) {
-    const order = await this.orderRepository.findOne({where:{id:id}});
+    const order = await this.orderRepository.findOne(
+      {
+        where:{id:id},
+        relations: ['order_details','order_details.product']
+      }
+    );
     if(!order) throw new NotFoundException(`the order with ${id} not found`)
     return order;
   }
