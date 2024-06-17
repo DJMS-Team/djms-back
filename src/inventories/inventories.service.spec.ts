@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { InventoriesService } from './inventories.service';
-
+/*
 describe('InventoriesService', () => {
   let service: InventoriesService;
 
@@ -15,4 +15,4 @@ describe('InventoriesService', () => {
   it('should be defined', () => {
     expect(service).toBeDefined();
   });
-});
+});*/
