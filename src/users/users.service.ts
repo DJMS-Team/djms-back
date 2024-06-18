@@ -36,8 +36,9 @@ export class UsersService {
 
   async create(createUserDto: CreateUserDto) {
     try {
-      const { password, email, ...userData } = createUserDto;
 
+      const { password, email, ...userData } = createUserDto;
+      
 
       const existingUser = await this.usersRepository.findOne({ where: { email } });
       if (existingUser) {
@@ -46,8 +47,8 @@ export class UsersService {
 
       const user = this.usersRepository.create({
         ...userData,
+        email: email,
         password: bcrypt.hashSync(password, 10),
-        email: email
       });
       await this.usersRepository.save( user )
       

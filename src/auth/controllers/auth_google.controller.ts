@@ -11,12 +11,12 @@ export class AuthGoogleController {
 
   @Get('callback')
   @UseGuards(GoogleOauthGuard)
-  async googleAuthCallback(@Req() req: Request, @Res() res: Response, @Query('id') id:string) {
+  async googleAuthCallback(@Req() req: Request, @Res() res: Response) {
     try {
         //console.log(req.user)
-      const token = await this.authService.oAuthLogin(req.user,id); 
-      //res.redirect(`http://localhost:3000/oauth?id=${token.id}&email=${token.email}&token=${token.token}`);
-      res.redirect('https://www.facebook.com')
+      const token = await this.authService.oAuthLogin(req.user); 
+      res.redirect(`http://localhost:3000/oauth?id=${token.id}&email=${token.email}&token=${token.token}`);
+      //res.redirect('https://www.facebook.com')
       return token
     } catch (err) {
       res.status(500).send({ success: false, message: err.message });
