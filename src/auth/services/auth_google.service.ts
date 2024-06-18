@@ -5,6 +5,7 @@ import { User } from "../../users/entities/user.entity";
 import { Repository } from "typeorm";
 import { CreateUserDto } from "../../users/dto/create-user.dto";
 import { UsersService } from "../../users/users.service";
+import { Role } from "../../users/entities/roles.enum";
 
 
 
@@ -19,13 +20,15 @@ export class AuthGoogleService {
         private readonly userService: UsersService
     ){}
 
-    async oAuthLogin(user, id:string) {
+    async oAuthLogin(user) {
 
         if (!user) {
           throw new Error('User not found!!!');
         }
     
         const email = user.email
+
+        //console.log(email)
 
         const userExist = await this.customerRepository.findOne({
             where : {email},
@@ -35,10 +38,11 @@ export class AuthGoogleService {
         if(!userExist){
             let customer = new CreateUserDto();
             customer.name = user.name;
-            customer.email = user.email;
+            customer.email = email;
             customer.photo_url = user.picture;
             customer.password = process.env.GOOGlE_PASSWORD
-            await this.userService.create(customer);
+            customer.role = Role.USER
+            const users = await this.userService.create(customer);
         }
 
         const createdtUser = await this.customerRepository.findOne({

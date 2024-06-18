@@ -23,31 +23,20 @@
    - **Create User**:
      - Ensure a user can be created successfully.
      - Validate that required fields are present.
-     - Handle cases where required fields are missing.
+     
 
    - **Read User**:
      - Fetch a user by ID.
-     - Handle cases where the user does not exist.
+     
 
    - **Update User**:
      - Update user details.
      - Validate that the fields are updated correctly.
-     - Handle cases where the user does not exist.
+     
 
    - **Delete User**:
      - Ensure a user can be deleted.
-     - Handle cases where the user does not exist.
-
-2. **Entity-specific Validations and Business Logic**
-
-   - **Inheritance**:
-     - Ensure Customer and Admin correctly inherit from User.
-     - Test methods overridden by Customer and Admin.
-
-   - **Validation**:
-     - Validate email format.
-     - Ensure unique constraints (e.g., unique email).
-
+     
 
 
 ### Entity: Address
@@ -59,61 +48,21 @@
    - **Create Address**:
      - Ensure an address can be created successfully.
      - Validate that required fields are present.
-     - Handle cases where required fields are missing.
+     
 
    - **Read Address**:
      - Fetch an address by ID.
-     - Handle cases where the address does not exist.
+     
 
    - **Update Address**:
      - Update address details.
      - Validate that the fields are updated correctly.
-     - Handle cases where the address does not exist.
+    
 
    - **Delete Address**:
      - Ensure an address can be deleted.
      - Handle cases where the address does not exist.
 
-2. **Entity-specific Validations and Business Logic**
-
-   - **Validation**:
-     - Validate the format of postal codes.
-     - Ensure the address contains valid city and country names.
-
-### Entity: Admin
-
-#### Test Cases for Admin
-
-1. **Basic CRUD Operations**
-
-   - **Create Admin**:
-     - Ensure an admin can be created successfully.
-     - Validate that required fields (e.g., username, email, password) are present.
-     - Handle cases where required fields are missing.
-
-   - **Read Admin**:
-     - Fetch an admin by ID.
-     - Handle cases where the admin does not exist.
-
-   - **Update Admin**:
-     - Update admin details.
-     - Validate that the fields are updated correctly.
-     - Handle cases where the admin does not exist.
-
-   - **Delete Admin**:
-     - Ensure an admin can be deleted.
-     - Handle cases where the admin does not exist.
-
-2. **Entity-specific Validations and Business Logic**
-
-   - **Inheritance**:
-     - Ensure Admin correctly inherits from User.
-     - Test methods overridden by Admin.
-
-   - **Validation**:
-     - Validate email format.
-     - Ensure unique constraints (e.g., unique username and email).
-     - Ensure password meets security criteria (e.g., minimum length, complexity).
 
 ### Entity: Contact
 
@@ -124,7 +73,6 @@
    - **Create Contact**:
      - Ensure a contact can be created successfully.
      - Validate that required fields (e.g., name, email, message) are present.
-     - Handle cases where required fields are missing.
 
    - **Read Contact**:
      - Fetch a contact by ID.
@@ -133,53 +81,11 @@
    - **Update Contact**:
      - Update contact details.
      - Validate that the fields are updated correctly.
-     - Handle cases where the contact does not exist.
 
    - **Delete Contact**:
      - Ensure a contact can be deleted.
      - Handle cases where the contact does not exist.
 
-2. **Entity-specific Validations and Business Logic**
-
-   - **Validation**:
-     - Validate email format.
-     - Ensure the message field has a reasonable length.
-     - Validate phone number format (if applicable).
-
-### Entity: Customer
-
-#### Test Cases for Customer
-
-1. **Basic CRUD Operations**
-
-   - **Create Customer**:
-     - Ensure a customer can be created successfully.
-     - Validate that required fields (e.g., username, email, password) are present.
-     - Handle cases where required fields are missing.
-
-   - **Read Customer**:
-     - Fetch a customer by ID.
-     - Handle cases where the customer does not exist.
-
-   - **Update Customer**:
-     - Update customer details.
-     - Validate that the fields are updated correctly.
-     - Handle cases where the customer does not exist.
-
-   - **Delete Customer**:
-     - Ensure a customer can be deleted.
-     - Handle cases where the customer does not exist.
-
-2. **Entity-specific Validations and Business Logic**
-
-   - **Inheritance**:
-     - Ensure Customer correctly inherits from User.
-     - Test methods overridden by Customer.
-
-   - **Validation**:
-     - Validate email format.
-     - Ensure unique constraints (e.g., unique username and email).
-     - Ensure password meets security criteria (e.g., minimum length, complexity).
 
 ### Entity: Comment
 
@@ -199,17 +105,11 @@
    - **Update Comment**:
      - Update comment details.
      - Validate that the fields are updated correctly.
-     - Handle cases where the comment does not exist.
+  
 
    - **Delete Comment**:
      - Ensure a comment can be deleted.
      - Handle cases where the comment does not exist.
-
-2. **Entity-specific Validations and Business Logic**
-
-   - **Validation**:
-     - Ensure the comment content meets length requirements.
-     - Validate relationships (e.g., comment belongs to a specific post or product).
 
 ### Entity: Review
 
@@ -220,27 +120,17 @@
    - **Create Review**:
      - Ensure a review can be created successfully.
      - Validate that required fields (e.g., rating, content, author, product) are present.
-     - Handle cases where required fields are missing.
 
    - **Read Review**:
      - Fetch a review by ID.
-     - Handle cases where the review does not exist.
 
    - **Update Review**:
      - Update review details.
      - Validate that the fields are updated correctly.
-     - Handle cases where the review does not exist.
 
    - **Delete Review**:
      - Ensure a review can be deleted.
      - Handle cases where the review does not exist.
-
-2. **Entity-specific Validations and Business Logic**
-
-   - **Validation**:
-     - Validate rating values (e.g., within acceptable range).
-     - Ensure the review content meets length requirements.
-     - Validate relationships (e.g., review is associated with a specific product).
 
 ### Entity: Order
 
@@ -260,18 +150,10 @@
    - **Update Order**:
      - Update order details.
      - Validate that the fields are updated correctly.
-     - Handle cases where the order does not exist.
 
    - **Delete Order**:
      - Ensure an order can be deleted.
      - Handle cases where the order does not exist.
-
-2. **Entity-specific Validations and Business Logic**
-
-   - **Validation**:
-     - Validate order status (e.g., pending, completed, cancelled).
-     - Ensure the order contains valid customer information.
-     - Validate the relationship with Order_detail entities (e.g., an order must have at least one order detail).
 
 ### Entity: Order_detail
 

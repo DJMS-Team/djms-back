@@ -25,6 +25,6 @@ export class CreateUserDto {
 
     @IsString()
     @IsOptional()
-    readonly role:Role;
+    role:Role;
 
 }

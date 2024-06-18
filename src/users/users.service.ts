@@ -11,6 +11,9 @@ import { Product } from '../products/entities/products.entity';
 
 import { Status } from '../orders/entities/status.enum';
 import { Order } from '../orders/entities/order.entity';
+import { PageOptionsDto } from '../pagination/page-options.dto';
+import { PageDto } from '../pagination/page.dto';
+import { PageMetaDto } from '../pagination/page-meta.dto';
 
 
 
@@ -34,10 +37,17 @@ export class UsersService {
   async create(createUserDto: CreateUserDto) {
     try {
 
-      const { password, ...userData } = createUserDto;
+      const { password, email, ...userData } = createUserDto;
       
+
+      const existingUser = await this.usersRepository.findOne({ where: { email } });
+      if (existingUser) {
+        throw new BadRequestException('Email already in use');
+      }
+
       const user = this.usersRepository.create({
         ...userData,
+        email: email,
         password: bcrypt.hashSync(password, 10),
       });
       await this.usersRepository.save( user )
@@ -64,9 +74,18 @@ export class UsersService {
     return user;
   }
 
-  async findAll(){
-    const user = await this.usersRepository.find({relations:['addresses']});
-    return user;
+  async findAll(pageOptionsDto: PageOptionsDto): Promise<PageDto<User>>{
+    const [data, itemCount] = await this.usersRepository.findAndCount({
+      relations: ['addresses'],
+      skip: pageOptionsDto.skip,
+      take: pageOptionsDto.take,
+      order:{
+        id: pageOptionsDto.order
+      }
+    })
+
+    const pageMetaDto = new PageMetaDto({pageOptionsDto, itemCount});
+    return new PageDto(data, pageMetaDto);
   }
 
   async findOne(id:string){
@@ -153,11 +172,11 @@ export class UsersService {
   }
 
 
-  private handleDBErrors( error: any ): never {
+  private handleDBErrors( error: any ) {
 
-
-    if ( error.code === '23505' ) 
-      throw new BadRequestException( error.detail );
+    
+    if ( error.status === 400 ) 
+      throw new BadRequestException( error.response.message );
 
     if (error instanceof NotFoundException) {
       throw error;
@@ -172,6 +191,9 @@ export class UsersService {
     if ( error.code === '23505' )
       throw new BadRequestException(error.detail);
     
+    if (error instanceof NotFoundException) {
+      throw error;
+    }
     this.logger.error(error)
     // console.log(error)
     throw new InternalServerErrorException('Unexpected error, check server logs');

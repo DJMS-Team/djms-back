@@ -28,6 +28,6 @@ export class Order {
     payment_method: PaymentMethod;
 
     @OneToMany(()=>OrderDetail, (order_detail)=>order_detail.order)
-    order_details: OrderDetail;
+    order_details: OrderDetail[];
 
 }
