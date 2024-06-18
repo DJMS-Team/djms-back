@@ -9,6 +9,11 @@ async function bootstrap() {
     forbidNonWhitelisted: true,
     transform: true,
   }));
+
+  app.enableCors({
+    origin: '*', // Specify the allowed origin
+    credentials: true, // Allow credentials (cookies, authorization headers)
+  });
   // Con esto, se habilita la documentación de la API en la ruta /documentation
   const config = new DocumentBuilder()
     .setTitle('DMJS STORE')
