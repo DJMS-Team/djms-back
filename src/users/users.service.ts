@@ -36,7 +36,6 @@ export class UsersService {
 
   async create(createUserDto: CreateUserDto) {
     try {
-
       const { password, email, ...userData } = createUserDto;
 
 
@@ -48,6 +47,7 @@ export class UsersService {
       const user = this.usersRepository.create({
         ...userData,
         password: bcrypt.hashSync(password, 10),
+        email: email
       });
       await this.usersRepository.save( user )
       
