@@ -19,16 +19,21 @@ export class InventoriesController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.inventoriesService.findOne(+id);
+    return this.inventoriesService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateInventoryDto: UpdateInventoryDto) {
-    return this.inventoriesService.update(+id, updateInventoryDto);
+    return this.inventoriesService.update(id, updateInventoryDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.inventoriesService.remove(+id);
+    return this.inventoriesService.remove(id);
+  }
+
+  @Post(':id/products/:productId')
+  addProduct(@Param('id') id: string, @Param('productId') productId: string) {
+    return this.inventoriesService.addProduct(id, productId);
   }
 }

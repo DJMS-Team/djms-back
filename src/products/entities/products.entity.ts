@@ -52,7 +52,7 @@ export class Product {
     @OneToMany(()=>Comment, (comment)=>comment.product, {nullable: true})
     comments?: Comment[];
 
-    @OneToMany(()=>Inventory, (inventory)=> inventory.product, {nullable: false})
+    @OneToMany(()=>Inventory, (inventory)=> inventory.products, {nullable: false})
     inventory: Inventory;
 
     @ManyToOne(() => User, (seller) => seller.products)
