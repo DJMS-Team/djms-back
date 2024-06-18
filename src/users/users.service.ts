@@ -36,9 +36,9 @@ export class UsersService {
 
   async create(createUserDto: CreateUserDto) {
     try {
-      
+
       const { password, email, ...userData } = createUserDto;
-      console.log(email)
+      
 
       const existingUser = await this.usersRepository.findOne({ where: { email } });
       if (existingUser) {
