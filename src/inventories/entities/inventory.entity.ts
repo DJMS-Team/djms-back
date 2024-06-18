@@ -13,8 +13,8 @@ export class Inventory {
     })
     quantity: number;
 
-    @ManyToOne(()=>Product, (product)=>product.inventory)
-    product: Product;
+    @ManyToOne(() => Product, (product)=>product.inventory)
+    products: Product[];
 
     @OneToOne(() => User, (user) => user.inventory)
     user: User;
