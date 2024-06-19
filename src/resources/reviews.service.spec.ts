@@ -94,7 +94,7 @@ describe('ReviewsService', () => {
   });
 
   it('should create a review', async () => {
-    const reviewDto = {score: 10, user_id: '1', product_id: '1', content: 'Great product'}
+    const reviewDto = {score: 10, user_id: '1', product_id: '1', comment: 'Great product'}
     expect(await service.create(reviewDto)).toEqual({
       id: '1',
       ...reviewDto
@@ -102,7 +102,7 @@ describe('ReviewsService', () => {
   })
 
   it('should create a review', async () => {
-    const reviewDto = {score: 10, user_id: '1', product_id: '1', content: 'Great product'}
+    const reviewDto = {score: 10, user_id: '1', product_id: '1', comment: 'Great product'}
     expect(await service.create(reviewDto)).toEqual({
       id: '1',
       ...reviewDto
@@ -111,7 +111,7 @@ describe('ReviewsService', () => {
 
 
   it('should find a review by id', async () => {
-    const reviewDto = {score: 10, user_id: '1', product_id: '1', content: 'Great product'}
+    const reviewDto = {score: 10, user_id: '1', product_id: '1', comment: 'Great product'}
     expect(await service.findOne('1')).toEqual(
       {
         id:  {
@@ -138,7 +138,7 @@ describe('ReviewsService', () => {
   })
 
   it('should update a review', async () => {
-    const reviewDto = {score: 10, user_id: '1', product_id: '1', content: 'Great product'}
+    const reviewDto = {score: 10, user_id: '1', product_id: '1', comment: 'Great product'}
     expect(await service.update('1', reviewDto)).toEqual({
       id: '1',
       ...reviewDto

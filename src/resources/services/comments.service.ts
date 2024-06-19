@@ -6,7 +6,6 @@ import { CreateCommentDto } from '../dto/create-comment.dto';
 import { UpdateCommentDto } from '../dto/update-comment.dto';
 import { Product } from '../../products/entities/products.entity';
 import { User } from '../../users/entities/user.entity';
-import { Review } from '../entities/review.entity';
 
 @Injectable()
 export class CommentsService {
@@ -17,14 +16,13 @@ export class CommentsService {
     private readonly productRepository: Repository<Product>,
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
-    @InjectRepository(Review)
-    private readonly reviewRepository: Repository<Review>,
   ) {}
 
   async create(createCommentDto: CreateCommentDto): Promise<Comment> {
     
-    const { product_id, user_id, review_id, ...content } = createCommentDto;
+    const { product_id, user_id, ...content } = createCommentDto;
     const product = await this.productRepository.findOneBy({ id: product_id });
+    
     if (!product) {
       throw new NotFoundException(`Product with ID "${product_id}" not found`);
     }
@@ -32,17 +30,10 @@ export class CommentsService {
     if (!user) {
       throw new NotFoundException(`User with ID "${user_id}" not found`);
     }
-    let review: Review | null = null;
-    if (review_id) {
-      review = await this.reviewRepository.findOneBy({ id: review_id });
-      if (!review) {
-        throw new NotFoundException(`Review with ID "${review_id}" not found`);
-      }
-    }
+
     const comment = this.commentRepository.create(createCommentDto);
     comment.product = product;
     comment.customer = user;
-    comment.review = review;
     return await this.commentRepository.save(comment);
     return null;
   }

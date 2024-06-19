@@ -14,12 +14,14 @@ export class Review {
     })
     score: number;
 
+    @Column('text', {
+        nullable: true
+    })
+    comment?: string;
+
     @ManyToOne(()=>User, (customer)=>customer.reviews)
     customer:User;
 
     @ManyToOne(()=>Product, (product)=>product.reviews)
     product: Product;
-
-    @OneToOne(()=>Comment, (comment)=>comment.review, {nullable: true})
-    comment?: Comment;
 }
