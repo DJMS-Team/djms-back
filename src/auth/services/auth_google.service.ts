@@ -57,12 +57,14 @@ export class AuthGoogleService {
               id : userExist.id,
               email: user.email,
               name: user.name,
+              role: userExist.role
             };
           }else{
             payload = {
               id : createdtUser.id,
               email: user.email,
               name: user.name,
+              role: userExist.role
             };
           }
     

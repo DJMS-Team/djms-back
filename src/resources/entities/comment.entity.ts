@@ -14,20 +14,9 @@ export class Comment {
     })
     description:string;
 
-    @Column('bool',{
-        nullable:false
-    })
-    is_question: boolean;
-
     @ManyToOne(()=>User, (customer)=>customer.comments)
     customer: User;
 
     @ManyToOne(()=>Product, (product)=>product.comments)
     product:Product
-
-    @OneToOne(()=>Review, review=>review.comment)
-    @JoinColumn({
-        name:'reviewId'
-    })
-    review: Review;
 }
