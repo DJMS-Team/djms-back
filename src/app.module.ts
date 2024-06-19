@@ -12,6 +12,7 @@ import { AuthGuard } from './auth/guard/auth.guard';
 import { AddressModule } from './address/address.module';
 import { Repository } from 'typeorm';
 import { ProductsModule } from './products/products.module';
+import { ReportsModule } from './reports/reports.module';
 
 @Module({
   imports: [
@@ -41,7 +42,8 @@ import { ProductsModule } from './products/products.module';
     AddressModule,
     Repository,
     ProductsModule,
-    TypeOrmModule
+    TypeOrmModule,
+    ReportsModule
   ],
   controllers: [AppController],
   providers: [AppService, AuthGuard],
