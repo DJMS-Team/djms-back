@@ -3,6 +3,7 @@ import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "ty
 import { PaymentMethod } from "./payment_method";
 import { OrderDetail } from "./order_detail.entity";
 import { Status } from "./status.enum";
+import { Address } from "../../address/entities/address.entity";
 
 @Entity()
 export class Order {
@@ -24,10 +25,15 @@ export class Order {
     @ManyToOne(()=>User, (customer) => customer.orders)
     customer:User;
 
+    @ManyToOne(() => User, (seller) => seller.sales)
+    seller:User;
+
     @ManyToOne(()=>PaymentMethod, (payment_method)=> payment_method.orders)
     payment_method: PaymentMethod;
 
     @OneToMany(()=>OrderDetail, (order_detail)=>order_detail.order)
     order_details: OrderDetail[];
-
+    
+    @ManyToOne(() => Address, (address) => address.orders)
+    address: Address;
 }

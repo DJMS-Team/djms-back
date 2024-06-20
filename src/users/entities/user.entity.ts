@@ -1,4 +1,4 @@
-import { BeforeInsert, Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BeforeInsert, Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, OneToOne, Or, PrimaryGeneratedColumn } from "typeorm";
 import { Address } from "../../address/entities/address.entity";
 import { Order } from "../../orders/entities/order.entity";
 import { Comment } from "../../resources/entities/comment.entity";
@@ -38,6 +38,9 @@ export class User {
 
     @OneToMany(() => Order, (order) => order.customer, {nullable: true})
     orders?: Order[];
+
+    @OneToMany(() => Order, (sales) => sales.seller, {nullable: true})
+    sales?: Order[];
 
     @OneToMany(() => Comment, (comment) => comment.customer)
     comments: Comment[];

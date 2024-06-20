@@ -1,3 +1,4 @@
+import { Order } from "../../orders/entities/order.entity";
 import { User } from "../../users/entities/user.entity";
 import { City } from "../entities/city.entity"
 import { Column, Entity, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
@@ -29,4 +30,7 @@ export class Address{
 
     @ManyToOne(() => City, (city) => city.addresses)
     city: City;
+
+    @OneToMany(() => Order, (order) => order.address)
+    orders: Order[];
 }
