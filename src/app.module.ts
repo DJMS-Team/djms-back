@@ -5,7 +5,6 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { ResourcesModule } from './resources/resources.module';
-import { InventoriesModule } from './inventories/inventories.module';
 import { OrdersModule } from './orders/orders.module';
 import { UsersModule } from './users/users.module';
 import { AuthGuard } from './auth/guard/auth.guard';
@@ -36,7 +35,6 @@ import { ReportsModule } from './reports/reports.module';
     }),
     AuthModule,
     ResourcesModule,
-    InventoriesModule,
     OrdersModule,
     UsersModule,
     AddressModule,

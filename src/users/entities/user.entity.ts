@@ -3,7 +3,6 @@ import { Address } from "../../address/entities/address.entity";
 import { Order } from "../../orders/entities/order.entity";
 import { Comment } from "../../resources/entities/comment.entity";
 import { Review } from "../../resources/entities/review.entity";
-import { Inventory } from "../../inventories/entities/inventory.entity"
 import { Role } from "./roles.enum";
 import { Product } from "../../products/entities/products.entity";
 
@@ -45,9 +44,6 @@ export class User {
     
     @OneToMany(() => Review, (review) => review.customer)
     reviews: Review[];
-
-    @OneToOne(() => Inventory, (inventory) => inventory.user, {nullable: true})
-    inventory?: Inventory;
 
     @OneToMany(() => Product, (product) => product.seller, {nullable: true})
     products?: Product[];

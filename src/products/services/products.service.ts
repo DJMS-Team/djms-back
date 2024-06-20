@@ -24,9 +24,6 @@ export class ProductsService {
   async create(createProductDto: CreateProductDto): Promise<Product> {
     try {
       const product_category = await this.productCategoryRepository.findOneBy({ id: createProductDto.product_category_id });
-      if (product_category.category === 'Clothing' && !createProductDto.size) {
-        throw new BadRequestException('Size is required for clothing products');
-      }
 
       const product = this.productsRepository.create(createProductDto);
       product.product_category = product_category;
