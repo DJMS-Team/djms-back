@@ -44,7 +44,8 @@ describe('CommentsService', () => {
             description: '123',
             price: 10,
             photo_url: '',
-            product_category_id: ''
+            product_category_id: '',
+            seller_id : ''
         }
     })
   }
@@ -56,7 +57,8 @@ describe('CommentsService', () => {
             description: '123',
             price: 10,
             photo_url: '',
-            product_category_id: ''
+            product_category_id: '',
+            seller_id : ''
         }
     })
   }

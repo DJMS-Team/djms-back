@@ -20,4 +20,7 @@ export class CreateProductDto{
 
     @IsString()
     product_category_id:string;
+
+    @IsString()
+    seller_id:string;
 }

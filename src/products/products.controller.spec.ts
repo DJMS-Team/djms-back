@@ -70,6 +70,7 @@ describe('ProductsController', () => {
         photo_url: '',
         product_category_id: '',
         quantity: 1,
+        seller_id: ''
     }
     expect(controller.create(productDto))
     .toEqual({

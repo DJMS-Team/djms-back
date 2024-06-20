@@ -9,6 +9,7 @@ import { Review } from '../../resources/entities/review.entity';
 import { PageOptionsDto } from '../../pagination/page-options.dto';
 import { PageDto } from '../../pagination/page.dto';
 import { PageMetaDto } from '../../pagination/page-meta.dto';
+import { User } from '../../users/entities/user.entity';
 
 @Injectable()
 export class ProductsService {
@@ -18,15 +19,22 @@ export class ProductsService {
     @InjectRepository(Product)
     private readonly productsRepository: Repository<Product>,
     @InjectRepository(ProductCategory)
-    private readonly productCategoryRepository: Repository<ProductCategory>
+    private readonly productCategoryRepository: Repository<ProductCategory>,
+    @InjectRepository(User)
+    private readonly userRepository: Repository<User>
   ) {}
 
   async create(createProductDto: CreateProductDto): Promise<Product> {
     try {
-      const product_category = await this.productCategoryRepository.findOneBy({ id: createProductDto.product_category_id });
-
+      const product_category = await this.productCategoryRepository.findOne({
+        where :{ id: createProductDto.product_category_id }
+      });
+      if(!product_category) throw new NotFoundException(``)
+      const seller = await this.userRepository.findOne({where: {id:createProductDto.seller_id}})
+      if(!seller) throw new NotFoundException()
       const product = this.productsRepository.create(createProductDto);
       product.product_category = product_category;
+      product.seller = seller;
       await this.productsRepository.save(product);
 
       return product;

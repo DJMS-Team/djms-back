@@ -64,7 +64,7 @@ export class AuthGoogleService {
               id : createdtUser.id,
               email: user.email,
               name: user.name,
-              role: userExist.role
+              role: createdtUser.role
             };
           }
     

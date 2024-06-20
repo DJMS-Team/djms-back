@@ -39,14 +39,14 @@ describe('OrderController (e2e)', () => {
     await app.init();
   });
 
-  it('/orders (GET)', () => {
+  //it('/orders (GET)', () => {
     // return request(app.getHttpServer())
     //   .get('/orders')
     //   .expect(200)
     //   .expect(mockOrders)
 
       
-  });
+  //});
 
   /*
   it('/orders (POST)', () => {
