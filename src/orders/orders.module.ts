@@ -16,6 +16,7 @@ import { PaypalController } from './controllers/paypal.controller';
 import { PaypalService } from './services/paypal.service';
 import { OrderDetailController } from './controllers/order_details.controller';
 import { OrderDetailService } from './services/order_detail.service';
+import { Address } from '../address/entities/address.entity';
 
 @Module({
   imports:[
@@ -25,6 +26,7 @@ import { OrderDetailService } from './services/order_detail.service';
     TypeOrmModule.forFeature([PaymentMethod]),
     TypeOrmModule.forFeature([User]),
     TypeOrmModule.forFeature([Product]),
+    TypeOrmModule.forFeature([Address]),
     Repository, 
     UsersModule
   ],

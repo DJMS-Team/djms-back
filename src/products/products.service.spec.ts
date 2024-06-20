@@ -5,7 +5,7 @@ import { Repository } from 'typeorm';
 import { JwtService } from '@nestjs/jwt';
 import { Product } from './entities/products.entity';
 import { ProductCategory } from './entities/product-category.entity';
-import { Size } from './entities/sizes.enum';
+import { User } from '../users/entities/user.entity';
 
 describe('ProductsService', () => {
   let service: ProductsService;
@@ -20,7 +20,9 @@ describe('ProductsService', () => {
         description: '123',
         price: 10,
         photo_url: '',
-        product_category_id: '2'
+        quantity: 3,
+        product_category_id: '2',
+        seller_id : '3'
       }
     }),
     find: jest.fn().mockImplementation(() => {
@@ -42,10 +44,18 @@ describe('ProductsService', () => {
   }
 
   const mockProductCategoryRepository = {
-    findOneBy: jest.fn().mockImplementation(id => {
+    findOne: jest.fn().mockImplementation(id => {
         return {
             id: id,
 
+        }
+    })
+  }
+
+  const mockUserRepository = {
+    findOne: jest.fn().mockImplementation(id => {
+        return {
+            id: id,
         }
     })
   }
@@ -63,6 +73,10 @@ describe('ProductsService', () => {
         {
           provide: getRepositoryToken(ProductCategory),
           useValue: mockProductCategoryRepository,
+        },
+        {
+          provide: getRepositoryToken(User),
+          useValue: mockUserRepository
         },
         JwtService,
        
@@ -85,7 +99,8 @@ describe('ProductsService', () => {
         price: 10,
         photo_url: '',
         product_category_id: '2',
-        size: Size.M
+        quantity: 3,
+        seller_id: '3'
     }
     expect(await service.create(productDto))
     .toEqual({
@@ -102,7 +117,9 @@ describe('ProductsService', () => {
         description: '123',
         price: 10,
         photo_url: '',
-        product_category_id: '2'
+        product_category_id: '2',
+        quantity: 3,
+        seller_id : '3'
     }
     expect(await service.findOne('1')).toEqual(
       {
@@ -126,7 +143,9 @@ describe('ProductsService', () => {
         description: '123',
         price: 10,
         photo_url: '',
-        product_category_id: '2'
+        product_category_id: '2',
+        quantity: 3,
+        seller_id : '3'
     }
     expect(await service.update('1', productDto)).toEqual({
       id: '1',

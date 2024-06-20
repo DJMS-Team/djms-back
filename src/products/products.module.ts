@@ -11,7 +11,6 @@ import { User } from '../users/entities/user.entity';
 import { OrderDetail } from '../orders/entities/order_detail.entity';
 import { Review } from '../resources/entities/review.entity';
 import { ProductCategory } from './entities/product-category.entity';
-import { Inventory } from '../inventories/entities/inventory.entity';
 import { Comment } from '../resources/entities/comment.entity';
 import { Repository } from 'typeorm';
 import { Order } from '../orders/entities/order.entity';
@@ -22,7 +21,7 @@ import { Order } from '../orders/entities/order.entity';
   providers: [ProductsService, UsersService, ProductCategoryService, Repository],
   exports: [ProductsModule, TypeOrmModule, Repository],
   imports: [
-    TypeOrmModule.forFeature([Product, User, OrderDetail, Review, ProductCategory, Inventory, Comment, Order]), 
+    TypeOrmModule.forFeature([Product, User, OrderDetail, Review, ProductCategory, Comment, Order]), 
     ConfigModule, 
     Repository
   ]

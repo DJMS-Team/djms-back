@@ -5,7 +5,6 @@ import { AppModule } from './../src/app.module';
 import { Repository } from 'typeorm';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Product } from '../src/products/entities/products.entity';
-import { Size } from '../src/products/entities/sizes.enum';
 
 describe('ProductController (e2e)', () => {
   let app: INestApplication;
@@ -16,7 +15,8 @@ describe('ProductController (e2e)', () => {
     price: 10,
     photo_url: '',
     product_category_id: '',
-    size: Size.M
+    quantity: 1,
+    seller_id: ''
 }
   const mockProductRepository = {
     create: jest.fn().mockImplementation((dto) => dto),

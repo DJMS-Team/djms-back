@@ -65,7 +65,10 @@ describe('UsersController', () => {
       status: Status.SENDED,
       date: new Date('2024-06-16'),
       customer_id: '',
-      payment_method_id: ''}
+      seller_id: '',
+      payment_method_id: '',
+      address_id: '',
+    }
     expect(controller.create(userDto))
     .toEqual({
       id: 'uuid',
@@ -79,7 +82,10 @@ describe('UsersController', () => {
     const userDto = {status: Status.SENDED,
       date: new Date('2024-06-16'),
       customer_id: '',
-      payment_method_id: ''}
+      seller_id:'',
+      payment_method_id: '',
+      address_id: '',
+    }
     
     expect(controller.update('1', userDto))
     .toEqual({

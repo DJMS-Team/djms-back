@@ -10,4 +10,18 @@ export class DepartmentService {
     @InjectRepository(Department)
     private readonly departmentRepository: Repository<Department>
   ) {}
+
+  async find(){
+    await this.departmentRepository.find({
+      relations: ['cities']
+    }
+    )
+  }
+
+  async findOne(id:string) {
+    await this.departmentRepository.findOne({
+      where :{id:id},
+      relations: ['cities']
+    })
+  }
 }

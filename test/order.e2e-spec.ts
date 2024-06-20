@@ -15,7 +15,10 @@ describe('OrderController (e2e)', () => {
   const mockOrders ={status: Status.SENDED,
     date: new Date('2024-06-16').toISOString(),
     customer_id: '',
-    payment_method_id: ''}
+    seller_id: '',
+    payment_method_id: '',
+    address_id:'',
+  }
 
   const mockOrdersRepository = {
     create: jest.fn().mockImplementation((dto) => dto),
@@ -36,14 +39,14 @@ describe('OrderController (e2e)', () => {
     await app.init();
   });
 
-  it('/orders (GET)', () => {
+  //it('/orders (GET)', () => {
     // return request(app.getHttpServer())
     //   .get('/orders')
     //   .expect(200)
     //   .expect(mockOrders)
 
       
-  });
+  //});
 
   /*
   it('/orders (POST)', () => {

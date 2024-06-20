@@ -5,7 +5,6 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { ResourcesModule } from './resources/resources.module';
-import { InventoriesModule } from './inventories/inventories.module';
 import { OrdersModule } from './orders/orders.module';
 import { UsersModule } from './users/users.module';
 import { AuthGuard } from './auth/guard/auth.guard';
@@ -13,6 +12,7 @@ import { AddressModule } from './address/address.module';
 import { Repository } from 'typeorm';
 import { ProductsModule } from './products/products.module';
 import { ReportsModule } from './reports/reports.module';
+import { SeedModule } from './seed/seed.module';
 
 @Module({
   imports: [
@@ -27,23 +27,23 @@ import { ReportsModule } from './reports/reports.module';
       username: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
       autoLoadEntities:true,
-      synchronize:true,
+      synchronize:false,
       ssl: {
         rejectUnauthorized :false
       },
-      logger: 'advanced-console',
-      logging: 'all'
+      //logger: 'advanced-console',
+      //logging: 'all'
     }),
     AuthModule,
     ResourcesModule,
-    InventoriesModule,
     OrdersModule,
     UsersModule,
     AddressModule,
     Repository,
     ProductsModule,
     TypeOrmModule,
-    ReportsModule
+    ReportsModule,
+    SeedModule
   ],
   controllers: [AppController],
   providers: [AppService, AuthGuard],
