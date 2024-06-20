@@ -9,7 +9,7 @@ import { City } from './entities/city.entity';
 import { Department } from './entities/department.entity';
 import { CityService } from './services/city.service';
 import { DepartmentService } from './services/department.service';
-import { Order } from 'src/orders/entities/order.entity';
+import { Order } from '../orders/entities/order.entity';
 
 @Module({
   controllers: [AddressController],
