@@ -76,7 +76,7 @@ export class UsersService {
 
   async findAll(pageOptionsDto: PageOptionsDto): Promise<PageDto<User>>{
     const [data, itemCount] = await this.usersRepository.findAndCount({
-      relations: ['addresses'],
+      relations: ['addresses','products'],
       skip: pageOptionsDto.skip,
       take: pageOptionsDto.take,
       order:{
@@ -91,7 +91,7 @@ export class UsersService {
   async findOne(id:string){
     const user = await this.usersRepository.findOne({
       where: {id},
-      relations: ['addresses']
+      relations: ['addresses','products']
     })
     return user;
   }
@@ -108,7 +108,7 @@ export class UsersService {
         customer: user,
         status: Status.RECEIVED,
       },
-      relations: ['customer', 'payment_method', 'order_details'], // Add all necessary relations
+      relations: ['customer', 'payment_method', 'order_details', 'order_details.product', 'address'], // Add all necessary relations
     });
 
     return receivedOrders;

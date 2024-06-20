@@ -15,7 +15,8 @@ describe('ProductController (e2e)', () => {
     price: 10,
     photo_url: '',
     product_category_id: '',
-    quantity: 1
+    quantity: 1,
+    seller_id: ''
 }
   const mockProductRepository = {
     create: jest.fn().mockImplementation((dto) => dto),
