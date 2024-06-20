@@ -14,6 +14,11 @@ export class CreateOrderDto {
     customer_id:string;
 
     @IsString()
+    seller_id:string;
+
+    @IsString()
     payment_method_id:string;
 
+    @IsString()
+    address_id:string;
 }

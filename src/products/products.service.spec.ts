@@ -5,7 +5,6 @@ import { Repository } from 'typeorm';
 import { JwtService } from '@nestjs/jwt';
 import { Product } from './entities/products.entity';
 import { ProductCategory } from './entities/product-category.entity';
-import { Size } from './entities/sizes.enum';
 
 describe('ProductsService', () => {
   let service: ProductsService;
@@ -85,7 +84,7 @@ describe('ProductsService', () => {
         price: 10,
         photo_url: '',
         product_category_id: '2',
-        size: Size.M
+        quantity: 1,
     }
     expect(await service.create(productDto))
     .toEqual({

@@ -9,6 +9,7 @@ import { PaymentMethod } from '../entities/payment_method';
 import { PageOptionsDto } from '../../pagination/page-options.dto';
 import { PageDto } from '../../pagination/page.dto';
 import { PageMetaDto } from '../../pagination/page-meta.dto';
+import { Address } from '../../address/entities/address.entity';
 
 @Injectable()
 export class OrdersService {
@@ -22,22 +23,33 @@ export class OrdersService {
     private readonly paymentRepository: Repository<PaymentMethod>,
     @InjectRepository(Order)
     private readonly orderRepository: Repository<Order>,
+    @InjectRepository(Address)
+    private readonly addressRepository: Repository<Address>
   ){}
 
   async create(createOrderDto: CreateOrderDto) {
     const order = this.orderRepository.create(createOrderDto);
 
+    const address = await this.addressRepository.findOneBy({id:createOrderDto.address_id});
+
+    if(!address) throw new NotFoundException(`address with id ${createOrderDto.address_id} doesn't exist`);
+
     const user = await this.userRepository.findOneBy({id:createOrderDto.customer_id})
 
     if(!user) throw new NotFoundException(`user with id ${createOrderDto.customer_id} doesn't exist`)
+
+    const seller = await this.userRepository.findOneBy({id:createOrderDto.seller_id})
+
+    if(!seller) throw new NotFoundException(`user with id ${createOrderDto.seller_id} doesn't exist`)
 
     const payment_method = await this.paymentRepository.findOneBy({id:createOrderDto.payment_method_id})
 
     if(!payment_method) throw new NotFoundException(`payment method with id ${createOrderDto.payment_method_id} doesn't exist`)
 
     order.customer = user;
+    order.seller = seller;
     order.payment_method = payment_method;
-
+    order.address = address;
 
     await this.orderRepository.save(order)
 
