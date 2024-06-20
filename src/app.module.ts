@@ -30,8 +30,8 @@ import { ReportsModule } from './reports/reports.module';
       ssl: {
         rejectUnauthorized :false
       },
-      logger: 'advanced-console',
-      logging: 'all'
+      //logger: 'advanced-console',
+      //logging: 'all'
     }),
     AuthModule,
     ResourcesModule,
