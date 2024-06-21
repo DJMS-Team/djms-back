@@ -41,14 +41,20 @@ export class AddressService {
   }
 
   async findAll(){
-    const adress:Address[] = await this.addressRepository.find();
+    const adress:Address[] = await this.addressRepository.find({
+      relations: ['user', 'city']
+    });
 
     return adress;
 
   }
 
   async findOne(id:string){
-    const address = await this.addressRepository.findOne({where:{id:id}});
+    const address = await this.addressRepository.findOne({
+      where:{id:id}, 
+      relations: ['user', 'city']
+    });
+
     if(!address) throw new NotFoundException(`address with id ${id} not found`)
     return address;
   }

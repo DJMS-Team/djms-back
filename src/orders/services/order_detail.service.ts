@@ -38,12 +38,17 @@ export class OrderDetailService {
     }
 
     async find(){
-        return await this.orderDetailRepository.find()
+        return await this.orderDetailRepository.find(
+            {
+                relations: ['order', 'product'],
+            }
+        )
     }
 
     async findOne(id:string){
         const orderDetail = this.orderDetailRepository.findOne({
-            where: {id: id}
+            where: {id: id},
+            relations: ['order', 'product'],
         })
 
         if(!orderDetail) throw new NotFoundException(`orderDetail with id ${id} not fund`)

@@ -117,8 +117,7 @@ describe('ReviewsService', () => {
         id:  {
          relations: [
            "product",
-           "user",
-           "comments",
+           "customer",
          ],
          where:  {
             id: "1",

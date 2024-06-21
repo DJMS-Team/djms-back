@@ -58,6 +58,7 @@ export class OrdersService {
 
   async findAll(pageOptionsDto: PageOptionsDto):Promise<PageDto<Order>> {
     const [data, itemCount] = await this.orderRepository.findAndCount({
+      relations: ['customer', 'seller', 'payment_method', 'address'],
       take: pageOptionsDto.take,
       skip: pageOptionsDto.skip,
       order:{
@@ -73,7 +74,7 @@ export class OrdersService {
     const order = await this.orderRepository.findOne(
       {
         where:{id:id},
-        relations: ['order_details','order_details.product']
+        relations: ['order_details','order_details.product','customer', 'seller', 'payment_method', 'address'],
       }
     );
     if(!order) throw new NotFoundException(`the order with ${id} not found`)

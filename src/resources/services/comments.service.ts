@@ -39,11 +39,13 @@ export class CommentsService {
   }
 
   async findAll(): Promise<Comment[]> {
-    return this.commentRepository.find({ relations: ['product', 'user', 'review'] });
+    return this.commentRepository.find({ 
+      relations: ['product', 'customer'] });
   }
 
   async findOne(id: string): Promise<Comment> {
-    const comment = await this.commentRepository.findOne({ where: { id }, relations: ['product', 'user', 'review'] });
+    const comment = await this.commentRepository.findOne({ where: { id }, 
+      relations: ['product', 'customer'] });
     if (!comment) {
       throw new NotFoundException(`Comment with ID "${id}" not found`);
     }
