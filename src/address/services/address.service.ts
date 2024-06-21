@@ -1,9 +1,11 @@
-import { BadRequestException, Injectable, InternalServerErrorException, Logger, NotFoundException } from '@nestjs/common';
-import { In, Repository } from 'typeorm';
+import { BadRequestException, Inject, Injectable, InternalServerErrorException, Logger, NotFoundException } from '@nestjs/common';
+import { In, Not, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Address } from '../entities/address.entity';
 import { CreateAddressDto } from '../dto/create-address.dto';
 import { UpdateAddressDto } from '../dto/update-adress.dto';
+import { User } from '../../users/entities/user.entity';
+import { City } from '../entities/city.entity';
 
 @Injectable()
 export class AddressService {
@@ -12,11 +14,26 @@ export class AddressService {
 
   constructor(
     @InjectRepository(Address)
-    private readonly addressRepository: Repository<Address>
+    private readonly addressRepository: Repository<Address>,
+    @InjectRepository(User)
+    private readonly userRepository: Repository<User>,
+    @InjectRepository(City)
+    private readonly cityRepository: Repository<City>
   ) {}
 
   async create(createAddressDto: CreateAddressDto){
-    const address = this.addressRepository.create(createAddressDto);
+    const address = await this.addressRepository.create(createAddressDto);
+
+    const user = await this.userRepository.findOne({where: {id: createAddressDto.user_id}})
+
+    if(!user)  throw new NotFoundException(`user not fund`)
+
+    const city = await this.cityRepository.findOne({where: {id: createAddressDto.city_id}})
+
+    if(!city) throw new NotFoundException(`city not fund`)
+
+    address.user = user
+    address.city = city
 
     await this.addressRepository.save(address);
 
