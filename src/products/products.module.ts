@@ -14,10 +14,11 @@ import { ProductCategory } from './entities/product-category.entity';
 import { Comment } from '../resources/entities/comment.entity';
 import { Repository } from 'typeorm';
 import { Order } from '../orders/entities/order.entity';
+import { ProductCategoryController } from './controllers/product-category.controller';
 
 
 @Module({
-  controllers: [ProductsController],
+  controllers: [ProductsController, ProductCategoryController],
   providers: [ProductsService, UsersService, ProductCategoryService, Repository],
   exports: [ProductsModule, TypeOrmModule, Repository],
   imports: [
