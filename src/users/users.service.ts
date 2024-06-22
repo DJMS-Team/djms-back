@@ -115,11 +115,12 @@ export class UsersService {
   }
 
   async update(id:string, updateDto: UpdateUserDto){
+    console.log(updateDto)
     const user = await this.usersRepository.preload({
       id: id,
       ...updateDto
     })
-
+    
     if(!user) throw new NotFoundException()
 
       try {
