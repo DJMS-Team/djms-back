@@ -12,14 +12,14 @@ export class DepartmentService {
   ) {}
 
   async find(){
-    await this.departmentRepository.find({
+    return await this.departmentRepository.find({
       relations: ['cities']
     }
     )
   }
 
   async findOne(id:string) {
-    await this.departmentRepository.findOne({
+    return await this.departmentRepository.findOne({
       where :{id:id},
       relations: ['cities']
     })

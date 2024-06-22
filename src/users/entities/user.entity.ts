@@ -5,6 +5,7 @@ import { Comment } from "../../resources/entities/comment.entity";
 import { Review } from "../../resources/entities/review.entity";
 import { Role } from "./roles.enum";
 import { Product } from "../../products/entities/products.entity";
+import { UserStatus } from "./user-status.enum";
 
 @Entity()
 export class User {
@@ -33,6 +34,11 @@ export class User {
     })
     role:Role;
 
+    @Column('text', {nullable: false
+        , default: UserStatus.ACTIVE
+    })
+    status: UserStatus
+
     @OneToMany(() => Address, (address) => address.user)
     addresses: Address[];
 
@@ -60,6 +66,4 @@ export class User {
     @ManyToMany(() => Product)
     @JoinTable()
     favorites: Product[];
-
-
 }

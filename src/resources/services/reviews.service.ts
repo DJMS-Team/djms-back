@@ -40,11 +40,13 @@ export class ReviewsService {
   }
 
   async findAll(): Promise<Review[]> {
-    return this.reviewRepository.find({ relations: ['product', 'user', 'comments'] });
+    return this.reviewRepository.find({ 
+      relations: ['product', 'customer'] });
   }
 
   async findOne(id: string): Promise<Review> {
-    const review = await this.reviewRepository.findOne({ where: { id }, relations: ['product', 'user', 'comments'] });
+    const review = await this.reviewRepository.findOne({ where: { id }, 
+      relations: ['product', 'customer'] });
     if (!review) {
       throw new NotFoundException(`Review with ID "${id}" not found`);
     }

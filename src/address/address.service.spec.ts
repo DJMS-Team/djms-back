@@ -4,6 +4,8 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { Address } from './entities/address.entity';
 import { Repository } from 'typeorm';
 import { NotFoundException } from '@nestjs/common';
+import { City } from './entities/city.entity';
+import { User } from '../users/entities/user.entity';
 
 describe('AddressService', () => {
   let service: AddressService;
@@ -48,6 +50,14 @@ describe('AddressService', () => {
           provide: getRepositoryToken(Address),
           useValue: mockAddressRepository,
         },
+        {
+          provide: getRepositoryToken(City),
+          useValue: {}
+        },
+        {
+          provide: getRepositoryToken(User),
+          useValue: {}
+        }
       ],
     }).compile();
 
