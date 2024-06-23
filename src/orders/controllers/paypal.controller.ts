@@ -21,13 +21,13 @@ export class PaypalController{
         const {token} = req.query;
         this.paypalService.capturePayment(order_id, token)
         //front_url
-        return res.redirect('https://facebook.com')
+        return res.redirect('http://localhost:3000')
     }
 
     @Get('cancel/:order_id')
     cancelOrder(@Req() req: Request, @Res() res: Response, @Param('order_id') order_id:string){
         this.paypalService.cancel(order_id);
         //fron_url
-        return res.redirect('https://facebook.com')
+        return res.redirect('http://localhost:3000')
     }
 }
