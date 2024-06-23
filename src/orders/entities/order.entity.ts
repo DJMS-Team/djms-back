@@ -25,9 +25,6 @@ export class Order {
     @ManyToOne(()=>User, (customer) => customer.orders)
     customer:User;
 
-    @ManyToOne(() => User, (seller) => seller.sales)
-    seller:User;
-
     @ManyToOne(()=>PaymentMethod, (payment_method)=> payment_method.orders)
     payment_method: PaymentMethod;
 

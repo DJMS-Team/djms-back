@@ -49,9 +49,9 @@ export class UsersController {
 
   
   @Patch(':id')
-  // @Roles(Role.ADMIN)
-  // @UseGuards(AuthGuard, RolesGuard)
+  //@UseGuards(AuthGuard, RolesGuard)
   update(@Param('id') id:string, @Body() updateDto: UpdateUserDto){
+    console.log(id)
     return this.usersService.update(id, updateDto);
   }
 

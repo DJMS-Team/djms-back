@@ -8,10 +8,11 @@ export class OrderDetail {
     @PrimaryGeneratedColumn('uuid')
     id:string;
 
-    @Column('bigint', {
-        nullable:false
+    @Column('numeric', {
+        nullable:false,
+        default: 1
     })
-    quantity:string;
+    quantity:number;
 
     @ManyToOne(()=>Order, (order)=>order.order_details)
     order:Order;

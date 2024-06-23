@@ -10,6 +10,7 @@ import { PageOptionsDto } from '../../pagination/page-options.dto';
 import { PageDto } from '../../pagination/page.dto';
 import { PageMetaDto } from '../../pagination/page-meta.dto';
 import { User } from '../../users/entities/user.entity';
+import { log } from 'console';
 
 @Injectable()
 export class ProductsService {
@@ -74,8 +75,8 @@ export class ProductsService {
       queryBuilder.andWhere('product.price <= :priceMax', { priceMax: filters.priceMax });
     }
 
-    if (filters.size) {
-      queryBuilder.andWhere('product.size = :size', { size: filters.size });
+    if (filters.search) {
+      queryBuilder.andWhere('product.product_name ILIKE :search OR product.description ILIKE :search', { search: `%${filters.search}%` });
     }
 
     return await queryBuilder.getMany();

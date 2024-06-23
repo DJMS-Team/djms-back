@@ -29,7 +29,7 @@ export class PaypalService {
 
         for (const orderDetail of order.order_details) {
             const productPrice = orderDetail.product.price;
-            const quantity = +orderDetail.quantity;
+            const quantity = orderDetail.quantity;
             totalPrice += productPrice * (quantity);
         }
         

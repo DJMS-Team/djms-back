@@ -8,6 +8,7 @@ export class CreateUserDto {
     name:string;
 
     @IsString()
+    @IsOptional()
     @MinLength(6)
     @MaxLength(50)
     @Matches(
