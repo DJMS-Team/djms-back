@@ -25,8 +25,7 @@ export class ReportService {
         date: Between(lastMonthDate, currentDate),
         status: Status.RECEIVED,
       },
-      relations: ['order_details', 'order_details.product'],
-      
+      relations: ['order_details', 'order_details.product', 'order_details.product.product_category'],
     });
 
     const lastPeriodOrders = await this.ordersRepository.find({
@@ -34,22 +33,51 @@ export class ReportService {
         date: Between(lastMonthDatePrev, lastMonthDate),
         status: Status.RECEIVED,
       },
-      relations: ['order_details', 'order_details.product'],
+      relations: ['order_details', 'order_details.product', 'order_details.product.product_category'],
     });
 
     const calculateIncome = (orders: Order[]) => {
       return orders.reduce((total, order) => {
         const orderIncome = order.order_details.reduce((orderTotal, detail) => {
-            
           return orderTotal + Number(detail.quantity) * Number(detail.product.price);
         }, 0);
         return total + orderIncome;
       }, 0);
     };
 
+    const calculateCategorySales = (orders: Order[]) => {
+      const categorySales = new Map<string, number>();
+      orders.forEach(order => {
+        order.order_details.forEach(detail => {
+          const categoryName = detail.product.product_category.category;
+          const salesAmount = Number(detail.quantity) * Number(detail.product.price);
+          if (categorySales.has(categoryName)) {
+            categorySales.set(categoryName, categorySales.get(categoryName) + salesAmount);
+          } else {
+            categorySales.set(categoryName, salesAmount);
+          }
+        });
+      });
+      return Array.from(categorySales.entries()).map(([category, sales]) => ({ category, sales }));
+    };
+
+    const getTopCategories = (categorySales, topN = 3) => {
+      const sortedSales = categorySales.sort((a, b) => b.sales - a.sales);
+      const topCategories = sortedSales.slice(0, topN);
+      const otherCategories = sortedSales.slice(topN);
+      const othersSales = otherCategories.reduce((total, category) => total + category.sales, 0);
+      if (othersSales > 0) {
+        topCategories.push({ category: 'Others', sales: othersSales });
+      }
+      return topCategories;
+    };
+
     const currentPeriodIncome = calculateIncome(currentPeriodOrders);
     const lastPeriodIncome = calculateIncome(lastPeriodOrders);
     const incomeChange = ((currentPeriodIncome - lastPeriodIncome) / lastPeriodIncome) * 100;
+
+    const currentPeriodCategorySales = calculateCategorySales(currentPeriodOrders);
+    const topCategories = getTopCategories(currentPeriodCategorySales);
 
     const fillMissingDays = (startDate: Date, endDate: Date, orders: Order[]) => {
       const daysArray = [];
@@ -59,7 +87,6 @@ export class ReportService {
           .filter(order => format(order.date, 'yyyy-MM-dd') === dateStr)
           .reduce((total, order) => {
             const orderIncome = order.order_details.reduce((orderTotal, detail) => {
-                console.log(detail)
               return orderTotal + Number(detail.quantity) * Number(detail.product.price);
             }, 0);
             return total + orderIncome;
@@ -80,6 +107,7 @@ export class ReportService {
       },
       incomeChange: incomeChange / 100, // Convert to decimal
       ordersDays: ordersDays,
+      topCategories: topCategories,
     };
   }
 }
