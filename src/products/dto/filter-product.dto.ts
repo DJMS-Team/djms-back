@@ -3,6 +3,10 @@ import { IsOptional, IsString, IsNumber } from 'class-validator';
 export class FilterProductsDto {
   @IsOptional()
   @IsString()
+  search?: string;
+
+  @IsOptional()
+  @IsString()
   category?: string;
 
   @IsOptional()
@@ -12,8 +16,4 @@ export class FilterProductsDto {
   @IsOptional()
   @IsNumber()
   priceMax?: number;
-
-  @IsOptional()
-  @IsString()
-  size?: string;
 }
