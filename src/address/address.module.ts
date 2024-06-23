@@ -11,9 +11,10 @@ import { CityService } from './services/city.service';
 import { DepartmentService } from './services/department.service';
 import { Order } from '../orders/entities/order.entity';
 import { DepartmentController } from './controllers/department.controller';
+import { CityController } from './controllers/city.controller';
 
 @Module({
-  controllers: [AddressController, DepartmentController],
+  controllers: [AddressController, DepartmentController, CityController],
   providers: [AddressService, CityService, DepartmentService],
   exports: [AddressModule, TypeOrmModule],
   imports: [
