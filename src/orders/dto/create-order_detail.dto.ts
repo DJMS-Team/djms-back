@@ -1,10 +1,10 @@
-import { IsString } from "class-validator";
+import { IsNumber, IsString } from "class-validator";
 
 
 export class CreateOrderDetailDto {
 
-    @IsString()
-    quantity:string;
+    @IsNumber()
+    quantity:number;
 
     @IsString()
     order_id:string;

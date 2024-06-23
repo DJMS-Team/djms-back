@@ -250,13 +250,13 @@ export class SeedService {
     await productRepository.save([product1, product2]);
 
     const orderDetail1 = orderDetailRepository.create({
-      quantity: '2', // Ejemplo de cantidad
+      quantity: 2, // Ejemplo de cantidad
       order: order1, // Asigna una orden existente
       product: product1 // Asigna un producto existente
     });
 
     const orderDetail2 = orderDetailRepository.create({
-      quantity: '1', // Ejemplo de cantidad
+      quantity: 1, // Ejemplo de cantidad
       order: order2, // Asigna otra orden existente
       product: product2 // Asigna otro producto existente
     });
