@@ -38,16 +38,11 @@ export class OrdersService {
 
     if(!user) throw new NotFoundException(`user with id ${createOrderDto.customer_id} doesn't exist`)
 
-    const seller = await this.userRepository.findOneBy({id:createOrderDto.seller_id})
-
-    if(!seller) throw new NotFoundException(`user with id ${createOrderDto.seller_id} doesn't exist`)
-
     const payment_method = await this.paymentRepository.findOneBy({id:createOrderDto.payment_method_id})
 
     if(!payment_method) throw new NotFoundException(`payment method with id ${createOrderDto.payment_method_id} doesn't exist`)
 
     order.customer = user;
-    order.seller = seller;
     order.payment_method = payment_method;
     order.address = address;
 

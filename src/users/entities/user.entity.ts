@@ -45,9 +45,6 @@ export class User {
     @OneToMany(() => Order, (order) => order.customer, {nullable: true})
     orders?: Order[];
 
-    @OneToMany(() => Order, (sales) => sales.seller, {nullable: true})
-    sales?: Order[];
-
     @OneToMany(() => Comment, (comment) => comment.customer)
     comments: Comment[];
     

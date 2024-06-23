@@ -185,7 +185,6 @@ export class SeedService {
     status: Status.RECEIVED,
     date: new Date('2023-01-01'),
     customer: user1,
-    seller: user2,
     payment_method: paymentMethod1,
     address: address1
   });
@@ -194,7 +193,6 @@ export class SeedService {
     status: Status.PENDING,
     date: new Date('2023-01-02'),
     customer: user2,
-    seller: user1,
     payment_method: paymentMethod2,
     address: address2
   });
