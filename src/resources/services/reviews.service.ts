@@ -36,7 +36,10 @@ export class ReviewsService {
     review.product = product;
     review.customer = user;
     
-    return this.reviewRepository.save(review);
+    await this.reviewRepository.save(review);
+
+    return  review
+    
   }
 
   async findAll(): Promise<Review[]> {

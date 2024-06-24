@@ -107,11 +107,14 @@ export class ProductsService {
 
   async calculateTotalScore(id: string): Promise<number> {
     const reviews: Review[] = (await this.findOne(id)).reviews;
+    
     let score: number = 0;
-    reviews.forEach((review) => (score += review.score));
+    reviews.forEach((review) => (score += +review.score));
 
     const amountReviews = reviews.length;
-    return score / amountReviews;
+    const result = score / amountReviews
+    //console.log(result.toFixed(1))
+    return parseFloat(result.toFixed(1));
   }
 
   async remove(id: string): Promise<void> {

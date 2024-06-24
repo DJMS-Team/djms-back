@@ -62,7 +62,7 @@ export class PaypalService {
                 password: process.env.PAYPAL_SECRET
             }
         })
-        //console.log(access_token)
+        console.log(access_token)
         const response = await axios.post(`${process.env.PAYPAL_API}/v2/checkout/orders`, paypal_order,{
             headers: { Authorization: `Bearer ${access_token}` }
         })
