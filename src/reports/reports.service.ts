@@ -5,6 +5,7 @@ import { Order } from '../orders/entities/order.entity';
 import { OrderDetail } from '../orders/entities/order_detail.entity';
 import { subDays, format } from 'date-fns';
 import { Status } from '../orders/entities/status.enum';
+import { User } from '../users/entities/user.entity';
 
 @Injectable()
 export class ReportService {
@@ -13,6 +14,8 @@ export class ReportService {
     private ordersRepository: Repository<Order>,
     @InjectRepository(OrderDetail)
     private orderDetailsRepository: Repository<OrderDetail>,
+    @InjectRepository(User)
+    private usersRepository: Repository<User>,
   ) {}
 
   async getIncomeReport(): Promise<any> {
@@ -108,6 +111,66 @@ export class ReportService {
       incomeChange: incomeChange / 100, // Convert to decimal
       ordersDays: ordersDays,
       topCategories: topCategories,
+    };
+  }
+
+  async getRegistrationStats() {
+    const currentDate = new Date();
+    const lastMonthDate = new Date(currentDate);
+    lastMonthDate.setDate(currentDate.getDate() - 30);
+    const previousMonthDate = new Date(lastMonthDate);
+    previousMonthDate.setDate(lastMonthDate.getDate() - 30);
+
+    // Get registrations for the current period
+    const currentPeriodUsers = await this.usersRepository.count({
+        where: {
+            created_at: Between(lastMonthDate, currentDate),
+        },
+    });
+
+    // Get registrations for the previous period
+    const previousPeriodUsers = await this.usersRepository.count({
+        where: {
+            created_at: Between(previousMonthDate, lastMonthDate),
+        },
+    });
+
+    // Calculate the percentage change
+    const percentageChange = previousPeriodUsers === 0 ? 0 : ((currentPeriodUsers - previousPeriodUsers) / previousPeriodUsers) * 100;
+    console.log(percentageChange, currentPeriodUsers, previousPeriodUsers)
+    return {
+        totalRegistrations: currentPeriodUsers,
+        percentageChange: percentageChange,
+    };
+  }
+
+  async getOrderStats() {
+    const currentDate = new Date();
+    const lastMonthDate = new Date(currentDate);
+    lastMonthDate.setDate(currentDate.getDate() - 30);
+    const previousMonthDate = new Date(lastMonthDate);
+    previousMonthDate.setDate(lastMonthDate.getDate() - 30);
+
+    // Get registrations for the current period
+    const currentPeriodUsers = await this.ordersRepository.count({
+        where: {
+            date: Between(lastMonthDate, currentDate),
+        },
+    });
+
+    // Get registrations for the previous period
+    const previousPeriodUsers = await this.ordersRepository.count({
+        where: {
+            date: Between(previousMonthDate, lastMonthDate),
+        },
+    });
+
+    // Calculate the percentage change
+    const percentageChange = previousPeriodUsers === 0 ? 0 : ((currentPeriodUsers - previousPeriodUsers) / previousPeriodUsers) * 100;
+    console.log(percentageChange, currentPeriodUsers, previousPeriodUsers)
+    return {
+        totalOrders: currentPeriodUsers,
+        ordersChange: percentageChange,
     };
   }
 }

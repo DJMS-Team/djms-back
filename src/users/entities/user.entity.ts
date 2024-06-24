@@ -29,6 +29,11 @@ export class User {
     email:string;
 
     @Column('text',{
+        nullable:false
+    })
+    created_at:Date;
+
+    @Column('text',{
         
         nullable:false
     })

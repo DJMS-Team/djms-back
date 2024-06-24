@@ -10,4 +10,14 @@ export class ReportController {
   async getIncomeReport(): Promise<IncomeReportDto> {
     return this.reportService.getIncomeReport();
   }
+
+  @Get('regis')
+  async getRegistrationReport() {
+    return this.reportService.getRegistrationStats();
+  }
+
+  @Get('orders')
+  async getOrderStats() {
+    return this.reportService.getOrderStats();
+  }
 }
