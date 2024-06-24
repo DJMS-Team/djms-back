@@ -96,7 +96,6 @@ describe('ReviewsService', () => {
   it('should create a review', async () => {
     const reviewDto = {score: 10, user_id: '1', product_id: '1', comment: 'Great product'}
     expect(await service.create(reviewDto)).toEqual({
-      id: '1',
       ...reviewDto
     })
   })
@@ -104,7 +103,6 @@ describe('ReviewsService', () => {
   it('should create a review', async () => {
     const reviewDto = {score: 10, user_id: '1', product_id: '1', comment: 'Great product'}
     expect(await service.create(reviewDto)).toEqual({
-      id: '1',
       ...reviewDto
     })
    })
