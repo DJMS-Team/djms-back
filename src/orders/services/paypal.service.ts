@@ -6,6 +6,7 @@ import { Or, Repository } from "typeorm";
 import axios from "axios";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Status } from "../entities/status.enum";
+import { Product } from "../../products/entities/products.entity";
 
 @Injectable()
 export class PaypalService {
@@ -15,7 +16,9 @@ export class PaypalService {
         @InjectRepository(OrderDetail)
         private readonly orderDetailRepository: Repository<OrderDetail>,
         @InjectRepository(Order)
-        private readonly orderRepository: Repository<Order>
+        private readonly orderRepository: Repository<Order>,
+        @InjectRepository(Product)
+        private readonly productRepository : Repository<Product>
     ){}
 
     async createPayment(order_id:string){
@@ -62,7 +65,7 @@ export class PaypalService {
                 password: process.env.PAYPAL_SECRET
             }
         })
-        console.log(access_token)
+        //console.log(access_token)
         const response = await axios.post(`${process.env.PAYPAL_API}/v2/checkout/orders`, paypal_order,{
             headers: { Authorization: `Bearer ${access_token}` }
         })
@@ -70,7 +73,7 @@ export class PaypalService {
         //console.log(response.data)
 
         const url = response.data.links[1].href
-        console.log(url)
+        //console.log(url)
         return url
         console.log("separate \n \n \n")
     }
@@ -80,6 +83,13 @@ export class PaypalService {
 
         const order = await this.orderService.findOne(order_id);
 
+        const orderDetails = order.order_details;
+
+        for(const order_detail of orderDetails){
+          const product = await this.productRepository.findOne({where : {id: order_detail.product.id}})
+          product.quantity = product.quantity - order_detail.quantity;
+          await this.productRepository.save(product);
+        }
         const response = await axios.post(
             `${process.env.PAYPAL_API}/v2/checkout/orders/${token}/capture`,
             {},
