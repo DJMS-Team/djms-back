@@ -29,7 +29,8 @@ export class User {
     email:string;
 
     @Column('text',{
-        nullable:false
+        nullable:false,
+        default: Date.now()
     })
     created_at:Date;
 

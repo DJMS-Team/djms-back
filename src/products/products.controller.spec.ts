@@ -67,7 +67,7 @@ describe('ProductsController', () => {
         product_name: 'John Doe',
         description: '123',
         price: 10,
-        photo_url: '',
+        photo_url: [''],
         product_category_id: '',
         quantity: 1,
         seller_id: ''
@@ -86,7 +86,7 @@ describe('ProductsController', () => {
         product_name: 'John Doe',
         description: '123',
         price: 10,
-        photo_url: '',
+        photo_url: [''],
         product_category_id: '',
         quantity: 4,
     }

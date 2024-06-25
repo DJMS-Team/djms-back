@@ -26,10 +26,12 @@ export class Product {
     })
     price: number;
 
-    @Column('text',{
-        nullable:false
+    @Column('text', {
+        array: true,
+        nullable: false,
+        default: [],
     })
-    photo_url:string;
+    photo_url:string[];
 
     @Column('numeric', {nullable: false})
     quantity: number;

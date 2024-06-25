@@ -97,7 +97,7 @@ describe('ProductsService', () => {
         product_name: 'John Doe',
         description: '123',
         price: 10,
-        photo_url: '',
+        photo_url: [''],
         product_category_id: '2',
         quantity: 3,
         seller_id: '3'
@@ -142,7 +142,7 @@ describe('ProductsService', () => {
         product_name: 'John Doe',
         description: '123',
         price: 10,
-        photo_url: '',
+        photo_url: [''],
         product_category_id: '2',
         quantity: 3,
         seller_id : '3'

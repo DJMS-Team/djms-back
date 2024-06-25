@@ -1,6 +1,6 @@
-import { IsNumber, IsOptional, IsString } from "class-validator";
+import { IsNumber, IsOptional, IsString, IsArray } from "class-validator";
 
-export class CreateProductDto{
+export class CreateProductDto {
 
     @IsString()
     product_name:string;
@@ -15,8 +15,9 @@ export class CreateProductDto{
     @IsNumber()
     quantity: number;
 
-    @IsString()
-    photo_url:string;
+    @IsArray()
+    @IsString({ each: true })
+    photo_url:string[];
 
     @IsString()
     product_category_id:string;
