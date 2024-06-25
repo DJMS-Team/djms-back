@@ -101,7 +101,7 @@ export class PaypalService {
             }
         );
 
-        order.status = Status.SENDED;
+        order.status = Status.RECEIVED;
 
         await this.orderRepository.save(order)
       
