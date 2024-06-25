@@ -104,7 +104,68 @@ export class PaypalService {
         order.status = Status.RECEIVED;
 
         await this.orderRepository.save(order)
-      
+       const brevo = require('@getbrevo/brevo');
+        let apiInstance = new brevo.TransactionalEmailsApi();
+        
+        let apiKey = apiInstance.authentications['apiKey'];
+        apiKey.apiKey = `${process.env.BREVO_API}`;
+        
+        let sendSmtpEmail = new brevo.SendSmtpEmail();
+        
+        sendSmtpEmail.subject = "{{params.subject}}";
+        sendSmtpEmail.htmlContent = `
+        <html>
+            <body>
+            <div style="font-family: Arial, sans-serif; color: #fff;">
+            <div style="text-align: center; padding: 20px; background-color: #b4b4e2;">
+                <h1 >¡Hola, ${order.customer.name}!</h1>
+                <h3 font-weight: bold;">¡Esperamos que estes tan emocionad@ como nosotros por tu nueva compra!</h3>
+                
+            </div>
+
+            <div style="padding: 20px; background-color: #f5f5f5; color: black; text-align: center; margin: 0 auto; max-width: 600px;">
+                <h2 >Pedido #${order.id}</h2>
+                <h3 >Fecha: ${order.date}</h3>
+                <h2 >Resumen</h2>
+                <table style="width: 100%; border-collapse: collapse;">
+                    <tr>
+                        <th style="padding: 8px; text-align: left;">Producto</th>
+                        <th style="padding: 8px; text-align: left;">Cantidad</th>
+                        <th style="padding: 8px; text-align: left;">Total</th>
+                    </tr>
+                    ${order.order_details.map(detail => `
+                        <tr>
+                            <td style="padding: 8px;">${detail.product.product_name}</td>
+                            <td style="padding: 8px;">${detail.quantity}</td>
+                            <td style="padding: 8px;">$${detail.product.price * detail.quantity}</td>
+                            
+                        </tr>
+                    `).join('')}
+                </table>
+                <p style="color: #f0f; font-weight: bold;">Recuerda que tu pedido llegará de 5 a 8 días hábiles después de realizada la compra.</p>
+                <h2 style="margin-top: 20px;">Gracias por tu compra!</h2>
+                <img src="" alt="DMajorStore Logo" width="96" height="96" class="mt-4 w-20 h-20">
+            </div>
+            <div style="color: #fff; text-align: center; margin: 0 auto; max-width: 600px; padding-top: 20px;">
+                <p>-------------------------</p>
+            </div>
+        </body>
+        </html>
+        `;
+        sendSmtpEmail.sender = { "name": "DMajorstore", "email": "noreply@dmajorstore.online"};
+        sendSmtpEmail.to = [
+          { "email": order.customer.email , "name": order.customer.name } 
+        ];
+        sendSmtpEmail.replyTo = { "email":  order.customer.email, "name":  order.customer.name };
+        sendSmtpEmail.headers = { "Some-Custom-Name": "unique-id-1234" };
+        sendSmtpEmail.params = { "parameter": "My param value", "subject": "¡Hemos recibido tu pedido!" };
+        
+        
+        apiInstance.sendTransacEmail(sendSmtpEmail).then(function (data) {
+          console.log('API called successfully. Returned data: ' + JSON.stringify(data));
+        }, function (error) {
+          console.error(error);
+        });
         return response.data
         //console.log(response.data);
     }
