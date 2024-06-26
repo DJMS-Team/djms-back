@@ -49,6 +49,7 @@ export class UsersService {
         ...userData,
         email: email,
         password: bcrypt.hashSync(password, 10),
+        created_at: new Date(),
       });
       await this.usersRepository.save( user )
       

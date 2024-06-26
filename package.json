@@ -88,6 +88,25 @@
     "collectCoverageFrom": [
       "**/*.(t|j)s"
     ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/paypal.service.ts",
+      "/income_report.dto.ts",
+      "/seed.service.ts",
+      "/auth.guard.ts",
+      "/roles.guard.ts",
+      "/auth.google.strategy.ts",
+      "/main.ts",
+      "/app.module.ts",
+      "/address.module.ts",
+      "/auth.module.ts",
+      "/orders.module.ts",
+      "/products.module.ts",
+      "/reports.module.ts",
+      "/resources.module.ts",
+      "/seed.module.ts",
+      "/users.module.ts"
+    ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
   }

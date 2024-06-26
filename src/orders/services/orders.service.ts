@@ -10,6 +10,7 @@ import { PageOptionsDto } from '../../pagination/page-options.dto';
 import { PageDto } from '../../pagination/page.dto';
 import { PageMetaDto } from '../../pagination/page-meta.dto';
 import { Address } from '../../address/entities/address.entity';
+import { Product } from '../../products/entities/products.entity';
 
 @Injectable()
 export class OrdersService {
@@ -24,21 +25,21 @@ export class OrdersService {
     @InjectRepository(Order)
     private readonly orderRepository: Repository<Order>,
     @InjectRepository(Address)
-    private readonly addressRepository: Repository<Address>
+    private readonly addressRepository: Repository<Address>,
   ){}
 
   async create(createOrderDto: CreateOrderDto) {
     const order = this.orderRepository.create(createOrderDto);
 
-    const address = await this.addressRepository.findOneBy({id:createOrderDto.address_id});
+    const address = await this.addressRepository.findOne({where:{id:createOrderDto.address_id}});
 
     if(!address) throw new NotFoundException(`address with id ${createOrderDto.address_id} doesn't exist`);
 
-    const user = await this.userRepository.findOneBy({id:createOrderDto.customer_id})
+    const user = await this.userRepository.findOne({where:{id:createOrderDto.customer_id}})
 
     if(!user) throw new NotFoundException(`user with id ${createOrderDto.customer_id} doesn't exist`)
 
-    const payment_method = await this.paymentRepository.findOneBy({id:createOrderDto.payment_method_id})
+    const payment_method = await this.paymentRepository.findOne({where:{id:createOrderDto.payment_method_id}})
 
     if(!payment_method) throw new NotFoundException(`payment method with id ${createOrderDto.payment_method_id} doesn't exist`)
 
@@ -53,7 +54,7 @@ export class OrdersService {
 
   async findAll(pageOptionsDto: PageOptionsDto):Promise<PageDto<Order>> {
     const [data, itemCount] = await this.orderRepository.findAndCount({
-      relations: ['customer', 'seller', 'payment_method', 'address'],
+      relations: ['customer', 'payment_method', 'address'],
       take: pageOptionsDto.take,
       skip: pageOptionsDto.skip,
       order:{
@@ -96,5 +97,16 @@ export class OrdersService {
     const order = await this.findOne(id)
 
     await this.orderRepository.remove(order)
+  }
+
+  async findSellerOrders(seller_id: string){
+    const orders = await this.orderRepository.createQueryBuilder('order')
+    .leftJoinAndSelect('order.order_details', 'order_detail')
+    .leftJoinAndSelect('order_detail.product', 'product')
+    .where('product.sellerId = :sellerId', { sellerId: seller_id })
+    .getMany();
+
+    
+    return orders;
   }
 }

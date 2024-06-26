@@ -1,6 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { CreateSeedDto } from './dto/create-seed.dto';
-import { UpdateSeedDto } from './dto/update-seed.dto';
 import { DataSource } from 'typeorm';
 import { release } from 'os';
 import { Department } from '../address/entities/department.entity';
@@ -228,7 +226,7 @@ export class SeedService {
       product_name: 'Producto 1',
       description: 'Descripción del producto 1',
       price: 100,
-      photo_url: 'https://ejemplo.com/imagen1.jpg',
+      photo_url: ['https://ejemplo.com/imagen1.jpg'],
       quantity: 10,
       product_category: category1, // Asigna la categoría correspondiente
       seller: user2 // Asigna un usuario como vendedor
@@ -238,7 +236,7 @@ export class SeedService {
       product_name: 'Producto 2',
       description: 'Descripción del producto 2',
       price: 200,
-      photo_url: 'https://ejemplo.com/imagen2.jpg',
+      photo_url: ['https://ejemplo.com/imagen2.jpg'],
       quantity: 5,
       product_category: category2, // Asigna la categoría correspondiente
       seller: user1 // Asigna otro usuario como vendedor

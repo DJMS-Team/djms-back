@@ -13,20 +13,20 @@ export class PaypalController{
     @Get('create/:order_id')
     async createOrder(@Req() req: Request, @Res() res: Response, @Param('order_id') order_id:string){
         const url = await this.paypalService.createPayment(order_id)
-        res.redirect(url)
+        res.redirect(url.href)
     }
 
     @Get('capture/:order_id')
-    captureOrder(@Req() req: Request, @Res() res: Response,@Param('order_id') order_id:string){
+    async captureOrder(@Req() req: Request, @Res() res: Response,@Param('order_id') order_id:string){
         const {token} = req.query;
-        this.paypalService.capturePayment(order_id, token)
+        await this.paypalService.capturePayment(order_id, token)
         //front_url
         return res.redirect('http://localhost:3000')
     }
 
     @Get('cancel/:order_id')
-    cancelOrder(@Req() req: Request, @Res() res: Response, @Param('order_id') order_id:string){
-        this.paypalService.cancel(order_id);
+    async cancelOrder(@Req() req: Request, @Res() res: Response, @Param('order_id') order_id:string){
+       await this.paypalService.cancel(order_id);
         //fron_url
         return res.redirect('http://localhost:3000')
     }

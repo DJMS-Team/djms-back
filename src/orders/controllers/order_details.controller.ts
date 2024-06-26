@@ -10,27 +10,27 @@ export class OrderDetailController{
     ){}
 
     @Post()
-    create(@Body() CreateOrderDetailDto: CreateOrderDetailDto ){
-        return this.orderDetailService.create(CreateOrderDetailDto);
+    async create(@Body() CreateOrderDetailDto: CreateOrderDetailDto ){
+        return await this.orderDetailService.create(CreateOrderDetailDto);
     }
 
     @Get()
-    findAll(){
-        return this.orderDetailService.find()
+    async findAll(){
+        return await this.orderDetailService.find()
     }
 
     @Get(':id')
-    findOne(@Param('id') id:string){
-        return this.orderDetailService.findOne(id);
+    async findOne(@Param('id') id:string){
+        return await this.orderDetailService.findOne(id);
     }
 
     @Patch(':id')
-    update(@Param('id') id:string, @Body() UpdateOrderDetailDto: UpdateOrderDetailDto){
-        return this.orderDetailService.update(id, UpdateOrderDetailDto);
+    async update(@Param('id') id:string, @Body() UpdateOrderDetailDto: UpdateOrderDetailDto){
+        return await this.orderDetailService.update(id, UpdateOrderDetailDto);
     }
 
     @Delete(':id')
-    remove(@Param('id') id:string){
-        return this.orderDetailService.remove(id);
+    async remove(@Param('id') id:string){
+        return await this.orderDetailService.remove(id);
     }
 }

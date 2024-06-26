@@ -112,7 +112,7 @@ describe('CommentsService', () => {
   });
 
   it('should create a comment', async () => {
-    const commentDto = {description: "hole", is_question: true, product_id: '1', user_id: '123', review_id: '987'}
+    const commentDto = {description: "hole", product_id: '1', user_id: '123'}
     expect(await service.create(commentDto)).toEqual({
       id: '1',
       ...commentDto
