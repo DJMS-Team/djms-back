@@ -27,6 +27,7 @@ import { Address } from '../address/entities/address.entity';
     TypeOrmModule.forFeature([User]),
     TypeOrmModule.forFeature([Product]),
     TypeOrmModule.forFeature([Address]),
+    TypeOrmModule.forFeature([Product]),
     Repository, 
     UsersModule
   ],
