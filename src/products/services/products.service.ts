@@ -51,7 +51,7 @@ export class ProductsService {
 
   async find(pageOptionsDto: PageOptionsDto):Promise<PageDto<Product>>{
     const [data, itemCount] = await this.productsRepository.findAndCount({
-      relations: ['reviews', 'seller', 'product_category'],
+      relations: ['reviews', 'seller', 'product_category', 'comments'],
       take: pageOptionsDto.take,
       skip: pageOptionsDto.skip,
       order:{
@@ -89,7 +89,7 @@ export class ProductsService {
 
   async findOne(id: string): Promise<Product> {
     const product = await this.productsRepository.findOne({ where: { id: id }, 
-      relations: ['reviews', 'product_category', 'seller'] });
+      relations: ['reviews', 'product_category', 'seller', 'comments'] });
     if (!product) throw new NotFoundException(`Product with id ${id} doesn't exist`);
     return product;
   }
