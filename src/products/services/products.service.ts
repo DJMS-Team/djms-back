@@ -44,7 +44,7 @@ export class ProductsService {
   
       return product;
     } catch (error) {
-      this.handleDBErrors(error);
+      throw error
     }
   }
   
@@ -106,7 +106,7 @@ export class ProductsService {
       await this.productsRepository.save(product);
       return product;
     } catch (error) {
-      this.handleDBExceptions(error);
+      throw error
     }
   }
 
@@ -126,22 +126,8 @@ export class ProductsService {
     const product = await this.findOne(id);
     await this.productsRepository.remove(product);
   }
-  
-  async DecrementQuantity(product_id:string, quantity:number){
-    const product = await this.productsRepository.findOne({where:{id:product_id}})
 
-    if(product.quantity > quantity){
-      product.quantity = product.quantity - quantity
-      console.log(product.quantity)
-    }else{
-      throw new BadRequestException(`There are ${product.quantity} products and you want to rest ${quantity}`)
-    }
-
-    await this.productsRepository.save(product)
-
-    return product;
-  }
-
+  /*
   private handleDBErrors(error: any): never {
     if (error instanceof BadRequestException) {
       throw error;
@@ -163,4 +149,5 @@ export class ProductsService {
     // console.log(error)
     throw new InternalServerErrorException('Unexpected error, check server logs');
   }
+    */
 }

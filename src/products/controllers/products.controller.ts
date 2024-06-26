@@ -47,9 +47,4 @@ export class ProductsController {
   delete(@Param('id') id: string) {
     return this.productsService.remove(id);
   }
-
-  @Patch('decrement/:product_id')
-  updateQuantity(@Param('product_id') product_id:string, @Body() quantity: number){
-    return this.productsService.DecrementQuantity(product_id, quantity);
-  }
 }

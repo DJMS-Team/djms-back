@@ -31,15 +31,15 @@ export class OrdersService {
   async create(createOrderDto: CreateOrderDto) {
     const order = this.orderRepository.create(createOrderDto);
 
-    const address = await this.addressRepository.findOneBy({id:createOrderDto.address_id});
+    const address = await this.addressRepository.findOne({where:{id:createOrderDto.address_id}});
 
     if(!address) throw new NotFoundException(`address with id ${createOrderDto.address_id} doesn't exist`);
 
-    const user = await this.userRepository.findOneBy({id:createOrderDto.customer_id})
+    const user = await this.userRepository.findOne({where:{id:createOrderDto.customer_id}})
 
     if(!user) throw new NotFoundException(`user with id ${createOrderDto.customer_id} doesn't exist`)
 
-    const payment_method = await this.paymentRepository.findOneBy({id:createOrderDto.payment_method_id})
+    const payment_method = await this.paymentRepository.findOne({where:{id:createOrderDto.payment_method_id}})
 
     if(!payment_method) throw new NotFoundException(`payment method with id ${createOrderDto.payment_method_id} doesn't exist`)
 
