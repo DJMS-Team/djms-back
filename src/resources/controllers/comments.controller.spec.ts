@@ -37,10 +37,10 @@ describe('CommentsController', () => {
     it('should call service.create with correct parameters', async () => {
       const dto: CreateCommentDto = {
         description: 'Great product!',
-        is_question: false,
+        
         user_id: 'user1',
         product_id: 'product1',
-        review_id: 'review1',
+        
       };
       await controller.create(dto);
       expect(service.create).toHaveBeenCalledWith(dto);
@@ -67,7 +67,7 @@ describe('CommentsController', () => {
       const id = '1';
       const dto: UpdateCommentDto = {
         description: 'Updated comment',
-        is_question: true,
+        
       };
       await controller.update(id, dto);
       expect(service.update).toHaveBeenCalledWith(id, dto);

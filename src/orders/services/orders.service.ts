@@ -10,6 +10,7 @@ import { PageOptionsDto } from '../../pagination/page-options.dto';
 import { PageDto } from '../../pagination/page.dto';
 import { PageMetaDto } from '../../pagination/page-meta.dto';
 import { Address } from '../../address/entities/address.entity';
+import { Product } from '../../products/entities/products.entity';
 
 @Injectable()
 export class OrdersService {
@@ -24,7 +25,7 @@ export class OrdersService {
     @InjectRepository(Order)
     private readonly orderRepository: Repository<Order>,
     @InjectRepository(Address)
-    private readonly addressRepository: Repository<Address>
+    private readonly addressRepository: Repository<Address>,
   ){}
 
   async create(createOrderDto: CreateOrderDto) {
@@ -53,7 +54,7 @@ export class OrdersService {
 
   async findAll(pageOptionsDto: PageOptionsDto):Promise<PageDto<Order>> {
     const [data, itemCount] = await this.orderRepository.findAndCount({
-      relations: ['customer', 'seller', 'payment_method', 'address'],
+      relations: ['customer', 'payment_method', 'address'],
       take: pageOptionsDto.take,
       skip: pageOptionsDto.skip,
       order:{
@@ -96,5 +97,16 @@ export class OrdersService {
     const order = await this.findOne(id)
 
     await this.orderRepository.remove(order)
+  }
+
+  async findSellerOrders(seller_id: string){
+    const orders = await this.orderRepository.createQueryBuilder('order')
+    .leftJoinAndSelect('order.order_details', 'order_detail')
+    .leftJoinAndSelect('order_detail.product', 'product')
+    .where('product.sellerId = :sellerId', { sellerId: seller_id })
+    .getMany();
+
+    
+    return orders;
   }
 }
