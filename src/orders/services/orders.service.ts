@@ -26,8 +26,6 @@ export class OrdersService {
     private readonly orderRepository: Repository<Order>,
     @InjectRepository(Address)
     private readonly addressRepository: Repository<Address>,
-    @InjectRepository(Product)
-    private readonly productsRepository: Repository<Product>,
   ){}
 
   async create(createOrderDto: CreateOrderDto) {
