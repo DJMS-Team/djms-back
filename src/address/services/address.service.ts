@@ -71,7 +71,7 @@ export class AddressService {
       await this.addressRepository.save(address)
       return address
     }catch(error){
-      this.handleDBExceptions(error)
+      throw error
     }
 
     
@@ -82,6 +82,7 @@ export class AddressService {
     await this.addressRepository.remove(address);
   }
 
+  /*
   private handleDBExceptions( error: any ) {
 
     if ( error.code === '23505' )
@@ -92,6 +93,7 @@ export class AddressService {
     throw new InternalServerErrorException('Unexpected error, check server logs');
 
   }
+    */
   
   
 

@@ -15,6 +15,7 @@ export class ProductCategoryService {
   async create(product_category_dto: CreateProductCategoryDto) {
     const category = await this.productCategoryRepository.create(product_category_dto);
     this.productCategoryRepository.save(category);
+    return category
   }
 
   async find() {

@@ -30,10 +30,14 @@ export class PaypalService {
 
         let totalPrice = 0;
 
-        for (const orderDetail of order.order_details) {
+        const orderDetails = order.order_details;
+
+        if (orderDetails && typeof orderDetails[Symbol.iterator] === 'function') {
+          for (const orderDetail of orderDetails) {
             const productPrice = orderDetail.product.price;
             const quantity = orderDetail.quantity;
-            totalPrice += productPrice * (quantity);
+            totalPrice += productPrice * quantity;
+          }
         }
         
 
@@ -72,7 +76,7 @@ export class PaypalService {
 
         //console.log(response.data)
 
-        const url = response.data.links[1].href
+        const url = response.data.links[1]
         //console.log(url)
         return url
         
@@ -87,8 +91,11 @@ export class PaypalService {
 
         for(const order_detail of orderDetails){
           const product = await this.productRepository.findOne({where : {id: order_detail.product.id}})
-          product.quantity = product.quantity - order_detail.quantity;
-          await this.productRepository.save(product);
+          if(product){
+            product.quantity = product.quantity - order_detail.quantity;
+            await this.productRepository.save(product);
+          }
+          
         }
         const response = await axios.post(
             `${process.env.PAYPAL_API}/v2/checkout/orders/${token}/capture`,
@@ -104,7 +111,7 @@ export class PaypalService {
         order.status = Status.RECEIVED;
 
         await this.orderRepository.save(order)
-       const brevo = require('@getbrevo/brevo');
+        const brevo = require('@getbrevo/brevo');
         let apiInstance = new brevo.TransactionalEmailsApi();
         
         let apiKey = apiInstance.authentications['apiKey'];
