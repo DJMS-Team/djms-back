@@ -79,7 +79,7 @@ export class PaypalService {
         const url = response.data.links[1]
         //console.log(url)
         return url
-        console.log("separate \n \n \n")
+        
     }
 
 
@@ -171,7 +171,7 @@ export class PaypalService {
         apiInstance.sendTransacEmail(sendSmtpEmail).then(function (data) {
           console.log('API called successfully. Returned data: ' + JSON.stringify(data));
         }, function (error) {
-          console.error(error);
+          
         });
         return response.data
         //console.log(response.data);

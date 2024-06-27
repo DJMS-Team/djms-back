@@ -2,8 +2,10 @@ import { Body, Controller, Get, Param, Post, Req, Res } from "@nestjs/common";
 import { Request, Response, request } from "express";
 import { Order } from "../entities/order.entity";
 import { PaypalService } from "../services/paypal.service";
+import { ApiTags } from "@nestjs/swagger";
 
 @Controller('paypal')
+@ApiTags('paypal')
 export class PaypalController{
 
     constructor(

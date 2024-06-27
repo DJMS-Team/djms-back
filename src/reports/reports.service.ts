@@ -137,7 +137,7 @@ export class ReportService {
 
     // Calculate the percentage change
     const percentageChange = previousPeriodUsers === 0 ? 0 : ((currentPeriodUsers - previousPeriodUsers) / previousPeriodUsers) * 100;
-    console.log(percentageChange, currentPeriodUsers, previousPeriodUsers)
+    
     return {
         totalRegistrations: currentPeriodUsers,
         percentageChange: percentageChange,
@@ -167,7 +167,7 @@ export class ReportService {
 
     // Calculate the percentage change
     const percentageChange = previousPeriodUsers === 0 ? 0 : ((currentPeriodUsers - previousPeriodUsers) / previousPeriodUsers) * 100;
-    console.log(percentageChange, currentPeriodUsers, previousPeriodUsers)
+   
     return {
         totalOrders: currentPeriodUsers,
         ordersChange: percentageChange,
