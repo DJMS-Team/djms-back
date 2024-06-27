@@ -12,6 +12,7 @@ import { AuthGoogleService } from './services/auth_google.service';
 import { GoogleOauthGuard } from './guard/auth.google.guard';
 import { User } from '../users/entities/user.entity';
 import { RolesGuard } from './guard/roles.guard';
+import { MAILER_OPTIONS, MailerModule, MailerService } from '@nestjs-modules/mailer';
 
 @Global()
 @Module({
