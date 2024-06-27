@@ -3,6 +3,7 @@ import { ReportController } from './reports.controller';
 import { ReportService } from './reports.service';
 import { IncomeReportDto } from './dto/income_report.dto';
 import { JwtService } from '@nestjs/jwt';
+import { ConfigService } from '@nestjs/config';
 
 const mockReportService = () => ({
   getIncomeReport: jest.fn(),
@@ -18,7 +19,7 @@ describe('ReportController', () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [ReportController],
       providers: [
-        { provide: ReportService, useValue: mockReportService() },JwtService
+        { provide: ReportService, useValue: mockReportService() },JwtService, ConfigService
       ],
     }).compile();
 
