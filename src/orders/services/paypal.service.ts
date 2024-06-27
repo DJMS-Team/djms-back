@@ -111,7 +111,7 @@ export class PaypalService {
         order.status = Status.RECEIVED;
 
         await this.orderRepository.save(order)
-       const brevo = require('@getbrevo/brevo');
+        const brevo = require('@getbrevo/brevo');
         let apiInstance = new brevo.TransactionalEmailsApi();
         
         let apiKey = apiInstance.authentications['apiKey'];
