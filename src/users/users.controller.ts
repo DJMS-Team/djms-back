@@ -5,7 +5,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { PageOptionsDto } from '../pagination/page-options.dto';
 import { PageDto } from '../pagination/page.dto';
 import { User } from './entities/user.entity';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ApiPaginatedResponse } from '../decorators/api-paginated-response.decorator';
 import { AuthGuard } from '../auth/guard/auth.guard';
 import { Role } from './entities/roles.enum';
@@ -26,15 +26,20 @@ export class UsersController {
   
   
   @Get()
+  @ApiBearerAuth()
   @ApiPaginatedResponse(User)
   @Roles(Role.ADMIN)
   @UseGuards(AuthGuard, RolesGuard)
+  @ApiOperation({ summary: 'Get users (Admin only)' })
+  @ApiResponse({ status: 200, description: 'Users retrieved successfully.' })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
   findAll(@Query() pageOptionsDto: PageOptionsDto): Promise<PageDto<User>>{
     return this.usersService.findAll(pageOptionsDto)
   }
 
   
   @Get(':id')
+  @ApiBearerAuth()
   //@Roles(Role.ADMIN, Role.USER)
   @UseGuards(AuthGuard, RolesGuard)
   findOne(@Param('id') id:string){
@@ -42,6 +47,7 @@ export class UsersController {
   }
 
   @Get(':userId/orders/received')
+  @ApiBearerAuth()
   @UseGuards(AuthGuard)
   async getReceivedOrdersByUser(@Param('userId') userId: string) {
     return this.usersService.findOldOrders(userId);
@@ -49,16 +55,25 @@ export class UsersController {
 
   
   @Patch(':id')
-  //@UseGuards(AuthGuard, RolesGuard)
+  @Roles(Role.ADMIN)
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard, RolesGuard)
+  @ApiOperation({ summary: 'Get users (Admin only)' })
+  @ApiResponse({ status: 200, description: 'Users retrieved successfully.' })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
   update(@Param('id') id:string, @Body() updateDto: UpdateUserDto){
-    console.log(id)
+    
     return this.usersService.update(id, updateDto);
   }
 
   
   @Delete(':id')
+  @ApiBearerAuth()
   @Roles(Role.ADMIN)
   @UseGuards(AuthGuard, RolesGuard)
+  @ApiOperation({ summary: 'Delete users (Admin only)' })
+  @ApiResponse({ status: 200, description: 'Users deleted successfully.' })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
   remove(@Param('id') id: string){
     return this.usersService.remove(id);
   }

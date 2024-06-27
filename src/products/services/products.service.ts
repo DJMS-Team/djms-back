@@ -132,7 +132,7 @@ export class ProductsService {
 
     if(product.quantity > quantity){
       product.quantity = product.quantity - quantity
-      console.log(product.quantity)
+     
     }else{
       throw new BadRequestException(`There are ${product.quantity} products and you want to rest ${quantity}`)
     }
