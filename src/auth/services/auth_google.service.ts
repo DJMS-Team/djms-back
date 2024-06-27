@@ -47,7 +47,7 @@ export class AuthGoogleService {
 
         const createdtUser = await this.customerRepository.findOne({
             where : {email},
-            select : {id:true, email:true, password:true}
+            select : {id:true, email:true, password:true},
         })
 
         let payload;
@@ -61,10 +61,10 @@ export class AuthGoogleService {
             };
           }else{
             payload = {
-              id : createdtUser.id,
+              id : createdtUser?.id,
               email: user.email,
               name: user.name,
-              role: createdtUser.role
+              role: createdtUser?.role
             };
           }
     

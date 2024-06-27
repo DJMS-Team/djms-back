@@ -23,9 +23,9 @@ export class OrderDetailService {
     async create(createOrderDetailDto: CreateOrderDetailDto){
         try{
             const orderDetail = this.orderDetailRepository.create(createOrderDetailDto);
-            const order = await this.orderRepository.findOneBy({id: createOrderDetailDto.order_id});
+            const order = await this.orderRepository.findOne({where:{id: createOrderDetailDto.order_id}});
             if(!order) throw new NotFoundException(`order with id ${createOrderDetailDto.order_id} not found`);
-            const product = await this.productRepository.findOneBy({id:createOrderDetailDto.product_id});
+            const product = await this.productRepository.findOne({where:{id:createOrderDetailDto.product_id}});
             if(!product) throw new NotFoundException(`product with id ${createOrderDetailDto.product_id} not found`)
             orderDetail.order = order;
             orderDetail.product = product;
