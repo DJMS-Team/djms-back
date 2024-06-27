@@ -163,5 +163,5 @@ export class ProductsService {
     // console.log(error)
     throw new InternalServerErrorException('Unexpected error, check server logs');
   }
-    */
+    
 }
