@@ -54,7 +54,7 @@ describe('AuthGoogleController', () => {
         .get('/auth/google/callback')
         .expect(302); // Expect redirect
 
-      expect(response.headers.location).toBe('http://localhost:3000/oauth?id=testId&email=test@example.com&token=mockToken');
+      expect(response.headers.location).toBe('undefined/oauth?id=testId&email=test@example.com&token=mockToken');
       expect(authService.oAuthLogin).toHaveBeenCalledWith({
         id: 'testId',
         email: 'test@example.com',

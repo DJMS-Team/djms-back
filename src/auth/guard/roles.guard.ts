@@ -15,8 +15,7 @@ export class RolesGuard implements CanActivate {
     const request = context.switchToHttp().getRequest();
     
     const token = request.user; 
-    console.log('Token:', token);
-    console.log(request.user)
+    
     
     if (!token) {
       console.error('Token object is undefined.');

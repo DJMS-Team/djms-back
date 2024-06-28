@@ -3,6 +3,7 @@ import { CommentsService } from '../services/comments.service';
 import { CreateCommentDto } from '../dto/create-comment.dto';
 import { UpdateCommentDto } from '../dto/update-comment.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { OneComment } from '../dto/one-comment.dto';
 
 
 @Controller('comments')
@@ -34,4 +35,12 @@ export class CommentsController {
   remove(@Param('id') id: string) {
     return this.commentService.remove(id);
   }
+
+  @Post(':comment_id/:product_id/:user_id')
+  answerComment(@Param('comment_id') comment_id:string, @Param('product_id') product_id:string,@Param('user_id') user_id:string,@Body() commentAnswer: OneComment){
+    const {comment} = commentAnswer
+    console.log(comment)
+    return this.commentService.answerComment(comment_id, product_id, user_id, comment);
+  }
+
 }

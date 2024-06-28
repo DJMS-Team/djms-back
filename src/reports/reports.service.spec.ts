@@ -7,6 +7,8 @@ import { User } from '../users/entities/user.entity';
 import { Repository } from 'typeorm';
 import { Status } from '../orders/entities/status.enum';
 import { IncomeReportDto } from './dto/income_report.dto';
+import { JwtService } from '@nestjs/jwt';
+import { ConfigService } from '@nestjs/config';
 
 const mockOrderRepository = () => ({
   find: jest.fn(),
@@ -36,6 +38,7 @@ describe('ReportService', () => {
         { provide: getRepositoryToken(Order), useValue: mockOrderRepository() },
         { provide: getRepositoryToken(OrderDetail), useValue: mockOrderDetailRepository() },
         { provide: getRepositoryToken(User), useValue: mockUserRepository() },
+        JwtService, ConfigService
       ],
     }).compile();
 

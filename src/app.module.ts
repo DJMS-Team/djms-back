@@ -13,11 +13,38 @@ import { Repository } from 'typeorm';
 import { ProductsModule } from './products/products.module';
 import { ReportsModule } from './reports/reports.module';
 import { SeedModule } from './seed/seed.module';
+import { MailerModule } from '@nestjs-modules/mailer';
+import { google } from 'googleapis'
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
+
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal:true
+    }),
+    MailerModule.forRoot({
+      transport: {
+        host: process.env.EMAIL_HOST,
+        auth: {
+          user: process.env.EMAIL_ADDRESS,
+          pass: process.env.EMAIL_PASSWORD,
+        },
+        tls: {
+          rejectUnauthorized: false,
+        },
+        secure: false,
+        port:587
+      },
+
+      defaults: {
+        from: '"DMaJor Store" <no-reply@dmajorstore.com>',
+      }
+    }),
+
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'public'),
     }),
     TypeOrmModule.forRoot({
       type: 'postgres',

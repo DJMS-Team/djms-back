@@ -55,8 +55,8 @@ export class PaypalService {
               brand_name: "mycompany.com",
               landing_page: "NO_PREFERENCE",
               user_action: "PAY_NOW",
-              return_url: `http://localhost:3001/paypal/capture/${order_id}`,
-              cancel_url: `http://localhost:3001/paypal/cancel/${order_id}`,
+              return_url: process.env.BACK_URL+`/paypal/capture/${order_id}`,
+              cancel_url: process.env.BACK_URL+`/paypal/cancel/${order_id}`,
             },
           };
 
@@ -79,7 +79,7 @@ export class PaypalService {
         const url = response.data.links[1]
         //console.log(url)
         return url
-        console.log("separate \n \n \n")
+        
     }
 
 
@@ -111,7 +111,7 @@ export class PaypalService {
         order.status = Status.RECEIVED;
 
         await this.orderRepository.save(order)
-       const brevo = require('@getbrevo/brevo');
+        const brevo = require('@getbrevo/brevo');
         let apiInstance = new brevo.TransactionalEmailsApi();
         
         let apiKey = apiInstance.authentications['apiKey'];
@@ -171,7 +171,7 @@ export class PaypalService {
         apiInstance.sendTransacEmail(sendSmtpEmail).then(function (data) {
           console.log('API called successfully. Returned data: ' + JSON.stringify(data));
         }, function (error) {
-          console.error(error);
+          
         });
         return response.data
         //console.log(response.data);

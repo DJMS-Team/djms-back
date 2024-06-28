@@ -5,8 +5,10 @@ import { Roles } from '../../auth/decorators/role.decorator';
 import { Role } from '../../users/entities/roles.enum';
 import { AuthGuard } from '../../auth/guard/auth.guard';
 import { RolesGuard } from '../../auth/guard/roles.guard';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('product-category')
+@ApiTags('product-category')
 export class ProductCategoryController {
   constructor(private readonly productCategoryService: ProductCategoryService) {}
 

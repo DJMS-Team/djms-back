@@ -4,6 +4,8 @@ import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import { UnauthorizedException } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
+import { getRepositoryToken } from '@nestjs/typeorm';
+import { User } from '../users/entities/user.entity';
 
 jest.mock('bcrypt', () => ({
   compare: jest.fn(),
@@ -47,6 +49,10 @@ describe('AuthService', () => {
           provide: JwtService,
           useValue: mockJwtService,
         },
+        {
+          provide: getRepositoryToken(User),
+          useValue: {}
+        }
       ],
     }).compile();
 
