@@ -57,6 +57,9 @@ $ npm run test:e2e
 # test coverage
 $ npm run test:cov
 ```
+## API Documentation
+
+Our API is documented using Swagger. To access the interactive API documentation, you can go to the following URL when the server is running locally: http://localhost:3001/documentation/
 
 ## Support
 
