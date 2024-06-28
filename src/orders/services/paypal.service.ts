@@ -55,8 +55,8 @@ export class PaypalService {
               brand_name: "mycompany.com",
               landing_page: "NO_PREFERENCE",
               user_action: "PAY_NOW",
-              return_url: `http://localhost:3001/paypal/capture/${order_id}`,
-              cancel_url: `http://localhost:3001/paypal/cancel/${order_id}`,
+              return_url: process.env.BACK_URL+`/paypal/capture/${order_id}`,
+              cancel_url: process.env.BACK_URL+`/paypal/cancel/${order_id}`,
             },
           };
 
