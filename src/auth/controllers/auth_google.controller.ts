@@ -16,7 +16,7 @@ export class AuthGoogleController {
     try {
         //console.log(req.user)
       const token = await this.authService.oAuthLogin(req.user); 
-      res.redirect(`http://localhost:3000/oauth?id=${token.id}&email=${token.email}&token=${token.token}`);
+      res.redirect(process.env.FRONT_URL+`/oauth?id=${token.id}&email=${token.email}&token=${token.token}`);
       //res.redirect('https://www.facebook.com')
       return token
     } catch (err) {

@@ -64,7 +64,7 @@ export class AuthService {
             </div>
 
             <div style="padding: 20px; background-color: #f5f5f5; color: black; text-align: center; margin: 0 auto; max-width: 600px;">
-                <p> http://localhost:3000/auth/forgot/${user.id}</p>
+                <p> ${process.env.FRONT_URL}/auth/forgot/${user.id}</p>
                 <h2 style="margin-top: 20px;">Gracias por tu confiar en nuestra pagina!</h2>
                 <img src="/images/logo-no-slogan.png" alt="DMajorStore Logo" width="96" height="96" class="mt-4 w-20 h-20">
             </div>
