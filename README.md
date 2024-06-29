@@ -2,6 +2,10 @@
   <img src="https://github.com/DJMS-Team/djms-back/assets/101611405/70d0e0b6-6ef0-4198-bff1-35a17dc8d147" alt="logo" width="400" height="400">
 </p>
 
+## Despliegue URL
+
+https://djms-api.icybeach-62331649.eastus.azurecontainerapps.io
+
 ## Instalación
 
 ```bash
@@ -27,7 +31,24 @@ $ npm run start:prod
 Se debe crear el archivo .env en la raiz del proyecto y colocar los siguientes valores.
 
 ```env
-ingresar_env
+DB_HOST=dmjs-store.postgres.database.azure.com
+DB_USER=DMJS_admin
+DB_PASSWORD=Contacta-al-equipo
+DB_PORT=5432
+DB_NAME=postgres
+JWT_SECRET=Contacta-al-equipo
+GOOGLE_CLIENT_ID = 947066999048-pee5svsebv8s6bu55d3ed36pb8cecqkg.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET = Contacta-al-equipo
+CALL_BACK_URL = http://localhost:3001/auth/google/callback
+GOOGlE_PASSWORD= Contacta-al-equipo
+PAYPAL_CLIENT_ID = Af96yQ12uBm5mMfDR4xzjlAOAyBQisWlDb9RPVe5RBCcp8nVWzOR_ez29QpI0MtobBWJ9DkBp0Vr4NIc
+PAYPAL_SECRET = Contacta-al-equipo
+PAYPAL_API = https://api-m.sandbox.paypal.com
+BREVO_API = Contacta-al-equipo
+FRONT_URL = http://localhost:3000
+BACK_URL = http://localhost:3001
+NEXT_PUBLIC_API_URL=https://api.totalgpt.ai
+NEXT_PUBLIC_API_KEY=Contacta-al-equipo
 ```
 
 ## Tests
