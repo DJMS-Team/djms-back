@@ -1,38 +1,15 @@
 <p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
+  <img src="https://github.com/DJMS-Team/djms-back/assets/101611405/70d0e0b6-6ef0-4198-bff1-35a17dc8d147" alt="logo" width="400" height="400">
 </p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
-
-## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
-## Installation
+## Instalación
 
 ```bash
 $ npm install
 ```
 
-## Running the app
+
+## Ejecución la aplicación
 
 ```bash
 # development
@@ -45,7 +22,17 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-## Test
+## Variables de entorno (.env)
+
+Se debe crear el archivo .env en la raiz del proyecto y colocar los siguientes valores.
+
+```env
+ingresar_env
+```
+
+## Tests
+
+Realizamos los tests en Jest. Así pues, creamos un [Plan de pruebas](https://github.com/DJMS-Team/djms-back/blob/main/docs/Test%20Plan.md). Con los siguientes comandos se pueden ejeuctar. Obtuvimos un coverage mayor al 85%.
 
 ```bash
 # unit tests
@@ -57,20 +44,23 @@ $ npm run test:e2e
 # test coverage
 $ npm run test:cov
 ```
-## API Documentation
 
-Our API is documented using Swagger. To access the interactive API documentation, you can go to the following URL when the server is running locally: http://localhost:3001/documentation/
+## Tecnologías
 
-## Support
+- **Desarrollo**: Nest.js.
+- **Despliegue (CD)**: Azure. Para hacer un despliegue continuo creamos un contenedor con Docker en el que especificamos la máquina virtual y distintos detalles de la aplicación con el fin de llevarla a Azure para su despliegue.
+- **Integración (CI)**: GitHub Actions. Para hacer una integración continua creamos un flujo de trabajo en GitHub que cada vez que hiciéramos push ejecutara ciertos comandos, tales como `npm run build`.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+## Documentación de la API
 
-## Stay in touch
+Nuestra API está documentada usando Swagger. Para ver esta documentación interactiva, puedes ir al siguiente URL cuando el servidor está corriendo de manera local: http://localhost:3001/documentation/. En caso de estar en el link de la API desplegada, solo debes agregar /documentation.
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+## Arquitectura
+Para el desarrollo del backend utilizamos una arquitectura monolítica en la cual implementamos el patrón MVC. Lo anterior debido al corto tiempo y a la complejidad que posee realizar otro tipo de arquitecturas como microservicios. A su vez, cumple con las necesidades actuales de la página.
 
-## License
+## Base de datos
+Utilizamos una base de datos relacional debido a la naturaleza del problema, pues se debe llevar un control con consistencia, disponibilidad y tolerancia a fallos. Así, almacenar los datos mediante tablas facilita las consultas, las inserciones y disminuye la complejidad de la aplicación. Pensamos en un diseño escalable a futuro, por tanto, poseemos distintas entidades las cuales nos brindan este atributo de calidad. Para el diseño utilizamos DataModeler y para la implementación utilizamos Postgres.
 
-Nest is [MIT licensed](LICENSE).
+<p align="center">
+  <img src="https://github.com/DJMS-Team/djms-back/assets/101611405/ac058836-8ce8-407a-831c-9ee9567705c6" alt="logo" width="1000" height="600">
+</p>
